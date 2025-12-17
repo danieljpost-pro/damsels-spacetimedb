@@ -13,6 +13,14 @@ pub enum PlayerRole {
     Observer,
     /// Photographer — documents the activity.
     Photographer,
+    /// Activity Admin — can create/edit activities.
+    /// 
+    /// # Development Only
+    /// 
+    /// This variant is only available when compiled with `--features dev`.
+    /// It is excluded from production builds entirely.
+    #[cfg(feature = "dev")]
+    ActivityAdmin,
 }
 
 /// Status of an Activity for a specific Player.

@@ -6,6 +6,12 @@ edition = "2021"
 [lib]
 crate-type = ["cdylib"]
 
+[features]
+default = []
+# Development features - NEVER enable in production builds
+# Enables: ActivityAdmin role, admin reducers for activity management
+dev = []
+
 [dependencies]
 spacetimedb = "1.0"
 log = "0.4"

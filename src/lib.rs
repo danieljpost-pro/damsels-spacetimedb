@@ -5,6 +5,10 @@
 
 pub mod models;
 
+// Development-only admin module (conditionally compiled)
+#[cfg(feature = "dev")]
+pub mod admin;
+
 // Re-export models for SpacetimeDB table registration
 pub use models::*;
 
@@ -76,6 +80,14 @@ pub fn register_player(ctx: &ReducerContext, username: String) -> Result<(), Str
 /// Create a new room.
 #[reducer]
 pub fn create_room(ctx: &ReducerContext, role: PlayerRole) -> Result<(), String> {
+    // ActivityAdmin appears as Observer to other players
+    #[cfg(feature = "dev")]
+    let role = if matches!(role, PlayerRole::ActivityAdmin) {
+        PlayerRole::Observer
+    } else {
+        role
+    };
+
     let player = ctx.db.player().identity().find(&ctx.sender)
         .ok_or("Player not registered")?;
 
@@ -106,6 +118,14 @@ pub fn create_room(ctx: &ReducerContext, role: PlayerRole) -> Result<(), String>
 /// Join an existing room by code.
 #[reducer]
 pub fn join_room(ctx: &ReducerContext, room_code: String, role: PlayerRole) -> Result<(), String> {
+    // ActivityAdmin appears as Observer to other players
+    #[cfg(feature = "dev")]
+    let role = if matches!(role, PlayerRole::ActivityAdmin) {
+        PlayerRole::Observer
+    } else {
+        role
+    };
+
     let player = ctx.db.player().identity().find(&ctx.sender)
         .ok_or("Player not registered")?;
 
@@ -137,6 +157,14 @@ pub fn join_room(ctx: &ReducerContext, room_code: String, role: PlayerRole) -> R
 /// Change role within a room.
 #[reducer]
 pub fn change_role(ctx: &ReducerContext, room_id: u64, new_role: PlayerRole) -> Result<(), String> {
+    // ActivityAdmin appears as Observer to other players
+    #[cfg(feature = "dev")]
+    let new_role = if matches!(new_role, PlayerRole::ActivityAdmin) {
+        PlayerRole::Observer
+    } else {
+        new_role
+    };
+
     let player = ctx.db.player().identity().find(&ctx.sender)
         .ok_or("Player not registered")?;
 
