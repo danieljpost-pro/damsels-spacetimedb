@@ -5,6 +5,7 @@ use spacetimedb::{table, Identity, Timestamp};
 /// A player in the Damsels game.
 ///
 /// Linked to OAuth identity via SpacetimeDB Identity.
+#[derive(Clone)]
 #[table(name = player, public)]
 pub struct Player {
     /// Unique player identifier.

@@ -18,7 +18,7 @@
 
 use spacetimedb::{reducer, ReducerContext, Table};
 
-use crate::models::activity::{activity, activity_category, activity_prerequisite};
+use crate::models::activity::{activity, category, activity_prerequisite};
 use crate::models::equipment::{activity_equipment, equipment};
 use crate::models::player::player;
 use crate::{Activity, ActivityCategory, ActivityEquipment, ActivityKind, ActivityPrerequisite, Equipment};
@@ -38,7 +38,7 @@ pub fn admin_create_category(
     let _player = ctx.db.player().identity().find(&ctx.sender)
         .ok_or("Player not registered")?;
 
-    let category = ctx.db.activity_category().insert(ActivityCategory {
+    let category = ctx.db.category().insert(ActivityCategory {
         id: 0,
         name: name.clone(),
         description,
@@ -61,10 +61,10 @@ pub fn admin_update_category(
     let _player = ctx.db.player().identity().find(&ctx.sender)
         .ok_or("Player not registered")?;
 
-    let category = ctx.db.activity_category().id().find(&category_id)
+    let category = ctx.db.category().id().find(&category_id)
         .ok_or("Category not found")?;
 
-    ctx.db.activity_category().id().update(ActivityCategory {
+    ctx.db.category().id().update(ActivityCategory {
         name,
         description,
         display_order,
@@ -87,7 +87,7 @@ pub fn admin_delete_category(ctx: &ReducerContext, category_id: u64) -> Result<(
         return Err(format!("Cannot delete category with {} activities", activity_count));
     }
 
-    ctx.db.activity_category().id().delete(&category_id);
+    ctx.db.category().id().delete(&category_id);
     log::info!("[DEV] Category deleted: {}", category_id);
     Ok(())
 }
@@ -113,7 +113,7 @@ pub fn admin_create_activity(
         .ok_or("Player not registered")?;
 
     // Verify category exists
-    ctx.db.activity_category().id().find(&category_id)
+    ctx.db.category().id().find(&category_id)
         .ok_or("Category not found")?;
 
     let activity = ctx.db.activity().insert(Activity {
@@ -157,7 +157,7 @@ pub fn admin_update_activity(
         .ok_or("Activity not found")?;
 
     // Verify new category exists
-    ctx.db.activity_category().id().find(&category_id)
+    ctx.db.category().id().find(&category_id)
         .ok_or("Category not found")?;
 
     ctx.db.activity().id().update(Activity {

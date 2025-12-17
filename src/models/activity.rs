@@ -6,7 +6,7 @@ use super::enums::ActivityKind;
 /// A category grouping related Activities.
 ///
 /// Examples: "Icebreakers", "Challenges", "Creative", etc.
-#[table(name = activity_category, public)]
+#[table(name = category, public)]
 pub struct ActivityCategory {
     /// Unique category identifier.
     #[primary_key]
