@@ -394,3 +394,68 @@ pub fn admin_remove_activity_equipment(
     Ok(())
 }
 
+// =============================================================================
+// Player & Room Management (DEV ONLY)
+// =============================================================================
+
+use crate::models::room::{room, room_member};
+
+/// Delete a player and their room memberships.
+#[reducer]
+pub fn admin_delete_player(ctx: &ReducerContext, player_id: u64) -> Result<(), String> {
+    // Delete all room memberships for this player
+    let memberships: Vec<_> = ctx.db.room_member().iter()
+        .filter(|m| m.player_id == player_id)
+        .collect();
+    
+    for m in memberships {
+        ctx.db.room_member().id().delete(&m.id);
+    }
+    
+    // Delete the player
+    ctx.db.player().id().delete(&player_id);
+    log::info!("[DEV] Player deleted: {}", player_id);
+    Ok(())
+}
+
+/// Delete a room and all its members.
+#[reducer]
+pub fn admin_delete_room(ctx: &ReducerContext, room_id: u64) -> Result<(), String> {
+    // Delete all room memberships
+    let memberships: Vec<_> = ctx.db.room_member().room_id().filter(&room_id).collect();
+    
+    for m in memberships {
+        ctx.db.room_member().id().delete(&m.id);
+    }
+    
+    // Delete the room
+    ctx.db.room().id().delete(&room_id);
+    log::info!("[DEV] Room deleted: {}", room_id);
+    Ok(())
+}
+
+/// Clear all players, rooms, and memberships (nuclear option for dev testing).
+#[reducer]
+pub fn admin_clear_all_players_and_rooms(ctx: &ReducerContext) -> Result<(), String> {
+    // Delete all room memberships
+    let memberships: Vec<_> = ctx.db.room_member().iter().collect();
+    for m in memberships {
+        ctx.db.room_member().id().delete(&m.id);
+    }
+    
+    // Delete all rooms
+    let rooms: Vec<_> = ctx.db.room().iter().collect();
+    for r in rooms {
+        ctx.db.room().id().delete(&r.id);
+    }
+    
+    // Delete all players
+    let players: Vec<_> = ctx.db.player().iter().collect();
+    for p in players {
+        ctx.db.player().id().delete(&p.id);
+    }
+    
+    log::info!("[DEV] All players and rooms cleared");
+    Ok(())
+}
+

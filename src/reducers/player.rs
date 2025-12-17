@@ -127,3 +127,71 @@ pub fn sign_in_with_room(ctx: &ReducerContext, username: String, role: PlayerRol
     Ok(())
 }
 
+/// Sign in a player and join an existing room.
+/// Combines registration and room joining in one atomic operation.
+/// This avoids CORS issues with token persistence between HTTP requests.
+#[reducer]
+pub fn sign_in_and_join_room(ctx: &ReducerContext, username: String, room_code: String, role: PlayerRole) -> Result<(), String> {
+    // ActivityAdmin appears as Observer to other players
+    #[cfg(feature = "dev")]
+    let role = if matches!(role, PlayerRole::ActivityAdmin) {
+        PlayerRole::Observer
+    } else {
+        role
+    };
+
+    let now = ctx.timestamp;
+    
+    // Register or get existing player
+    let player = if let Some(existing) = ctx.db.player().identity().find(&ctx.sender) {
+        // Update last_seen
+        ctx.db.player().id().update(Player {
+            last_seen: now,
+            ..existing.clone()
+        });
+        existing
+    } else {
+        // Check if username is taken
+        if ctx.db.player().username().find(&username).is_some() {
+            return Err("Username already taken".to_string());
+        }
+        
+        // Create new player
+        ctx.db.player().insert(Player {
+            id: 0,
+            identity: ctx.sender,
+            username: username.clone(),
+            xp: 0,
+            created_at: now,
+            last_seen: now,
+        })
+    };
+    
+    // Find the room
+    let room = ctx.db.room().code().find(&room_code)
+        .ok_or("Room not found")?;
+    
+    // Check if already a member
+    let existing = ctx.db.room_member()
+        .room_id()
+        .filter(&room.id)
+        .find(|m| m.player_id == player.id);
+
+    if existing.is_some() {
+        // Already in room, just update role
+        log::info!("Player {} already in room {}", player.id, room_code);
+        return Ok(());
+    }
+
+    // Join the room
+    ctx.db.room_member().insert(RoomMember {
+        id: 0,
+        room_id: room.id,
+        player_id: player.id,
+        role,
+        joined_at: now,
+    });
+
+    log::info!("Player {} signed in and joined room {}", player.id, room_code);
+    Ok(())
+}
