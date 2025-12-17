@@ -8,7 +8,7 @@ pub mod models;
 // Re-export models for SpacetimeDB table registration
 pub use models::*;
 
-use spacetimedb::{reducer, ReducerContext, Table, Timestamp};
+use spacetimedb::{reducer, ReducerContext, Table};
 
 // Import table traits for ctx.db access (internal, not part of public API)
 use crate::models::player::player;
@@ -32,7 +32,7 @@ pub fn client_disconnected(ctx: &ReducerContext) {
     // Update last_seen for the player
     if let Some(player) = ctx.db.player().identity().find(&ctx.sender) {
         ctx.db.player().id().update(Player {
-            last_seen: Timestamp::now(),
+            last_seen: ctx.timestamp,
             ..player
         });
     }
@@ -55,7 +55,7 @@ pub fn register_player(ctx: &ReducerContext, username: String) -> Result<(), Str
         return Err("Username already taken".to_string());
     }
 
-    let now = Timestamp::now();
+    let now = ctx.timestamp;
     ctx.db.player().insert(Player {
         id: 0,
         identity: ctx.sender,
@@ -82,7 +82,7 @@ pub fn create_room(ctx: &ReducerContext, role: PlayerRole) -> Result<(), String>
     // Generate a room code (simple implementation)
     let code = generate_room_code(ctx);
 
-    let now = Timestamp::now();
+    let now = ctx.timestamp;
     let room = ctx.db.room().insert(Room {
         id: 0,
         code: code.clone(),
@@ -127,7 +127,7 @@ pub fn join_room(ctx: &ReducerContext, room_code: String, role: PlayerRole) -> R
         room_id: room.id,
         player_id: player.id,
         role,
-        joined_at: Timestamp::now(),
+        joined_at: ctx.timestamp,
     });
 
     log::info!("Player {} joined room {}", player.id, room_code);
@@ -185,11 +185,19 @@ pub fn leave_room(ctx: &ReducerContext, room_id: u64) -> Result<(), String> {
 // Helper Functions
 // =============================================================================
 
-/// Generate a simple room code.
-fn generate_room_code(_ctx: &ReducerContext) -> String {
-    // Simple implementation using timestamp - in production use proper random
-    let ts = Timestamp::now();
-    let micros = ts.to_duration_since_unix_epoch().unwrap_or_default().as_micros();
-    let hash = format!("{:X}", micros % 0xFFFFFFFF);
-    format!("{}-{}", &hash[..4], &hash[4..8].chars().take(4).collect::<String>())
+/// Generate a 5-character room code.
+/// Uses alphanumeric characters excluding ambiguous ones (0, O, I, L, 1).
+fn generate_room_code(ctx: &ReducerContext) -> String {
+    const CHARS: &[u8] = b"ABCDEFGHJKMNPQRSTUVWXYZ23456789";
+    let micros = ctx.timestamp.to_duration_since_unix_epoch().unwrap_or_default().as_micros();
+    
+    // Generate 5 characters from timestamp entropy
+    let mut code = String::with_capacity(5);
+    let mut n = micros;
+    for _ in 0..5 {
+        let idx = (n % CHARS.len() as u128) as usize;
+        code.push(CHARS[idx] as char);
+        n /= CHARS.len() as u128;
+    }
+    code
 }
