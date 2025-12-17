@@ -19,8 +19,9 @@
 use spacetimedb::{reducer, ReducerContext, Table};
 
 use crate::models::activity::{activity, activity_category, activity_prerequisite};
+use crate::models::equipment::{activity_equipment, equipment};
 use crate::models::player::player;
-use crate::{Activity, ActivityCategory, ActivityKind, ActivityPrerequisite};
+use crate::{Activity, ActivityCategory, ActivityEquipment, ActivityKind, ActivityPrerequisite, Equipment};
 
 // =============================================================================
 // Category Management
@@ -198,6 +199,15 @@ pub fn admin_delete_activity(ctx: &ReducerContext, activity_id: u64) -> Result<(
         ctx.db.activity_prerequisite().id().delete(&prereq.id);
     }
 
+    // Delete all equipment links for this activity
+    let equip_links: Vec<_> = ctx.db.activity_equipment()
+        .activity_id()
+        .filter(&activity_id)
+        .collect();
+    for link in equip_links {
+        ctx.db.activity_equipment().id().delete(&link.id);
+    }
+
     ctx.db.activity().id().delete(&activity_id);
     log::info!("[DEV] Activity deleted: {}", activity_id);
     Ok(())
@@ -259,6 +269,128 @@ pub fn admin_remove_prerequisite(
 
     ctx.db.activity_prerequisite().id().delete(&prerequisite_relation_id);
     log::info!("[DEV] Prerequisite removed: {}", prerequisite_relation_id);
+    Ok(())
+}
+
+// =============================================================================
+// Equipment Management
+// =============================================================================
+
+/// Create a new piece of equipment.
+#[reducer]
+pub fn admin_create_equipment(
+    ctx: &ReducerContext,
+    name: String,
+    description: Option<String>,
+) -> Result<(), String> {
+    let _player = ctx.db.player().identity().find(&ctx.sender)
+        .ok_or("Player not registered")?;
+
+    let equip = ctx.db.equipment().insert(Equipment {
+        id: 0,
+        name: name.clone(),
+        description,
+    });
+
+    log::info!("[DEV] Equipment created: {} (id: {})", name, equip.id);
+    Ok(())
+}
+
+/// Update an existing piece of equipment.
+#[reducer]
+pub fn admin_update_equipment(
+    ctx: &ReducerContext,
+    equipment_id: u64,
+    name: String,
+    description: Option<String>,
+) -> Result<(), String> {
+    let _player = ctx.db.player().identity().find(&ctx.sender)
+        .ok_or("Player not registered")?;
+
+    let equip = ctx.db.equipment().id().find(&equipment_id)
+        .ok_or("Equipment not found")?;
+
+    ctx.db.equipment().id().update(Equipment {
+        name,
+        description,
+        ..equip
+    });
+
+    log::info!("[DEV] Equipment updated: {}", equipment_id);
+    Ok(())
+}
+
+/// Delete a piece of equipment.
+#[reducer]
+pub fn admin_delete_equipment(ctx: &ReducerContext, equipment_id: u64) -> Result<(), String> {
+    let _player = ctx.db.player().identity().find(&ctx.sender)
+        .ok_or("Player not registered")?;
+
+    // Remove all activity-equipment links for this equipment
+    let links: Vec<_> = ctx.db.activity_equipment()
+        .equipment_id()
+        .filter(&equipment_id)
+        .collect();
+    for link in links {
+        ctx.db.activity_equipment().id().delete(&link.id);
+    }
+
+    ctx.db.equipment().id().delete(&equipment_id);
+    log::info!("[DEV] Equipment deleted: {}", equipment_id);
+    Ok(())
+}
+
+/// Add equipment requirement to an activity.
+#[reducer]
+pub fn admin_add_activity_equipment(
+    ctx: &ReducerContext,
+    activity_id: u64,
+    equipment_id: u64,
+    notes: Option<String>,
+) -> Result<(), String> {
+    let _player = ctx.db.player().identity().find(&ctx.sender)
+        .ok_or("Player not registered")?;
+
+    // Verify activity exists
+    ctx.db.activity().id().find(&activity_id)
+        .ok_or("Activity not found")?;
+
+    // Verify equipment exists
+    ctx.db.equipment().id().find(&equipment_id)
+        .ok_or("Equipment not found")?;
+
+    // Check if link already exists
+    let existing = ctx.db.activity_equipment()
+        .activity_id()
+        .filter(&activity_id)
+        .find(|ae| ae.equipment_id == equipment_id);
+
+    if existing.is_some() {
+        return Err("Activity already has this equipment".to_string());
+    }
+
+    ctx.db.activity_equipment().insert(ActivityEquipment {
+        id: 0,
+        activity_id,
+        equipment_id,
+        notes,
+    });
+
+    log::info!("[DEV] Equipment {} added to activity {}", equipment_id, activity_id);
+    Ok(())
+}
+
+/// Remove equipment requirement from an activity.
+#[reducer]
+pub fn admin_remove_activity_equipment(
+    ctx: &ReducerContext,
+    activity_equipment_id: u64,
+) -> Result<(), String> {
+    let _player = ctx.db.player().identity().find(&ctx.sender)
+        .ok_or("Player not registered")?;
+
+    ctx.db.activity_equipment().id().delete(&activity_equipment_id);
+    log::info!("[DEV] Activity equipment removed: {}", activity_equipment_id);
     Ok(())
 }
 

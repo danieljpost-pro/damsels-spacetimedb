@@ -10,6 +10,7 @@
 pub(crate) mod enums;
 pub(crate) mod player;
 pub(crate) mod activity;
+pub(crate) mod equipment;
 pub(crate) mod player_activity;
 pub(crate) mod player_history;
 pub(crate) mod room;
@@ -19,6 +20,7 @@ pub(crate) mod room_activity;
 pub use enums::{ActivityKind, ActivityStatus, InvitationStatus, PlayerRole, RoomActivityStatus};
 pub use player::Player;
 pub use activity::{Activity, ActivityCategory, ActivityPrerequisite};
+pub use equipment::{ActivityEquipment, Equipment};
 pub use player_activity::{PlayerActivity, PrerequisiteVouch};
 pub use player_history::PlayerHistory;
 pub use room::{Invitation, Room, RoomMember};
