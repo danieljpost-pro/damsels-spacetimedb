@@ -20,7 +20,7 @@ use spacetimedb::{reducer, ReducerContext, Table};
 
 use crate::models::activity::{activity, activity_category, activity_prerequisite};
 use crate::models::player::player;
-use crate::{Activity, ActivityCategory, ActivityPrerequisite};
+use crate::{Activity, ActivityCategory, ActivityKind, ActivityPrerequisite};
 
 // =============================================================================
 // Category Management
@@ -95,11 +95,12 @@ pub fn admin_delete_category(ctx: &ReducerContext, category_id: u64) -> Result<(
 // Activity Management
 // =============================================================================
 
-/// Create a new activity.
+/// Create a new activity or skill.
 #[reducer]
 pub fn admin_create_activity(
     ctx: &ReducerContext,
     category_id: u64,
+    kind: ActivityKind,
     name: String,
     description: String,
     instructions: String,
@@ -117,6 +118,7 @@ pub fn admin_create_activity(
     let activity = ctx.db.activity().insert(Activity {
         id: 0,
         category_id,
+        kind,
         name: name.clone(),
         description,
         instructions,
@@ -125,16 +127,21 @@ pub fn admin_create_activity(
         xp_reward,
     });
 
-    log::info!("[DEV] Activity created: {} (id: {})", name, activity.id);
+    let kind_str = match kind {
+        ActivityKind::Skill => "Skill",
+        ActivityKind::Activity => "Activity",
+    };
+    log::info!("[DEV] {} created: {} (id: {})", kind_str, name, activity.id);
     Ok(())
 }
 
-/// Update an existing activity.
+/// Update an existing activity or skill.
 #[reducer]
 pub fn admin_update_activity(
     ctx: &ReducerContext,
     activity_id: u64,
     category_id: u64,
+    kind: ActivityKind,
     name: String,
     description: String,
     instructions: String,
@@ -154,6 +161,7 @@ pub fn admin_update_activity(
 
     ctx.db.activity().id().update(Activity {
         category_id,
+        kind,
         name,
         description,
         instructions,

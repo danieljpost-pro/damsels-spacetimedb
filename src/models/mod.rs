@@ -16,7 +16,7 @@ pub(crate) mod room;
 pub(crate) mod room_activity;
 
 // Explicit public exports — only types, not traits
-pub use enums::{ActivityStatus, InvitationStatus, PlayerRole, RoomActivityStatus};
+pub use enums::{ActivityKind, ActivityStatus, InvitationStatus, PlayerRole, RoomActivityStatus};
 pub use player::Player;
 pub use activity::{Activity, ActivityCategory, ActivityPrerequisite};
 pub use player_activity::{PlayerActivity, PrerequisiteVouch};

@@ -56,3 +56,24 @@ pub enum InvitationStatus {
     Declined,
 }
 
+/// Distinguishes between Skills and Activities.
+///
+/// A Skill is a foundational ability that players can demonstrate.
+/// An Activity is a full experience that may require Skills or other Activities.
+///
+/// Key difference: Skills are atomic capabilities; Activities are composed experiences.
+/// Both can be prerequisites for other Activities.
+///
+/// When a random dice roll occurs for activity selection, the system will
+/// filter based on player Preferences (configured separately) and available
+/// unlocked activities.
+#[derive(SpacetimeType, Clone, Copy, Debug, PartialEq, Eq)]
+pub enum ActivityKind {
+    /// A foundational skill that can be demonstrated.
+    /// Skills are typically simpler and can serve as building blocks.
+    Skill,
+    /// A full activity experience.
+    /// May require Skills or other Activities as prerequisites.
+    Activity,
+}
+

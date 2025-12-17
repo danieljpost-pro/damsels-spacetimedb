@@ -1,6 +1,7 @@
 //! Activity models — definitions of activities players can do.
 
 use spacetimedb::table;
+use super::enums::ActivityKind;
 
 /// A category grouping related Activities.
 ///
@@ -25,6 +26,14 @@ pub struct ActivityCategory {
 /// An Activity that players can do together.
 ///
 /// Activities are unlocked based on XP and prerequisites.
+/// A Skill is an Activity, but not every Activity is a Skill.
+///
+/// # Random Selection
+///
+/// When players roll for a random activity, the selection considers:
+/// - Player preferences (configured separately)
+/// - Unlocked activities (XP + prerequisites met)
+/// - The `kind` field to filter Skills vs full Activities
 #[table(name = activity, public)]
 pub struct Activity {
     /// Unique activity identifier.
@@ -35,6 +44,11 @@ pub struct Activity {
     /// Category this activity belongs to.
     #[index(btree)]
     pub category_id: u64,
+
+    /// Whether this is a Skill or a full Activity.
+    /// Skills can serve as prerequisites for Activities.
+    #[index(btree)]
+    pub kind: ActivityKind,
 
     /// Activity name.
     pub name: String,
@@ -57,7 +71,8 @@ pub struct Activity {
 
 /// Defines a prerequisite relationship between Activities.
 ///
-/// Activity A requires Activity B to be completed first.
+/// Activity A requires Activity B (which may be a Skill or Activity) to be completed first.
+/// Since Skills are a kind of Activity, both can serve as prerequisites.
 #[table(name = activity_prerequisite, public)]
 pub struct ActivityPrerequisite {
     /// Unique identifier.
@@ -69,7 +84,7 @@ pub struct ActivityPrerequisite {
     #[index(btree)]
     pub activity_id: u64,
 
-    /// The Activity that must be completed first.
+    /// The Activity (or Skill) that must be completed first.
     #[index(btree)]
     pub prerequisite_id: u64,
 }
