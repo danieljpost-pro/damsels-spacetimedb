@@ -10,6 +10,10 @@ pub use models::*;
 
 use spacetimedb::{reducer, ReducerContext, Table, Timestamp};
 
+// Import table traits for ctx.db access (internal, not part of public API)
+use crate::models::player::player;
+use crate::models::room::{room, room_member};
+
 // =============================================================================
 // Lifecycle Reducers
 // =============================================================================
@@ -182,9 +186,10 @@ pub fn leave_room(ctx: &ReducerContext, room_id: u64) -> Result<(), String> {
 // =============================================================================
 
 /// Generate a simple room code.
-fn generate_room_code(ctx: &ReducerContext) -> String {
+fn generate_room_code(_ctx: &ReducerContext) -> String {
     // Simple implementation using timestamp - in production use proper random
     let ts = Timestamp::now();
-    let hash = format!("{:X}", ts.to_duration_from_epoch().as_micros() % 0xFFFFFFFF);
+    let micros = ts.to_duration_since_unix_epoch().unwrap_or_default().as_micros();
+    let hash = format!("{:X}", micros % 0xFFFFFFFF);
     format!("{}-{}", &hash[..4], &hash[4..8].chars().take(4).collect::<String>())
 }
