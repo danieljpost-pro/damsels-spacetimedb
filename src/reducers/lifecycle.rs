@@ -2,7 +2,7 @@
 
 use spacetimedb::{reducer, ReducerContext};
 
-use crate::models::player::{player, Player};
+use crate::models::user::{user, User};
 
 /// Called when a client connects.
 #[reducer(client_connected)]
@@ -15,12 +15,11 @@ pub fn client_connected(ctx: &ReducerContext) {
 pub fn client_disconnected(ctx: &ReducerContext) {
     log::info!("Client disconnected: {:?}", ctx.sender);
     
-    // Update last_seen for the player
-    if let Some(player) = ctx.db.player().identity().find(&ctx.sender) {
-        ctx.db.player().id().update(Player {
+    // Update last_seen for the user
+    if let Some(existing_user) = ctx.db.user().identity().find(&ctx.sender) {
+        ctx.db.user().id().update(User {
             last_seen: ctx.timestamp,
-            ..player
+            ..existing_user
         });
     }
 }
-

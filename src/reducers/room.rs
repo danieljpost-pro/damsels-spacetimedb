@@ -1,141 +1,58 @@
-//! Room-related reducers.
+//! Additional room reducers.
+//!
+//! Main room operations (create, join, leave) are in player.rs.
+//! This module contains additional room management operations.
 
-use spacetimedb::{reducer, ReducerContext, Table};
+use spacetimedb::{reducer, ReducerContext};
 
 use crate::models::player::player;
-use crate::models::room::{room, room_member, Room, RoomMember};
-use crate::models::enums::PlayerRole;
-use crate::utils::generate_room_code;
+use crate::models::room::{room, room_invitation, RoomInvitation};
+use crate::models::enums::RoomInvitationStatus;
+use crate::reducers::auth::require_user;
 
-/// Create a new room.
-#[reducer]
-pub fn create_room(ctx: &ReducerContext, role: PlayerRole) -> Result<(), String> {
-    // ActivityAdmin appears as Observer to other players
-    #[cfg(feature = "dev")]
-    let role = if matches!(role, PlayerRole::ActivityAdmin) {
-        PlayerRole::Observer
-    } else {
-        role
-    };
-
-    let player = ctx.db.player().identity().find(&ctx.sender)
-        .ok_or("Player not registered")?;
-
-    // Generate a room code
-    let code = generate_room_code(ctx);
-
-    let now = ctx.timestamp;
-    let room = ctx.db.room().insert(Room {
-        id: 0,
-        code: code.clone(),
-        owner_id: player.id,
-        created_at: now,
-    });
-
-    // Add creator as first member
-    ctx.db.room_member().insert(RoomMember {
-        id: 0,
-        room_id: room.id,
-        player_id: player.id,
-        role,
-        joined_at: now,
-    });
-
-    log::info!("Room created: {} by player {}", code, player.id);
-    Ok(())
+/// Helper: Get a player that belongs to the authenticated user.
+fn get_user_player(ctx: &ReducerContext, player_id: u64) -> Result<crate::models::player::Player, String> {
+    let user = require_user(ctx)?;
+    
+    let player = ctx.db.player().id().find(&player_id)
+        .ok_or("Player not found")?;
+    
+    if player.user_id != user.id {
+        return Err("Player does not belong to you".to_string());
+    }
+    
+    Ok(player)
 }
 
-/// Join an existing room by code.
+/// Revoke an invitation (owner only).
 #[reducer]
-pub fn join_room(ctx: &ReducerContext, room_code: String, role: PlayerRole) -> Result<(), String> {
-    // ActivityAdmin appears as Observer to other players
-    #[cfg(feature = "dev")]
-    let role = if matches!(role, PlayerRole::ActivityAdmin) {
-        PlayerRole::Observer
-    } else {
-        role
-    };
+pub fn revoke_room_invitation(
+    ctx: &ReducerContext,
+    player_id: u64,
+    invitation_id: u64,
+) -> Result<(), String> {
+    let player = get_user_player(ctx, player_id)?;
 
-    let player = ctx.db.player().identity().find(&ctx.sender)
-        .ok_or("Player not registered")?;
+    let invitation = ctx.db.room_invitation().id().find(&invitation_id)
+        .ok_or("Invitation not found")?;
 
-    let room = ctx.db.room().code().find(&room_code)
+    // Check if player owns the room this invitation is for
+    let room = ctx.db.room().id().find(&invitation.room_id)
         .ok_or("Room not found")?;
-
-    // Check if already a member
-    let existing = ctx.db.room_member()
-        .room_id()
-        .filter(&room.id)
-        .find(|m| m.player_id == player.id);
-
-    if existing.is_some() {
-        return Err("Already in this room".to_string());
+    
+    if room.owner_id != player.id {
+        return Err("Only the room owner can revoke invitations".to_string());
     }
 
-    ctx.db.room_member().insert(RoomMember {
-        id: 0,
-        room_id: room.id,
-        player_id: player.id,
-        role,
-        joined_at: ctx.timestamp,
-    });
-
-    log::info!("Player {} joined room {}", player.id, room_code);
-    Ok(())
-}
-
-/// Change role within a room.
-#[reducer]
-pub fn change_role(ctx: &ReducerContext, room_id: u64, new_role: PlayerRole) -> Result<(), String> {
-    // ActivityAdmin appears as Observer to other players
-    #[cfg(feature = "dev")]
-    let new_role = if matches!(new_role, PlayerRole::ActivityAdmin) {
-        PlayerRole::Observer
-    } else {
-        new_role
-    };
-
-    let player = ctx.db.player().identity().find(&ctx.sender)
-        .ok_or("Player not registered")?;
-
-    let member = ctx.db.room_member()
-        .room_id()
-        .filter(&room_id)
-        .find(|m| m.player_id == player.id)
-        .ok_or("Not a member of this room")?;
-
-    ctx.db.room_member().id().update(RoomMember {
-        role: new_role,
-        ..member
-    });
-
-    log::info!("Player {} changed role to {:?} in room {}", player.id, new_role, room_id);
-    Ok(())
-}
-
-/// Leave a room.
-#[reducer]
-pub fn leave_room(ctx: &ReducerContext, room_id: u64) -> Result<(), String> {
-    let player = ctx.db.player().identity().find(&ctx.sender)
-        .ok_or("Player not registered")?;
-
-    let member = ctx.db.room_member()
-        .room_id()
-        .filter(&room_id)
-        .find(|m| m.player_id == player.id)
-        .ok_or("Not a member of this room")?;
-
-    ctx.db.room_member().id().delete(&member.id);
-
-    // Check if room is now empty
-    let remaining = ctx.db.room_member().room_id().filter(&room_id).count();
-    if remaining == 0 {
-        // Delete the room
-        ctx.db.room().id().delete(&room_id);
-        log::info!("Room {} deleted (empty)", room_id);
+    if invitation.status != RoomInvitationStatus::Active {
+        return Err("Invitation is not active".to_string());
     }
 
-    log::info!("Player {} left room {}", player.id, room_id);
+    ctx.db.room_invitation().id().update(RoomInvitation {
+        status: RoomInvitationStatus::Revoked,
+        ..invitation
+    });
+
+    log::info!("Invitation {} revoked by player {}", invitation_id, player.id);
     Ok(())
 }
-

@@ -2,6 +2,17 @@
 
 use spacetimedb::SpacetimeType;
 
+/// Role of a User in the system.
+///
+/// Determines what actions a user can perform.
+#[derive(SpacetimeType, Clone, Copy, Debug, PartialEq, Eq)]
+pub enum UserRole {
+    /// A game participant. Can create/join rooms and update PlayerActivity.
+    Player,
+    /// A system administrator. Can seed data and manage the system.
+    Admin,
+}
+
 /// Role a Player chooses within a Room.
 #[derive(SpacetimeType, Clone, Copy, Debug, PartialEq, Eq)]
 pub enum PlayerRole {
@@ -45,7 +56,7 @@ pub enum RoomActivityStatus {
     Cancelled,
 }
 
-/// Status of an Invitation.
+/// Status of an Invitation (for activities within a room).
 #[derive(SpacetimeType, Clone, Copy, Debug, PartialEq, Eq)]
 pub enum InvitationStatus {
     /// Awaiting response.
@@ -54,6 +65,19 @@ pub enum InvitationStatus {
     Accepted,
     /// Invitation was declined.
     Declined,
+}
+
+/// Status of a Room Invitation (to join a room).
+#[derive(SpacetimeType, Clone, Copy, Debug, PartialEq, Eq)]
+pub enum RoomInvitationStatus {
+    /// Invitation is active and can be used.
+    Active,
+    /// Invitation has been used.
+    Used,
+    /// Invitation was revoked by owner.
+    Revoked,
+    /// Invitation has expired.
+    Expired,
 }
 
 /// Distinguishes between Skills and Activities.

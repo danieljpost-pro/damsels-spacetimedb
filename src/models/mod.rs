@@ -8,6 +8,7 @@
 // Modules are pub(crate) — accessible within the crate for trait imports,
 // but not exposed externally
 pub(crate) mod enums;
+pub(crate) mod user;
 pub(crate) mod player;
 pub(crate) mod activity;
 pub(crate) mod equipment;
@@ -17,12 +18,13 @@ pub(crate) mod room;
 pub(crate) mod room_activity;
 
 // Explicit public exports — only types, not traits
-pub use enums::{ActivityKind, ActivityStatus, InvitationStatus, PlayerRole, RoomActivityStatus};
+pub use enums::{ActivityKind, ActivityStatus, InvitationStatus, PlayerRole, RoomActivityStatus, RoomInvitationStatus, UserRole};
+pub use user::User;
 pub use player::Player;
 pub use activity::{Activity, ActivityCategory, ActivityPrerequisite};
 pub use equipment::{ActivityEquipment, Equipment};
 pub use player_activity::{PlayerActivity, PrerequisiteVouch};
 pub use player_history::PlayerHistory;
-pub use room::{Invitation, Room, RoomMember};
+pub use room::{Invitation, Room, RoomInvitation, RoomMember};
 pub use room_activity::{ActivityParticipant, RoomActivity};
 

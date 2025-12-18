@@ -1,10 +1,12 @@
-//! Player model — represents a user in the game.
+//! Player model — represents a game identity/persona.
 
-use spacetimedb::{table, Identity, Timestamp};
+use spacetimedb::{table, Timestamp};
 
-/// A player in the Damsels game.
+/// A player identity in the Damsels game.
 ///
-/// Linked to OAuth identity via SpacetimeDB Identity.
+/// A User can have multiple Player identities (personas).
+/// Each Player has its own display name, XP, and game progress.
+/// When entering a room, a User selects which Player identity to use.
 #[derive(Clone)]
 #[table(name = player, public)]
 pub struct Player {
@@ -13,21 +15,18 @@ pub struct Player {
     #[auto_inc]
     pub id: u64,
 
-    /// SpacetimeDB identity (linked to OAuth provider).
-    #[unique]
-    pub identity: Identity,
+    /// Reference to the User this player belongs to.
+    /// A User can have multiple Players.
+    #[index(btree)]
+    pub user_id: u64,
 
-    /// Display name chosen by the player.
+    /// Display name for this player identity (unique across all players).
     #[unique]
     pub username: String,
 
-    /// Total experience points accumulated.
+    /// Total experience points accumulated by this player.
     pub xp: u64,
 
-    /// When the player account was created.
+    /// When this player identity was created.
     pub created_at: Timestamp,
-
-    /// Last time the player was active.
-    pub last_seen: Timestamp,
 }
-
