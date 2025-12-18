@@ -8,18 +8,19 @@ use crate::models::player::{player, Player};
 use crate::models::room::room_member;
 use crate::models::enums::UserRole;
 
-/// Hash a password with a salt using SHA-256.
-/// In production, use a proper KDF like argon2 or bcrypt.
-fn hash_password(password: &str, salt: &str) -> String {
+/// Hash a password using SHA-256.
+/// DEV MODE: Uses username as salt for simplicity (works across browser sessions).
+/// In production, use a proper KDF like argon2 or bcrypt with random salt.
+fn hash_password(password: &str, username: &str) -> String {
     let mut hasher = Sha256::new();
-    hasher.update(salt.as_bytes());
+    hasher.update(username.as_bytes());
     hasher.update(password.as_bytes());
     hex::encode(hasher.finalize())
 }
 
 /// Verify a password against a stored hash.
-fn verify_password(password: &str, salt: &str, stored_hash: &str) -> bool {
-    hash_password(password, salt) == stored_hash
+fn verify_password(password: &str, username: &str, stored_hash: &str) -> bool {
+    hash_password(password, username) == stored_hash
 }
 
 /// Register a new user account with username and password.
@@ -38,9 +39,8 @@ pub fn register_user(ctx: &ReducerContext, username: String, password: String) -
         return Err("Username already taken".to_string());
     }
 
-    // Use identity hex as salt (unique per session, stored with user)
-    let salt = format!("{:?}", ctx.sender);
-    let password_hash = hash_password(&password, &salt);
+    // Use username as salt (works across browser sessions in dev mode)
+    let password_hash = hash_password(&password, &username);
 
     ctx.db.user().insert(User {
         id: 0,
@@ -64,12 +64,34 @@ pub fn login_user(ctx: &ReducerContext, username: String, password: String) -> R
         return Err("Username cannot be empty".to_string());
     }
 
-    let user = ctx.db.user().username().find(&username)
-        .ok_or("Invalid username or password")?;
+    let user = match ctx.db.user().username().find(&username) {
+        Some(u) => u,
+        None => {
+            #[cfg(feature = "dev")]
+            {
+                // In dev mode, show which username was not found
+                let all_usernames: Vec<String> = ctx.db.user().iter().map(|u| u.username.clone()).collect();
+                return Err(format!(
+                    "User '{}' not found. Existing users: {:?}",
+                    username,
+                    all_usernames
+                ));
+            }
+            #[cfg(not(feature = "dev"))]
+            return Err("Invalid username or password".to_string());
+        }
+    };
 
-    // Verify password using the stored identity as salt
-    let salt = format!("{:?}", user.identity);
-    if !verify_password(&password, &salt, &user.password_hash) {
+    // Verify password using username as salt
+    if !verify_password(&password, &username, &user.password_hash) {
+        #[cfg(feature = "dev")]
+        return Err(format!(
+            "Password mismatch for user '{}'. Expected hash: {}, Got hash: {}",
+            username,
+            user.password_hash,
+            hash_password(&password, &username)
+        ));
+        #[cfg(not(feature = "dev"))]
         return Err("Invalid username or password".to_string());
     }
 

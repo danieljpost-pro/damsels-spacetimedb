@@ -7,7 +7,8 @@ edition = "2021"
 crate-type = ["cdylib"]
 
 [features]
-default = []
+# NOTE: dev is default for local development. Remove before production!
+default = ["dev"]
 # Development features - NEVER enable in production builds
 # Enables: ActivityAdmin role, admin reducers for activity management
 dev = []

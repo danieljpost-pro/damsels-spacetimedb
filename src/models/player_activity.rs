@@ -1,7 +1,7 @@
 //! Player-Activity relationship models — tracking progress and vouching.
 
 use spacetimedb::{table, Timestamp};
-use super::enums::ActivityStatus;
+use super::enums::{ActivityKind, ActivityStatus};
 
 /// Tracks a Player's status for a specific Activity.
 ///
@@ -59,5 +59,56 @@ pub struct PrerequisiteVouch {
 
     /// When the vouch occurred.
     pub created_at: Timestamp,
+}
+
+/// An activity that is currently available/unlocked for a player.
+///
+/// This table is automatically maintained by the server and pushed to clients.
+/// When a player's XP increases or they complete prerequisites, new activities
+/// may be unlocked and added here.
+///
+/// Clients subscribe to this table to receive real-time updates about newly
+/// available activities.
+#[table(name = player_unlocked_activity, public)]
+pub struct PlayerUnlockedActivity {
+    /// Unique identifier.
+    #[primary_key]
+    #[auto_inc]
+    pub id: u64,
+
+    /// The player who has this activity unlocked.
+    #[index(btree)]
+    pub player_id: u64,
+
+    /// The unlocked activity.
+    #[index(btree)]
+    pub activity_id: u64,
+
+    /// Activity name (denormalized for client convenience).
+    pub activity_name: String,
+
+    /// Activity description.
+    pub activity_description: String,
+
+    /// Category ID.
+    pub category_id: u64,
+
+    /// Category name (denormalized).
+    pub category_name: String,
+
+    /// Skill or Activity.
+    pub kind: ActivityKind,
+
+    /// XP required (already met since unlocked).
+    pub xp_required: u64,
+
+    /// XP reward for completing.
+    pub xp_reward: u64,
+
+    /// When this activity was unlocked for the player.
+    pub unlocked_at: Timestamp,
+
+    /// Whether this was newly unlocked (set to true on insert, can be marked false after client acknowledges).
+    pub is_new: bool,
 }
 

@@ -5,10 +5,10 @@
 
 use spacetimedb::{reducer, ReducerContext, Table};
 
-use crate::models::player::player;
+use crate::models::player::{player, player_category_preference};
 use crate::models::room::room_member;
-use crate::models::player_activity::{player_activity, prerequisite_vouch, PlayerActivity, PrerequisiteVouch};
-use crate::models::activity::activity;
+use crate::models::player_activity::{player_activity, player_unlocked_activity, prerequisite_vouch, PlayerActivity, PlayerUnlockedActivity, PrerequisiteVouch};
+use crate::models::activity::{activity, activity_prerequisite, category};
 use crate::models::enums::ActivityStatus;
 use crate::reducers::auth::require_user;
 use crate::Player;
@@ -87,6 +87,8 @@ pub fn start_activity(ctx: &ReducerContext, player_id: u64, activity_id: u64) ->
 
 /// Mark an activity as complete for a player.
 /// 
+/// Awards XP to the target player and refreshes their unlocked activities.
+/// 
 /// # Permissions
 /// - Players can mark their own activities complete
 /// - Players can mark activities complete for other players in the same room
@@ -115,6 +117,10 @@ pub fn complete_activity(
         return Err("Activity already completed".to_string());
     }
     
+    // Get the activity to find XP reward
+    let act = ctx.db.activity().id().find(&activity_id)
+        .ok_or("Activity not found")?;
+    
     // Update to completed
     ctx.db.player_activity().id().update(PlayerActivity {
         status: ActivityStatus::Completed,
@@ -122,6 +128,24 @@ pub fn complete_activity(
         completed_by: Some(player.id),
         ..pa
     });
+    
+    // Award XP to the target player
+    if act.xp_reward > 0 {
+        let target_player = ctx.db.player().id().find(&target_player_id)
+            .ok_or("Target player not found")?;
+        
+        let new_xp = target_player.xp.saturating_add(act.xp_reward);
+        ctx.db.player().id().update(Player {
+            xp: new_xp,
+            ..target_player
+        });
+        
+        log::info!("Player {} earned {} XP for completing activity {}", 
+            target_player_id, act.xp_reward, activity_id);
+    }
+    
+    // Refresh unlocked activities (new prereqs met + new XP may unlock more)
+    refresh_unlocked_activities(ctx, target_player_id);
     
     log::info!("Player {} marked activity {} complete for player {}", 
         player.id, activity_id, target_player_id);
@@ -246,5 +270,387 @@ pub fn reset_activity(
     
     log::info!("Player {} reset activity {} for player {}", 
         player.id, activity_id, target_player_id);
+    Ok(())
+}
+
+/// Get available activities for a player.
+/// 
+/// Returns activities that:
+/// - Have XP requirement <= player's current XP
+/// - Match player's category preferences (if any are set)
+/// - Are not already completed by the player
+/// - Have all prerequisites met (completed or vouched)
+/// 
+/// # Returns
+/// This reducer logs the available activities. Use SQL queries to retrieve
+/// the full activity list with details.
+#[reducer]
+pub fn get_available_activities(ctx: &ReducerContext, player_id: u64) -> Result<(), String> {
+    let player = get_user_player(ctx, player_id)?;
+    
+    // Get player's category preferences (if any)
+    let preferences: Vec<u64> = ctx.db.player_category_preference()
+        .player_id()
+        .filter(&player.id)
+        .filter(|p| p.enabled)
+        .map(|p| p.category_id)
+        .collect();
+    
+    let has_preferences = !preferences.is_empty();
+    
+    // Get all completed activity IDs for this player
+    let completed_activities: Vec<u64> = ctx.db.player_activity()
+        .player_id()
+        .filter(&player.id)
+        .filter(|pa| pa.status == ActivityStatus::Completed)
+        .map(|pa| pa.activity_id)
+        .collect();
+    
+    // Get all vouched activity IDs for this player
+    let vouched_activities: Vec<u64> = ctx.db.player_activity()
+        .player_id()
+        .filter(&player.id)
+        .filter(|pa| pa.vouched)
+        .map(|pa| pa.activity_id)
+        .collect();
+    
+    let mut available_count = 0;
+    
+    for act in ctx.db.activity().iter() {
+        // Check XP requirement
+        if act.xp_required > player.xp {
+            continue;
+        }
+        
+        // Check category preference (if player has preferences set)
+        if has_preferences && !preferences.contains(&act.category_id) {
+            continue;
+        }
+        
+        // Skip already completed activities
+        if completed_activities.contains(&act.id) {
+            continue;
+        }
+        
+        // Check prerequisites are met
+        let prereqs_met = check_prerequisites_met(
+            ctx, 
+            act.id, 
+            &completed_activities, 
+            &vouched_activities
+        );
+        
+        if !prereqs_met {
+            continue;
+        }
+        
+        available_count += 1;
+        log::info!("Available activity for player {}: {} - {} (XP: {}, Category: {})", 
+            player.id, act.id, act.name, act.xp_required, act.category_id);
+    }
+    
+    log::info!("Player {} has {} available activities", player.id, available_count);
+    Ok(())
+}
+
+/// Helper: Check if all prerequisites for an activity are met.
+fn check_prerequisites_met(
+    ctx: &ReducerContext,
+    activity_id: u64,
+    completed_activities: &[u64],
+    vouched_activities: &[u64],
+) -> bool {
+    // Get all prerequisites for this activity
+    let prereqs: Vec<u64> = ctx.db.activity_prerequisite()
+        .activity_id()
+        .filter(&activity_id)
+        .map(|p| p.prerequisite_id)
+        .collect();
+    
+    // If activity is vouched, skip prerequisite check
+    if vouched_activities.contains(&activity_id) {
+        return true;
+    }
+    
+    // All prerequisites must be completed
+    for prereq_id in prereqs {
+        if !completed_activities.contains(&prereq_id) {
+            return false;
+        }
+    }
+    
+    true
+}
+
+/// Set a player's category preference.
+/// 
+/// # Permissions
+/// Players can only set preferences for themselves.
+#[reducer]
+pub fn set_category_preference(
+    ctx: &ReducerContext,
+    player_id: u64,
+    category_id: u64,
+    enabled: bool,
+) -> Result<(), String> {
+    let player = get_user_player(ctx, player_id)?;
+    
+    // Verify category exists
+    ctx.db.category().id().find(&category_id)
+        .ok_or("Category not found")?;
+    
+    // Check if preference already exists
+    let existing = ctx.db.player_category_preference()
+        .player_id()
+        .filter(&player.id)
+        .find(|p| p.category_id == category_id);
+    
+    if let Some(pref) = existing {
+        // Update existing preference
+        ctx.db.player_category_preference().id().update(crate::models::player::PlayerCategoryPreference {
+            enabled,
+            ..pref
+        });
+        log::info!("Updated category {} preference for player {}: {}", 
+            category_id, player.id, enabled);
+    } else {
+        // Create new preference
+        ctx.db.player_category_preference().insert(crate::models::player::PlayerCategoryPreference {
+            id: 0,
+            player_id: player.id,
+            category_id,
+            enabled,
+        });
+        log::info!("Set category {} preference for player {}: {}", 
+            category_id, player.id, enabled);
+    }
+    
+    // Refresh unlocked activities with new preferences
+    refresh_unlocked_activities(ctx, player.id);
+    
+    Ok(())
+}
+
+/// Clear all category preferences for a player (returns to "all categories" mode).
+/// 
+/// # Permissions
+/// Players can only clear their own preferences.
+#[reducer]
+pub fn clear_category_preferences(ctx: &ReducerContext, player_id: u64) -> Result<(), String> {
+    let player = get_user_player(ctx, player_id)?;
+    
+    let prefs: Vec<_> = ctx.db.player_category_preference()
+        .player_id()
+        .filter(&player.id)
+        .collect();
+    
+    for pref in prefs {
+        ctx.db.player_category_preference().id().delete(&pref.id);
+    }
+    
+    log::info!("Cleared all category preferences for player {}", player.id);
+    
+    // Refresh unlocked activities with new preferences
+    refresh_unlocked_activities(ctx, player.id);
+    
+    Ok(())
+}
+
+// =============================================================================
+// Unlocked Activities Push System
+// =============================================================================
+
+/// Refresh the player_unlocked_activity table for a player.
+/// 
+/// This computes which activities are currently available based on:
+/// - Player's XP
+/// - Category preferences
+/// - Completed prerequisites
+/// 
+/// New activities are added with is_new=true. Activities that are no longer
+/// available (due to completion or preference change) are removed.
+pub fn refresh_unlocked_activities(ctx: &ReducerContext, player_id: u64) {
+    let player = match ctx.db.player().id().find(&player_id) {
+        Some(p) => p,
+        None => {
+            log::warn!("Cannot refresh activities for unknown player {}", player_id);
+            return;
+        }
+    };
+    
+    // Get player's category preferences
+    let preferences: Vec<u64> = ctx.db.player_category_preference()
+        .player_id()
+        .filter(&player_id)
+        .filter(|p| p.enabled)
+        .map(|p| p.category_id)
+        .collect();
+    let has_preferences = !preferences.is_empty();
+    
+    // Get completed activity IDs
+    let completed_activities: Vec<u64> = ctx.db.player_activity()
+        .player_id()
+        .filter(&player_id)
+        .filter(|pa| pa.status == ActivityStatus::Completed)
+        .map(|pa| pa.activity_id)
+        .collect();
+    
+    // Get vouched activity IDs
+    let vouched_activities: Vec<u64> = ctx.db.player_activity()
+        .player_id()
+        .filter(&player_id)
+        .filter(|pa| pa.vouched)
+        .map(|pa| pa.activity_id)
+        .collect();
+    
+    // Get currently unlocked activity IDs
+    let currently_unlocked: Vec<u64> = ctx.db.player_unlocked_activity()
+        .player_id()
+        .filter(&player_id)
+        .map(|ua| ua.activity_id)
+        .collect();
+    
+    let mut newly_unlocked = Vec::new();
+    let mut still_unlocked = Vec::new();
+    
+    // Check each activity
+    for act in ctx.db.activity().iter() {
+        // Check XP requirement
+        if act.xp_required > player.xp {
+            continue;
+        }
+        
+        // Check category preference
+        if has_preferences && !preferences.contains(&act.category_id) {
+            continue;
+        }
+        
+        // Skip completed activities
+        if completed_activities.contains(&act.id) {
+            continue;
+        }
+        
+        // Check prerequisites
+        let prereqs_met = check_prerequisites_met(
+            ctx,
+            act.id,
+            &completed_activities,
+            &vouched_activities,
+        );
+        
+        if !prereqs_met {
+            continue;
+        }
+        
+        // Activity is available
+        if currently_unlocked.contains(&act.id) {
+            still_unlocked.push(act.id);
+        } else {
+            newly_unlocked.push(act.clone());
+        }
+    }
+    
+    // Remove activities that are no longer unlocked
+    let to_remove: Vec<_> = ctx.db.player_unlocked_activity()
+        .player_id()
+        .filter(&player_id)
+        .filter(|ua| !still_unlocked.contains(&ua.activity_id) && 
+                     !newly_unlocked.iter().any(|a| a.id == ua.activity_id))
+        .collect();
+    
+    for ua in to_remove {
+        ctx.db.player_unlocked_activity().id().delete(&ua.id);
+    }
+    
+    // Add newly unlocked activities
+    for act in newly_unlocked {
+        let category_name = ctx.db.category().id().find(&act.category_id)
+            .map(|c| c.name.clone())
+            .unwrap_or_else(|| "Unknown".to_string());
+        
+        ctx.db.player_unlocked_activity().insert(PlayerUnlockedActivity {
+            id: 0,
+            player_id,
+            activity_id: act.id,
+            activity_name: act.name.clone(),
+            activity_description: act.description.clone(),
+            category_id: act.category_id,
+            category_name,
+            kind: act.kind,
+            xp_required: act.xp_required,
+            xp_reward: act.xp_reward,
+            unlocked_at: ctx.timestamp,
+            is_new: true,
+        });
+        
+        log::info!("Player {} unlocked activity: {} ({})", 
+            player_id, act.name, act.id);
+    }
+}
+
+/// Award XP to a player and refresh their unlocked activities.
+/// 
+/// # Permissions
+/// Only reducers within the same room context can award XP.
+/// This is typically called after completing an activity.
+#[reducer]
+pub fn award_xp(ctx: &ReducerContext, player_id: u64, xp_amount: u64) -> Result<(), String> {
+    let player = get_user_player(ctx, player_id)?;
+    
+    let old_xp = player.xp;
+    let new_xp = old_xp.saturating_add(xp_amount);
+    
+    // Update player XP
+    ctx.db.player().id().update(Player {
+        xp: new_xp,
+        ..player.clone()
+    });
+    
+    log::info!("Player {} awarded {} XP ({} -> {})", 
+        player_id, xp_amount, old_xp, new_xp);
+    
+    // Refresh unlocked activities if XP actually increased
+    if new_xp > old_xp {
+        refresh_unlocked_activities(ctx, player_id);
+    }
+    
+    Ok(())
+}
+
+/// Mark new activities as acknowledged (set is_new = false).
+/// 
+/// Call this after the client has displayed the new activities to the user.
+#[reducer]
+pub fn acknowledge_new_activities(ctx: &ReducerContext, player_id: u64) -> Result<(), String> {
+    let player = get_user_player(ctx, player_id)?;
+    
+    let new_activities: Vec<_> = ctx.db.player_unlocked_activity()
+        .player_id()
+        .filter(&player.id)
+        .filter(|ua| ua.is_new)
+        .collect();
+    
+    for ua in new_activities {
+        ctx.db.player_unlocked_activity().id().update(PlayerUnlockedActivity {
+            is_new: false,
+            ..ua
+        });
+    }
+    
+    log::info!("Player {} acknowledged new activities", player.id);
+    Ok(())
+}
+
+/// Initialize unlocked activities for a player.
+/// 
+/// Call this when a player first logs in or is created to populate
+/// their initial set of available activities.
+#[reducer]
+pub fn initialize_unlocked_activities(ctx: &ReducerContext, player_id: u64) -> Result<(), String> {
+    let _player = get_user_player(ctx, player_id)?;
+    
+    refresh_unlocked_activities(ctx, player_id);
+    
+    log::info!("Initialized unlocked activities for player {}", player_id);
     Ok(())
 }

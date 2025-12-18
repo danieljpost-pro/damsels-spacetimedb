@@ -20,10 +20,10 @@ pub(crate) mod room_activity;
 // Explicit public exports — only types, not traits
 pub use enums::{ActivityKind, ActivityStatus, InvitationStatus, PlayerRole, RoomActivityStatus, RoomInvitationStatus, UserRole};
 pub use user::User;
-pub use player::Player;
+pub use player::{Player, PlayerCategoryPreference};
 pub use activity::{Activity, ActivityCategory, ActivityPrerequisite};
 pub use equipment::{ActivityEquipment, Equipment};
-pub use player_activity::{PlayerActivity, PrerequisiteVouch};
+pub use player_activity::{PlayerActivity, PlayerUnlockedActivity, PrerequisiteVouch};
 pub use player_history::PlayerHistory;
 pub use room::{Invitation, Room, RoomInvitation, RoomMember};
 pub use room_activity::{ActivityParticipant, RoomActivity};

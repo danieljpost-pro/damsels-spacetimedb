@@ -1,6 +1,7 @@
 //! Player model — represents a game identity/persona.
 
-use spacetimedb::{table, Timestamp};
+use spacetimedb::table;
+use spacetimedb::Timestamp;
 
 /// A player identity in the Damsels game.
 ///
@@ -29,4 +30,27 @@ pub struct Player {
 
     /// When this player identity was created.
     pub created_at: Timestamp,
+}
+
+/// A player's preference for a specific activity category.
+///
+/// If a player has any preferences, only activities in preferred categories
+/// will be returned. If no preferences exist, all categories are available.
+#[table(name = player_category_preference, public)]
+pub struct PlayerCategoryPreference {
+    /// Unique identifier.
+    #[primary_key]
+    #[auto_inc]
+    pub id: u64,
+
+    /// The player who has this preference.
+    #[index(btree)]
+    pub player_id: u64,
+
+    /// The category the player is interested in.
+    #[index(btree)]
+    pub category_id: u64,
+
+    /// Whether this category is enabled (true) or excluded (false).
+    pub enabled: bool,
 }

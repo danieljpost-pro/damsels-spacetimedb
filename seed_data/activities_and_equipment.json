@@ -44,12 +44,12 @@
 
   "equipment": [
     {
-      "id": 1,
+      "id": 10001,
       "name": "Blindfold",
       "description": "Soft eye covering for sensory deprivation activities"
     },
     {
-      "id": 2,
+      "id": 10002,
       "name": "Rope (Soft)",
       "description": "Soft cotton or silk rope, 20-30 feet length"
     },
@@ -59,22 +59,22 @@
       "description": "Countdown timer or phone with timer app"
     },
     {
-      "id": 4,
+      "id": 1004,
       "name": "Ice Cubes",
       "description": "Regular ice cubes for temperature play"
     },
     {
-      "id": 5,
+      "id": 1005,
       "name": "Feather",
       "description": "Large soft feather for sensation play"
     },
     {
-      "id": 6,
+      "id": 1006,
       "name": "Candles (Massage)",
       "description": "Low-temperature massage candles designed for skin"
     },
     {
-      "id": 7,
+      "id": 1007,
       "name": "Mirror",
       "description": "Full-length or handheld mirror"
     },
@@ -89,22 +89,22 @@
       "description": "For written activities and journaling"
     },
     {
-      "id": 10,
+      "id": 1,
       "name": "Dice",
       "description": "Standard six-sided dice for random selection"
     },
     {
-      "id": 11,
+      "id": 10011,
       "name": "Soft Restraints",
       "description": "Padded wrist or ankle cuffs with quick-release"
     },
     {
-      "id": 12,
+      "id": 10012,
       "name": "Massage Oil",
       "description": "Body-safe massage oil or lotion"
     },
     {
-      "id": 13,
+      "id": 501,
       "name": "Playing Cards",
       "description": "Standard 52-card deck"
     },
@@ -452,128 +452,128 @@
     {
       "id": 2,
       "activity_id": 5,
-      "equipment_id": 1,
-      "notes": "Essential for the activity"
+      "equipment_id": 10001,
+      "notes": "Essential for the activity (Blindfold)"
     },
     {
       "id": 3,
       "activity_id": 6,
-      "equipment_id": 1,
-      "notes": "Optional - can also just close eyes"
+      "equipment_id": 10001,
+      "notes": "Optional - can also just close eyes (Blindfold)"
     },
     {
       "id": 4,
       "activity_id": 7,
-      "equipment_id": 4,
-      "notes": "For cold sensation"
+      "equipment_id": 1004,
+      "notes": "For cold sensation (Ice Cubes)"
     },
     {
       "id": 5,
       "activity_id": 7,
-      "equipment_id": 12,
-      "notes": "Warm the oil for heat contrast"
+      "equipment_id": 10012,
+      "notes": "Warm the oil for heat contrast (Massage Oil)"
     },
     {
       "id": 6,
       "activity_id": 7,
-      "equipment_id": 1,
-      "notes": "Heightens sensation awareness"
+      "equipment_id": 10001,
+      "notes": "Heightens sensation awareness (Blindfold)"
     },
     {
       "id": 7,
       "activity_id": 8,
-      "equipment_id": 5,
-      "notes": "Main tool for this activity"
+      "equipment_id": 1005,
+      "notes": "Main tool for this activity (Feather)"
     },
     {
       "id": 8,
       "activity_id": 8,
-      "equipment_id": 1,
-      "notes": "Optional - enhances sensation focus"
+      "equipment_id": 10001,
+      "notes": "Optional - enhances sensation focus (Blindfold)"
     },
     {
       "id": 9,
       "activity_id": 10,
       "equipment_id": 3,
-      "notes": "For timing the stillness period"
+      "notes": "For timing the stillness period (Timer)"
     },
     {
       "id": 10,
       "activity_id": 10,
       "equipment_id": 14,
-      "notes": "For comfortable positioning"
+      "notes": "For comfortable positioning (Pillows/Cushions)"
     },
     {
       "id": 11,
       "activity_id": 11,
       "equipment_id": 9,
-      "notes": "For writing appreciation notes"
+      "notes": "For writing appreciation notes (Notebook & Pen)"
     },
     {
       "id": 12,
       "activity_id": 12,
-      "equipment_id": 7,
-      "notes": "Optional - for the subject to see themselves"
+      "equipment_id": 1007,
+      "notes": "Optional - for the subject to see themselves (Mirror)"
     },
     {
       "id": 13,
       "activity_id": 15,
-      "equipment_id": 11,
-      "notes": "Essential - use only quick-release restraints"
+      "equipment_id": 10011,
+      "notes": "Essential - use only quick-release restraints (Soft Restraints)"
     },
     {
       "id": 14,
       "activity_id": 15,
       "equipment_id": 3,
-      "notes": "For timing the experience"
+      "notes": "For timing the experience (Timer)"
     },
     {
       "id": 15,
       "activity_id": 15,
       "equipment_id": 15,
-      "notes": "For non-verbal signaling if needed"
+      "notes": "For non-verbal signaling if needed (Bell)"
     },
     {
       "id": 16,
       "activity_id": 16,
-      "equipment_id": 12,
-      "notes": "Essential for the massage"
+      "equipment_id": 10012,
+      "notes": "Essential for the massage (Massage Oil)"
     },
     {
       "id": 17,
       "activity_id": 16,
       "equipment_id": 14,
-      "notes": "For proper positioning and comfort"
+      "notes": "For proper positioning and comfort (Pillows/Cushions)"
     },
     {
       "id": 18,
       "activity_id": 16,
       "equipment_id": 8,
-      "notes": "Optional - ambient music enhances relaxation"
+      "notes": "Optional - ambient music enhances relaxation (Music Player)"
     },
     {
       "id": 19,
       "activity_id": 17,
-      "equipment_id": 13,
-      "notes": "Essential for card drawing"
+      "equipment_id": 501,
+      "notes": "Essential for card drawing (Playing Cards)"
     },
     {
       "id": 20,
       "activity_id": 17,
-      "equipment_id": 10,
-      "notes": "Optional - can add randomness to challenges"
+      "equipment_id": 1,
+      "notes": "Optional - can add randomness to challenges (Dice)"
     },
     {
       "id": 21,
       "activity_id": 19,
       "equipment_id": 9,
-      "notes": "For writing journal entries"
+      "notes": "For writing journal entries (Notebook & Pen)"
     },
     {
       "id": 22,
       "activity_id": 20,
       "equipment_id": 8,
-      "notes": "For playing slow music"
+      "notes": "For playing slow music (Music Player)"
     }
   ]
 }

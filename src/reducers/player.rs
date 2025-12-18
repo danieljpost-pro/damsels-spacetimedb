@@ -27,6 +27,7 @@ fn get_user_player(ctx: &ReducerContext, player_id: u64) -> Result<Player, Strin
 }
 
 /// Create a new room with the specified player as owner.
+/// A player can be in multiple rooms simultaneously.
 #[reducer]
 pub fn create_room(
     ctx: &ReducerContext,
@@ -35,16 +36,6 @@ pub fn create_room(
     role: PlayerRole,
 ) -> Result<(), String> {
     let player = get_user_player(ctx, player_id)?;
-    
-    // Check if player is already in a room
-    let existing_membership = ctx.db.room_member()
-        .player_id()
-        .filter(&player.id)
-        .find(|_| true);
-    
-    if existing_membership.is_some() {
-        return Err("Player is already in a room".to_string());
-    }
     
     let code = generate_room_code(ctx);
     let display_name = if room_name.trim().is_empty() {
@@ -174,19 +165,19 @@ pub fn accept_invitation(
     Ok(())
 }
 
-/// Leave a room.
+/// Leave a specific room.
 #[reducer]
-pub fn leave_room(ctx: &ReducerContext, player_id: u64) -> Result<(), String> {
+pub fn leave_room(ctx: &ReducerContext, player_id: u64, room_id: u64) -> Result<(), String> {
     let player = get_user_player(ctx, player_id)?;
     
-    // Find the player's room membership
+    // Find the player's membership in this specific room
     let membership = ctx.db.room_member()
-        .player_id()
-        .filter(&player.id)
-        .find(|_| true)
-        .ok_or("Not in any room")?;
+        .room_id()
+        .filter(&room_id)
+        .find(|m| m.player_id == player.id)
+        .ok_or("Not a member of this room")?;
     
-    let room = ctx.db.room().id().find(&membership.room_id)
+    let room = ctx.db.room().id().find(&room_id)
         .ok_or("Room not found")?;
     
     // Remove from room
@@ -198,54 +189,63 @@ pub fn leave_room(ctx: &ReducerContext, player_id: u64) -> Result<(), String> {
             is_open: false,
             ..room
         });
-        log::info!("Player {} left and closed room {}", player.id, membership.room_id);
+        log::info!("Player {} left and closed room {}", player.id, room_id);
     } else {
-        log::info!("Player {} left room {}", player.id, membership.room_id);
+        log::info!("Player {} left room {}", player.id, room_id);
     }
     
     Ok(())
 }
 
-/// Change role within current room.
+/// Change role within a specific room.
 #[reducer]
-pub fn change_role(ctx: &ReducerContext, player_id: u64, new_role: PlayerRole) -> Result<(), String> {
+pub fn change_role(ctx: &ReducerContext, player_id: u64, room_id: u64, new_role: PlayerRole) -> Result<(), String> {
     let player = get_user_player(ctx, player_id)?;
     
     let membership = ctx.db.room_member()
-        .player_id()
-        .filter(&player.id)
-        .find(|_| true)
-        .ok_or("Not in any room")?;
+        .room_id()
+        .filter(&room_id)
+        .find(|m| m.player_id == player.id)
+        .ok_or("Not a member of this room")?;
     
     ctx.db.room_member().id().update(RoomMember {
         role: new_role,
         ..membership
     });
     
-    log::info!("Player {} changed role to {:?}", player.id, new_role);
+    log::info!("Player {} changed role to {:?} in room {}", player.id, new_role, room_id);
     Ok(())
 }
 
-/// Create an invitation for a room (owner only).
+/// Create an invitation for a specific room (owner only).
 /// The invitation token can be retrieved by subscribing to room_invitation table.
 #[reducer]
 pub fn create_room_invitation(
     ctx: &ReducerContext,
     player_id: u64,
+    room_id: u64,
     for_username: Option<String>,
 ) -> Result<(), String> {
     let player = get_user_player(ctx, player_id)?;
     
-    // Find player's room where they are owner
-    let room = ctx.db.room().owner_id().filter(&player.id).find(|r| r.is_open)
-        .ok_or("You don't own an open room")?;
+    // Verify room exists and player owns it
+    let room = ctx.db.room().id().find(&room_id)
+        .ok_or("Room not found")?;
+    
+    if room.owner_id != player.id {
+        return Err("You don't own this room".to_string());
+    }
+    
+    if !room.is_open {
+        return Err("Room is closed".to_string());
+    }
     
     // Generate invitation token
     let token = generate_room_code(ctx);
     
     ctx.db.room_invitation().insert(RoomInvitation {
         id: 0,
-        room_id: room.id,
+        room_id,
         token: token.clone(),
         created_by: player.id,
         for_username,
@@ -254,17 +254,25 @@ pub fn create_room_invitation(
         created_at: ctx.timestamp,
     });
     
-    log::info!("Player {} created invitation {} for room {}", player.id, token, room.id);
+    log::info!("Player {} created invitation {} for room {}", player.id, token, room_id);
     Ok(())
 }
 
-/// Close a room (owner only).
+/// Close a specific room (owner only).
 #[reducer]
-pub fn close_room(ctx: &ReducerContext, player_id: u64) -> Result<(), String> {
+pub fn close_room(ctx: &ReducerContext, player_id: u64, room_id: u64) -> Result<(), String> {
     let player = get_user_player(ctx, player_id)?;
     
-    let room = ctx.db.room().owner_id().filter(&player.id).find(|r| r.is_open)
-        .ok_or("You don't own an open room")?;
+    let room = ctx.db.room().id().find(&room_id)
+        .ok_or("Room not found")?;
+    
+    if room.owner_id != player.id {
+        return Err("You don't own this room".to_string());
+    }
+    
+    if !room.is_open {
+        return Err("Room is already closed".to_string());
+    }
     
     ctx.db.room().id().update(Room {
         is_open: false,
@@ -272,7 +280,7 @@ pub fn close_room(ctx: &ReducerContext, player_id: u64) -> Result<(), String> {
     });
     
     // Invalidate all active invitations
-    for inv in ctx.db.room_invitation().room_id().filter(&room.id) {
+    for inv in ctx.db.room_invitation().room_id().filter(&room_id) {
         if inv.status == RoomInvitationStatus::Active {
             ctx.db.room_invitation().id().update(RoomInvitation {
                 status: RoomInvitationStatus::Revoked,
@@ -281,6 +289,6 @@ pub fn close_room(ctx: &ReducerContext, player_id: u64) -> Result<(), String> {
         }
     }
     
-    log::info!("Player {} closed room {}", player.id, room.id);
+    log::info!("Player {} closed room {}", player.id, room_id);
     Ok(())
 }

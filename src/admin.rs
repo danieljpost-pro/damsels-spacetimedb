@@ -646,3 +646,17 @@ pub fn seed_activity_equipment(
     log::info!("[SEED] Equipment {} linked to activity {}", equipment_id, activity_id);
     Ok(())
 }
+
+/// Admin: Initialize unlocked activities for any player.
+/// 
+/// # Development Only
+#[reducer]
+pub fn admin_init_player_activities(ctx: &ReducerContext, player_id: u64) -> Result<(), String> {
+    let _admin = get_or_create_admin(ctx)?;
+    
+    // Call the refresh function from activity reducer
+    crate::reducers::activity::refresh_unlocked_activities(ctx, player_id);
+    
+    log::info!("[ADMIN] Initialized unlocked activities for player {}", player_id);
+    Ok(())
+}

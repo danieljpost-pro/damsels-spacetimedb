@@ -34,6 +34,7 @@ pub struct ActivityCategory {
 /// - Player preferences (configured separately)
 /// - Unlocked activities (XP + prerequisites met)
 /// - The `kind` field to filter Skills vs full Activities
+#[derive(Clone)]
 #[table(name = activity, public)]
 pub struct Activity {
     /// Unique activity identifier.

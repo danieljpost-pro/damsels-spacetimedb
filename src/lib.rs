@@ -31,3 +31,7 @@ pub use models::*;
 
 // Re-export reducers (required for SpacetimeDB to find them)
 pub use reducers::*;
+
+// Re-export admin reducers in dev mode
+#[cfg(feature = "dev")]
+pub use admin::*;
