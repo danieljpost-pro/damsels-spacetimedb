@@ -521,51 +521,69 @@ pub fn admin_clear_all_players_and_rooms(ctx: &ReducerContext) -> Result<(), Str
 /// # Development Only
 /// 
 /// This reducer creates an Admin user for the caller if one doesn't exist.
+/// Accepts an explicit ID for the category.
 #[reducer]
 pub fn seed_category(
     ctx: &ReducerContext,
+    id: u64,
     name: String,
     description: String,
     display_order: u32,
 ) -> Result<(), String> {
     let _admin = get_or_create_admin(ctx)?;
 
-    let cat = ctx.db.category().insert(ActivityCategory {
-        id: 0,
+    // Check if category already exists
+    if ctx.db.category().id().find(&id).is_some() {
+        log::info!("[SEED] Category already exists: {} (id: {})", name, id);
+        return Ok(());
+    }
+
+    ctx.db.category().insert(ActivityCategory {
+        id,
         name: name.clone(),
         description,
         display_order,
     });
-    log::info!("[SEED] Category created: {} (id: {})", name, cat.id);
+    log::info!("[SEED] Category created: {} (id: {})", name, id);
     Ok(())
 }
 
 /// Seed equipment. Creates Admin user if needed.
 /// 
 /// # Development Only
+/// Accepts an explicit ID for the equipment.
 #[reducer]
 pub fn seed_equipment(
     ctx: &ReducerContext,
+    id: u64,
     name: String,
     description: Option<String>,
 ) -> Result<(), String> {
     let _admin = get_or_create_admin(ctx)?;
 
-    let equip = ctx.db.equipment().insert(Equipment {
-        id: 0,
+    // Check if equipment already exists
+    if ctx.db.equipment().id().find(&id).is_some() {
+        log::info!("[SEED] Equipment already exists: {} (id: {})", name, id);
+        return Ok(());
+    }
+
+    ctx.db.equipment().insert(Equipment {
+        id,
         name: name.clone(),
         description,
     });
-    log::info!("[SEED] Equipment created: {} (id: {})", name, equip.id);
+    log::info!("[SEED] Equipment created: {} (id: {})", name, id);
     Ok(())
 }
 
 /// Seed an activity. Creates Admin user if needed.
 /// 
 /// # Development Only
+/// Accepts an explicit ID for the activity.
 #[reducer]
 pub fn seed_activity(
     ctx: &ReducerContext,
+    id: u64,
     category_id: u64,
     kind: ActivityKind,
     name: String,
@@ -580,8 +598,14 @@ pub fn seed_activity(
     ctx.db.category().id().find(&category_id)
         .ok_or("Category not found")?;
 
-    let act = ctx.db.activity().insert(Activity {
-        id: 0,
+    // Check if activity already exists
+    if ctx.db.activity().id().find(&id).is_some() {
+        log::info!("[SEED] Activity already exists: {} (id: {})", name, id);
+        return Ok(());
+    }
+
+    ctx.db.activity().insert(Activity {
+        id,
         category_id,
         kind,
         name: name.clone(),
@@ -591,7 +615,7 @@ pub fn seed_activity(
         xp_required,
         xp_reward,
     });
-    log::info!("[SEED] Activity created: {} (id: {})", name, act.id);
+    log::info!("[SEED] Activity created: {} (id: {})", name, id);
     Ok(())
 }
 
@@ -658,5 +682,191 @@ pub fn admin_init_player_activities(ctx: &ReducerContext, player_id: u64) -> Res
     crate::reducers::activity::refresh_unlocked_activities(ctx, player_id);
     
     log::info!("[ADMIN] Initialized unlocked activities for player {}", player_id);
+    Ok(())
+}
+
+// =============================================================================
+// User and Player Seed Reducers
+// =============================================================================
+
+/// Seed a user with a pre-hashed password. Creates Admin user if needed.
+/// 
+/// # Development Only
+/// 
+/// Note: Password must be pre-hashed with bcrypt before calling this reducer.
+#[reducer]
+pub fn seed_user(
+    ctx: &ReducerContext,
+    id: u64,
+    username: String,
+    password_hash: String,
+    role: UserRole,
+) -> Result<(), String> {
+    let _admin = get_or_create_admin(ctx)?;
+    
+    // Check if user already exists by ID
+    if ctx.db.user().id().find(&id).is_some() {
+        log::info!("[SEED] User already exists: {} (id: {})", username, id);
+        return Ok(());
+    }
+    
+    // Check if username is taken
+    if ctx.db.user().username().find(&username).is_some() {
+        log::info!("[SEED] Username already taken: {}", username);
+        return Ok(());
+    }
+    
+    // Create a placeholder identity - seeded users won't have real identities
+    // They'll get a real identity when they actually log in
+    let placeholder_identity = spacetimedb::Identity::from_byte_array([
+        (id & 0xFF) as u8,
+        ((id >> 8) & 0xFF) as u8,
+        ((id >> 16) & 0xFF) as u8,
+        ((id >> 24) & 0xFF) as u8,
+        0, 0, 0, 0,
+        0, 0, 0, 0,
+        0, 0, 0, 0,
+        0, 0, 0, 0,
+        0, 0, 0, 0,
+        0, 0, 0, 0,
+        0xDE, 0xAD, 0xBE, 0xEF, // marker bytes for seeded users
+    ]);
+    
+    ctx.db.user().insert(User {
+        id,
+        identity: placeholder_identity,
+        username: username.clone(),
+        password_hash,
+        role,
+        created_at: ctx.timestamp,
+        last_seen: ctx.timestamp,
+    });
+    
+    log::info!("[SEED] User created: {} (id: {}, role: {:?})", username, id, role);
+    Ok(())
+}
+
+/// Seed a user's category preference. Creates Admin user if needed.
+/// 
+/// # Development Only
+#[reducer]
+pub fn seed_user_category_preference(
+    ctx: &ReducerContext,
+    user_id: u64,
+    category_id: u64,
+) -> Result<(), String> {
+    use crate::models::user::{user_category_preference, UserCategoryPreference};
+    
+    let _admin = get_or_create_admin(ctx)?;
+    
+    // Verify user exists
+    ctx.db.user().id().find(&user_id)
+        .ok_or("User not found")?;
+    
+    // Verify category exists
+    ctx.db.category().id().find(&category_id)
+        .ok_or("Category not found")?;
+    
+    // Check if preference already exists
+    let exists = ctx.db.user_category_preference()
+        .user_id()
+        .filter(&user_id)
+        .any(|p| p.category_id == category_id);
+    
+    if exists {
+        return Ok(()); // Already exists, skip
+    }
+    
+    ctx.db.user_category_preference().insert(UserCategoryPreference {
+        id: 0,
+        user_id,
+        category_id,
+    });
+    
+    log::info!("[SEED] User {} preference: category {}", user_id, category_id);
+    Ok(())
+}
+
+/// Seed a player. Creates Admin user if needed.
+/// 
+/// # Development Only
+#[reducer]
+pub fn seed_player(
+    ctx: &ReducerContext,
+    id: u64,
+    user_id: u64,
+    username: String,
+    xp: u64,
+) -> Result<(), String> {
+    use crate::models::player::{Player};
+    
+    let _admin = get_or_create_admin(ctx)?;
+    
+    // Verify user exists
+    ctx.db.user().id().find(&user_id)
+        .ok_or("User not found")?;
+    
+    // Check if player already exists by ID
+    if ctx.db.player().id().find(&id).is_some() {
+        log::info!("[SEED] Player already exists: {} (id: {})", username, id);
+        return Ok(());
+    }
+    
+    // Check if player username is taken
+    if ctx.db.player().username().find(&username).is_some() {
+        log::info!("[SEED] Player username already taken: {}", username);
+        return Ok(());
+    }
+    
+    ctx.db.player().insert(Player {
+        id,
+        user_id,
+        username: username.clone(),
+        xp,
+        created_at: ctx.timestamp,
+    });
+    
+    log::info!("[SEED] Player created: {} (id: {}, user_id: {}, xp: {})", username, id, user_id, xp);
+    Ok(())
+}
+
+/// Seed a player's category preference. Creates Admin user if needed.
+/// 
+/// # Development Only
+#[reducer]
+pub fn seed_player_category_preference(
+    ctx: &ReducerContext,
+    player_id: u64,
+    category_id: u64,
+) -> Result<(), String> {
+    use crate::models::player::{player_category_preference, PlayerCategoryPreference};
+    
+    let _admin = get_or_create_admin(ctx)?;
+    
+    // Verify player exists
+    ctx.db.player().id().find(&player_id)
+        .ok_or("Player not found")?;
+    
+    // Verify category exists
+    ctx.db.category().id().find(&category_id)
+        .ok_or("Category not found")?;
+    
+    // Check if preference already exists
+    let exists = ctx.db.player_category_preference()
+        .player_id()
+        .filter(&player_id)
+        .any(|p| p.category_id == category_id);
+    
+    if exists {
+        return Ok(()); // Already exists, skip
+    }
+    
+    ctx.db.player_category_preference().insert(PlayerCategoryPreference {
+        id: 0,
+        player_id,
+        category_id,
+    });
+    
+    log::info!("[SEED] Player {} preference: category {}", player_id, category_id);
     Ok(())
 }

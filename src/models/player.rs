@@ -34,8 +34,8 @@ pub struct Player {
 
 /// A player's preference for a specific activity category.
 ///
-/// If a player has any preferences, only activities in preferred categories
-/// will be returned. If no preferences exist, all categories are available.
+/// If a player has any preferences, only activities in those preferred categories
+/// will be available. If no preferences exist, categories with ID < 100 are assumed.
 #[table(name = player_category_preference, public)]
 pub struct PlayerCategoryPreference {
     /// Unique identifier.
@@ -47,10 +47,7 @@ pub struct PlayerCategoryPreference {
     #[index(btree)]
     pub player_id: u64,
 
-    /// The category the player is interested in.
+    /// The category the player wants to include.
     #[index(btree)]
     pub category_id: u64,
-
-    /// Whether this category is enabled (true) or excluded (false).
-    pub enabled: bool,
 }

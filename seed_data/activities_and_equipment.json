@@ -1,8 +1,7 @@
 {
   "description": "Seed data for Activities and Equipment tables in SpacetimeDB",
-  "version": "1.0.0",
-  "generated": "2025-12-17",
-
+  "version": "2.0.0",
+  "generated": "2025-12-18",
   "categories": [
     {
       "id": 1,
@@ -11,52 +10,131 @@
       "display_order": 1
     },
     {
-      "id": 2,
-      "name": "Trust Building",
-      "description": "Activities focused on establishing trust and connection between participants",
+      "id": 5,
+      "name": "Sports & Games",
+      "description": "Competitive and recreational sports and games for couples and groups",
       "display_order": 2
     },
     {
-      "id": 3,
-      "name": "Sensory Exploration",
-      "description": "Activities exploring different senses and sensations",
+      "id": 12,
+      "name": "Trust Building",
+      "description": "Activities focused on establishing trust and connection between participants",
       "display_order": 3
     },
     {
-      "id": 4,
+      "id": 14,
       "name": "Challenges",
       "description": "More advanced activities that push comfort zones",
       "display_order": 4
     },
     {
-      "id": 5,
+      "id": 15,
       "name": "Creative Expression",
       "description": "Activities focused on artistic and creative exploration",
       "display_order": 5
     },
     {
-      "id": 6,
-      "name": "Physical Play",
-      "description": "Activities involving movement and physical interaction",
+      "id": 17,
+      "name": "Mindfulness",
+      "description": "Meditation and mindfulness practices for deeper connection",
       "display_order": 6
-    }
-  ],
-
-  "equipment": [
-    {
-      "id": 10001,
-      "name": "Blindfold",
-      "description": "Soft eye covering for sensory deprivation activities"
     },
     {
-      "id": 10002,
-      "name": "Rope (Soft)",
-      "description": "Soft cotton or silk rope, 20-30 feet length"
+      "id": 19,
+      "name": "Communication Games",
+      "description": "Games and activities focused on verbal and non-verbal communication",
+      "display_order": 7
+    },
+    {
+      "id": 23,
+      "name": "Photography",
+      "description": "Artistic photography techniques for capturing intimate moments",
+      "display_order": 8
+    },
+    {
+      "id": 1013,
+      "name": "Sensory Exploration",
+      "description": "Activities exploring different senses and sensations",
+      "display_order": 9
+    },
+    {
+      "id": 1016,
+      "name": "Physical Play",
+      "description": "Activities involving movement and physical interaction",
+      "display_order": 10
+    },
+    {
+      "id": 1018,
+      "name": "Role Play",
+      "description": "Creative scenarios and character exploration",
+      "display_order": 11
+    },
+    {
+      "id": 1020,
+      "name": "Bondage Basics",
+      "description": "Introduction to consensual restraint and rope work",
+      "display_order": 12
+    },
+    {
+      "id": 1021,
+      "name": "Massage & Bodywork",
+      "description": "Therapeutic and sensual massage techniques",
+      "display_order": 13
+    },
+    {
+      "id": 1022,
+      "name": "Power Exchange",
+      "description": "Consensual power dynamics and D/s exploration",
+      "display_order": 14
+    },
+    {
+      "id": 1024,
+      "name": "Boudoir Photography",
+      "description": "Sensual and tasteful boudoir-style photography for couples",
+      "display_order": 15
+    },
+    {
+      "id": 1025,
+      "name": "Advanced Bondage",
+      "description": "Complex rope work, suspension preparation, and advanced restraint techniques",
+      "display_order": 16
+    }
+  ],
+  "equipment": [
+    {
+      "id": 1,
+      "name": "Dice",
+      "description": "Standard six-sided dice for random selection"
     },
     {
       "id": 3,
       "name": "Timer",
       "description": "Countdown timer or phone with timer app"
+    },
+    {
+      "id": 8,
+      "name": "Music Player",
+      "description": "Device capable of playing music or ambient sounds"
+    },
+    {
+      "id": 9,
+      "name": "Notebook & Pen",
+      "description": "For written activities and journaling"
+    },
+    {
+      "id": 14,
+      "name": "Pillows/Cushions",
+      "description": "Comfortable pillows for positioning"
+    },
+    {
+      "id": 15,
+      "name": "Bell",
+      "description": "Small bell for non-verbal communication"
+    },
+    {
+      "id": 501,
+      "name": "Playing Cards",
+      "description": "Standard 52-card deck"
     },
     {
       "id": 1004,
@@ -79,19 +157,14 @@
       "description": "Full-length or handheld mirror"
     },
     {
-      "id": 8,
-      "name": "Music Player",
-      "description": "Device capable of playing music or ambient sounds"
+      "id": 10001,
+      "name": "Blindfold",
+      "description": "Soft eye covering for sensory deprivation activities"
     },
     {
-      "id": 9,
-      "name": "Notebook & Pen",
-      "description": "For written activities and journaling"
-    },
-    {
-      "id": 1,
-      "name": "Dice",
-      "description": "Standard six-sided dice for random selection"
+      "id": 10002,
+      "name": "Rope (Soft)",
+      "description": "Soft cotton or silk rope, 20-30 feet length"
     },
     {
       "id": 10011,
@@ -104,22 +177,216 @@
       "description": "Body-safe massage oil or lotion"
     },
     {
-      "id": 501,
-      "name": "Playing Cards",
-      "description": "Standard 52-card deck"
+      "id": 2001,
+      "name": "Eye Mask (Sleep)",
+      "description": "Comfortable sleep mask, alternative to blindfold"
     },
     {
-      "id": 14,
-      "name": "Pillows/Cushions",
-      "description": "Comfortable pillows for positioning"
+      "id": 2002,
+      "name": "Heating Pad",
+      "description": "Electric or microwaveable heating pad for warmth"
     },
     {
-      "id": 15,
-      "name": "Bell",
-      "description": "Small bell for non-verbal communication"
+      "id": 2003,
+      "name": "Essential Oils",
+      "description": "Aromatherapy oils for scent exploration (lavender, vanilla, etc.)"
+    },
+    {
+      "id": 2004,
+      "name": "Sarong/Scarf",
+      "description": "Large silk or cotton scarf for light binding or draping"
+    },
+    {
+      "id": 2005,
+      "name": "Wartenberg Wheel",
+      "description": "Medical pinwheel for sensation play"
+    },
+    {
+      "id": 2006,
+      "name": "Collar",
+      "description": "Decorative or leather collar for power exchange"
+    },
+    {
+      "id": 2007,
+      "name": "Body Paint",
+      "description": "Body-safe paint for artistic expression"
+    },
+    {
+      "id": 2008,
+      "name": "Camera/Phone",
+      "description": "For capturing photos with consent"
+    },
+    {
+      "id": 2009,
+      "name": "Flogger (Soft)",
+      "description": "Soft leather or suede flogger for impact play"
+    },
+    {
+      "id": 2010,
+      "name": "Paddle (Soft)",
+      "description": "Padded leather paddle for light impact"
+    },
+    {
+      "id": 2011,
+      "name": "Costume Pieces",
+      "description": "Simple costume items for role play (tie, apron, etc.)"
+    },
+    {
+      "id": 2012,
+      "name": "Yoga Mat",
+      "description": "Mat for floor-based activities"
+    },
+    {
+      "id": 2013,
+      "name": "Hot Stones",
+      "description": "Smooth basalt stones for hot stone massage"
+    },
+    {
+      "id": 2014,
+      "name": "Bamboo Sticks",
+      "description": "Bamboo massage sticks for tapotement"
+    },
+    {
+      "id": 2015,
+      "name": "Chocolate/Honey",
+      "description": "Edible treats for sensory food play"
+    },
+    {
+      "id": 2016,
+      "name": "Silk Fabric",
+      "description": "Smooth silk fabric for sensation contrast"
+    },
+    {
+      "id": 2017,
+      "name": "Fur Mitt",
+      "description": "Soft faux fur mitt for gentle sensation"
+    },
+    {
+      "id": 2018,
+      "name": "Whisper Quiet Vibrator",
+      "description": "Quiet vibrator for sensation exploration"
+    },
+    {
+      "id": 2019,
+      "name": "Spreader Bar",
+      "description": "Adjustable bar for positioning"
+    },
+    {
+      "id": 2020,
+      "name": "Safety Shears",
+      "description": "Blunt-tip scissors for emergency rope cutting"
+    },
+    {
+      "id": 3001,
+      "name": "Badminton Set",
+      "description": "Rackets, shuttlecocks, and portable net"
+    },
+    {
+      "id": 3002,
+      "name": "Table Tennis Set",
+      "description": "Paddles, balls, and portable net for any table"
+    },
+    {
+      "id": 3003,
+      "name": "Dart Board",
+      "description": "Standard dart board with darts"
+    },
+    {
+      "id": 3004,
+      "name": "Bocce Ball Set",
+      "description": "Bocce balls with pallino/jack"
+    },
+    {
+      "id": 3005,
+      "name": "Frisbee",
+      "description": "Flying disc for throwing games"
+    },
+    {
+      "id": 3006,
+      "name": "Cornhole Set",
+      "description": "Cornhole boards and bean bags"
+    },
+    {
+      "id": 3007,
+      "name": "Horseshoe Set",
+      "description": "Horseshoes and stakes"
+    },
+    {
+      "id": 3008,
+      "name": "Croquet Set",
+      "description": "Mallets, balls, wickets, and stakes"
+    },
+    {
+      "id": 3009,
+      "name": "Basketball",
+      "description": "Standard basketball"
+    },
+    {
+      "id": 3010,
+      "name": "Volleyball Set",
+      "description": "Volleyball and portable net"
+    },
+    {
+      "id": 3011,
+      "name": "Pool Cues",
+      "description": "Pool/billiard cues and balls (requires table)"
+    },
+    {
+      "id": 3012,
+      "name": "Tennis Equipment",
+      "description": "Tennis rackets and balls"
+    },
+    {
+      "id": 3013,
+      "name": "Mini Golf Set",
+      "description": "Portable mini golf obstacles and putters"
+    },
+    {
+      "id": 3014,
+      "name": "Kan Jam Set",
+      "description": "Kan Jam goals and frisbee"
+    },
+    {
+      "id": 3015,
+      "name": "Spikeball Set",
+      "description": "Spikeball net and balls"
+    },
+    {
+      "id": 3016,
+      "name": "Ladder Toss Set",
+      "description": "Ladder golf frames and bolas"
+    },
+    {
+      "id": 3101,
+      "name": "Suspension Ring",
+      "description": "Ceiling-mounted ring rated for body weight"
+    },
+    {
+      "id": 3102,
+      "name": "Bamboo Suspension Bar",
+      "description": "Sturdy bamboo bar for suspension spreaders"
+    },
+    {
+      "id": 3103,
+      "name": "Carabiners (Rated)",
+      "description": "Climbing-rated locking carabiners"
+    },
+    {
+      "id": 3104,
+      "name": "Suspension Rope",
+      "description": "6mm or 8mm jute or hemp rope for suspension"
+    },
+    {
+      "id": 3105,
+      "name": "Crash Mat",
+      "description": "Thick foam mat for safety during suspension practice"
+    },
+    {
+      "id": 3106,
+      "name": "Rope Bag",
+      "description": "Storage bag for organized rope collection"
     }
   ],
-
   "activities": [
     {
       "id": 1,
@@ -156,7 +423,7 @@
     },
     {
       "id": 4,
-      "category_id": 2,
+      "category_id": 12,
       "kind": "Skill",
       "name": "Guided Fall",
       "description": "Practice catching and supporting your partner",
@@ -167,7 +434,7 @@
     },
     {
       "id": 5,
-      "category_id": 2,
+      "category_id": 12,
       "kind": "Activity",
       "name": "Blindfolded Navigation",
       "description": "Guide your blindfolded partner through a space",
@@ -178,7 +445,7 @@
     },
     {
       "id": 6,
-      "category_id": 3,
+      "category_id": 1013,
       "kind": "Skill",
       "name": "Light Touch Mapping",
       "description": "Explore sensation with light fingertip touch",
@@ -189,7 +456,7 @@
     },
     {
       "id": 7,
-      "category_id": 3,
+      "category_id": 1013,
       "kind": "Activity",
       "name": "Temperature Play Introduction",
       "description": "Explore hot and cold sensations on the skin",
@@ -200,7 +467,7 @@
     },
     {
       "id": 8,
-      "category_id": 3,
+      "category_id": 1013,
       "kind": "Activity",
       "name": "Feather Sensation Journey",
       "description": "Explore ticklish and soft sensations with a feather",
@@ -211,7 +478,7 @@
     },
     {
       "id": 9,
-      "category_id": 4,
+      "category_id": 14,
       "kind": "Activity",
       "name": "Vulnerability Sharing",
       "description": "Share personal vulnerabilities in a safe space",
@@ -222,7 +489,7 @@
     },
     {
       "id": 10,
-      "category_id": 4,
+      "category_id": 14,
       "kind": "Activity",
       "name": "Time-Limited Stillness",
       "description": "Remain completely still for an extended period",
@@ -233,7 +500,7 @@
     },
     {
       "id": 11,
-      "category_id": 5,
+      "category_id": 15,
       "kind": "Skill",
       "name": "Body Appreciation Writing",
       "description": "Write appreciation notes about your partner's body",
@@ -244,7 +511,7 @@
     },
     {
       "id": 12,
-      "category_id": 5,
+      "category_id": 15,
       "kind": "Activity",
       "name": "Partner Portrait Session",
       "description": "Take artistic photos or drawings of your partner",
@@ -255,7 +522,7 @@
     },
     {
       "id": 13,
-      "category_id": 6,
+      "category_id": 1016,
       "kind": "Skill",
       "name": "Partner Stretching",
       "description": "Assist your partner in gentle stretches",
@@ -266,7 +533,7 @@
     },
     {
       "id": 14,
-      "category_id": 6,
+      "category_id": 1016,
       "kind": "Activity",
       "name": "Dance Without Music",
       "description": "Move together in synchronized movement without music",
@@ -277,7 +544,7 @@
     },
     {
       "id": 15,
-      "category_id": 2,
+      "category_id": 12,
       "kind": "Activity",
       "name": "Wrist Binding Introduction",
       "description": "Introduction to consensual wrist restraint with soft restraints",
@@ -288,7 +555,7 @@
     },
     {
       "id": 16,
-      "category_id": 3,
+      "category_id": 1013,
       "kind": "Activity",
       "name": "Massage Journey",
       "description": "Give a complete relaxation massage to your partner",
@@ -299,7 +566,7 @@
     },
     {
       "id": 17,
-      "category_id": 4,
+      "category_id": 14,
       "kind": "Activity",
       "name": "Card Game of Dares",
       "description": "Draw cards to determine escalating challenges",
@@ -321,7 +588,7 @@
     },
     {
       "id": 19,
-      "category_id": 5,
+      "category_id": 15,
       "kind": "Activity",
       "name": "Sensory Journaling",
       "description": "Write about physical sensations experienced together",
@@ -332,7 +599,7 @@
     },
     {
       "id": 20,
-      "category_id": 6,
+      "category_id": 1016,
       "kind": "Activity",
       "name": "Slow Dance Connection",
       "description": "Dance slowly and intimately with your partner",
@@ -340,9 +607,1306 @@
       "video_url": null,
       "xp_required": 30,
       "xp_reward": 25
+    },
+    {
+      "id": 21,
+      "category_id": 17,
+      "kind": "Skill",
+      "name": "Guided Meditation Together",
+      "description": "Practice a guided meditation as a couple",
+      "instructions": "Find a comfortable position sitting or lying near each other. Play a 10-15 minute guided meditation. Hold hands lightly if desired. Focus on the guide's voice and your breath. Afterward, share what you noticed during the practice.",
+      "video_url": null,
+      "xp_required": 0,
+      "xp_reward": 15
+    },
+    {
+      "id": 22,
+      "category_id": 17,
+      "kind": "Skill",
+      "name": "Body Scan Awareness",
+      "description": "Verbally guide your partner through a body scan",
+      "instructions": "Your partner lies down comfortably with eyes closed. Slowly guide them to focus on each body part, from toes to crown. Speak gently and allow 30 seconds for each area. Notice tension, temperature, and sensation. End with whole-body awareness.",
+      "video_url": null,
+      "xp_required": 20,
+      "xp_reward": 20
+    },
+    {
+      "id": 23,
+      "category_id": 17,
+      "kind": "Activity",
+      "name": "Loving Kindness Meditation",
+      "description": "Practice metta meditation focused on your partner",
+      "instructions": "Sit facing each other. Close your eyes. Silently repeat: 'May you be happy. May you be healthy. May you be safe. May you live with ease.' Visualize sending these wishes to your partner. After 10 minutes, open eyes and share your experience.",
+      "video_url": null,
+      "xp_required": 35,
+      "xp_reward": 30
+    },
+    {
+      "id": 24,
+      "category_id": 17,
+      "kind": "Activity",
+      "name": "Tantric Breathing",
+      "description": "Practice synchronized tantric breathing techniques",
+      "instructions": "Sit facing each other in yab-yum position or cross-legged knee-to-knee. Match breath cycles. On the inhale, visualize energy rising; on exhale, energy descending. Practice for 15 minutes. Maintain eye contact and hand contact throughout.",
+      "video_url": null,
+      "xp_required": 50,
+      "xp_reward": 45
+    },
+    {
+      "id": 25,
+      "category_id": 1018,
+      "kind": "Skill",
+      "name": "Character Development",
+      "description": "Create characters for future role play scenarios",
+      "instructions": "Each partner writes a brief character description including: name, personality, desires, and boundaries. Share your characters with each other. Discuss scenarios where these characters might interact. Save characters for future use.",
+      "video_url": null,
+      "xp_required": 25,
+      "xp_reward": 20
+    },
+    {
+      "id": 26,
+      "category_id": 1018,
+      "kind": "Activity",
+      "name": "Strangers at a Bar",
+      "description": "Role play meeting as strangers for the first time",
+      "instructions": "Go to separate rooms. One partner enters 'the bar' (living room). The other approaches as a stranger. Flirt, introduce yourselves with fake names, and seduce each other as if meeting for the first time. Stay in character for at least 20 minutes.",
+      "video_url": null,
+      "xp_required": 60,
+      "xp_reward": 45
+    },
+    {
+      "id": 27,
+      "category_id": 1018,
+      "kind": "Activity",
+      "name": "Service Role Play",
+      "description": "One partner serves the other for an evening",
+      "instructions": "Agree on the duration (1-3 hours). The serving partner attends to the other's needs: drinks, snacks, massage, entertainment choices. The served partner practices graciously receiving. Discuss boundaries beforehand. End with appreciation and discussion.",
+      "video_url": null,
+      "xp_required": 80,
+      "xp_reward": 60
+    },
+    {
+      "id": 28,
+      "category_id": 1018,
+      "kind": "Activity",
+      "name": "Teacher and Student",
+      "description": "Educational role play with power dynamics",
+      "instructions": "One partner plays a teacher, the other a student. The 'teacher' instructs the 'student' in a subject (real or imaginary). Include praise for correct answers and playful consequences for wrong ones. Keep it light and fun. Switch roles if desired.",
+      "video_url": null,
+      "xp_required": 70,
+      "xp_reward": 50
+    },
+    {
+      "id": 29,
+      "category_id": 19,
+      "kind": "Skill",
+      "name": "Non-Verbal Communication",
+      "description": "Practice communicating without words",
+      "instructions": "Set a 15-minute timer. During this time, you may not speak. Communicate only through gestures, facial expressions, and touch. Try to have a 'conversation' about your day or make decisions together. Discuss afterward what was easy or difficult.",
+      "video_url": null,
+      "xp_required": 20,
+      "xp_reward": 25
+    },
+    {
+      "id": 30,
+      "category_id": 19,
+      "kind": "Activity",
+      "name": "Desire Mapping",
+      "description": "Create visual maps of your desires together",
+      "instructions": "Each partner draws a map of their desires on paper. Use symbols, colors, and words. Include current desires and future curiosities. Exchange maps and discuss what you see. Find overlaps and differences. Keep maps for future reference.",
+      "video_url": null,
+      "xp_required": 35,
+      "xp_reward": 35
+    },
+    {
+      "id": 31,
+      "category_id": 19,
+      "kind": "Activity",
+      "name": "Yes/No/Maybe Lists",
+      "description": "Create comprehensive lists of activities and preferences",
+      "instructions": "Each partner independently categorizes activities into Yes (enthusiastic), No (hard limit), and Maybe (curious). Compare lists. Discuss the Maybes in detail. Identify areas of overlap. Update lists regularly as preferences evolve.",
+      "video_url": null,
+      "xp_required": 15,
+      "xp_reward": 25
+    },
+    {
+      "id": 32,
+      "category_id": 19,
+      "kind": "Activity",
+      "name": "Appreciation Bombardment",
+      "description": "Rapid-fire appreciation and compliments",
+      "instructions": "Set a timer for 3 minutes. One partner speaks continuously, sharing every appreciation and compliment they can think of about their partner. No pauses longer than 3 seconds. The receiver just listens and absorbs. Switch roles.",
+      "video_url": null,
+      "xp_required": 30,
+      "xp_reward": 30
+    },
+    {
+      "id": 33,
+      "category_id": 1020,
+      "kind": "Skill",
+      "name": "Rope Safety Basics",
+      "description": "Learn essential rope bondage safety principles",
+      "instructions": "Study and discuss: never tie around the neck, check circulation every 5 minutes, always have safety shears nearby, never leave a tied person alone, establish and test safe words. Practice the two-finger rule under ropes. Know pressure points to avoid.",
+      "video_url": null,
+      "xp_required": 50,
+      "xp_reward": 35
+    },
+    {
+      "id": 34,
+      "category_id": 1020,
+      "kind": "Skill",
+      "name": "Single Column Tie",
+      "description": "Learn the foundational single column tie",
+      "instructions": "Practice the single column tie on your partner's wrist. Create a cuff that is snug but allows two fingers underneath. Practice tying and untying smoothly. Check that the tie doesn't collapse under tension. This is the building block for all bondage.",
+      "video_url": null,
+      "xp_required": 70,
+      "xp_reward": 40
+    },
+    {
+      "id": 35,
+      "category_id": 1020,
+      "kind": "Activity",
+      "name": "Decorative Rope Harness",
+      "description": "Create a simple chest harness for aesthetics",
+      "instructions": "Using soft rope, create a simple chest harness that crosses in an X or diamond pattern. Focus on aesthetics, not restraint. Take photos if desired. The wearer should feel held but not restricted. Take your time and make adjustments as needed.",
+      "video_url": null,
+      "xp_required": 120,
+      "xp_reward": 70
+    },
+    {
+      "id": 36,
+      "category_id": 1020,
+      "kind": "Activity",
+      "name": "Ankles Together Tie",
+      "description": "Practice restraining the ankles together safely",
+      "instructions": "With your partner seated or lying down, bind the ankles together using a single or double column tie. Ensure circulation remains good. Practice releasing quickly. The bound partner focuses on the sensations of restricted movement.",
+      "video_url": null,
+      "xp_required": 90,
+      "xp_reward": 50
+    },
+    {
+      "id": 37,
+      "category_id": 1021,
+      "kind": "Skill",
+      "name": "Swedish Massage Basics",
+      "description": "Learn foundational Swedish massage strokes",
+      "instructions": "Learn and practice: effleurage (long gliding strokes), petrissage (kneading), friction (circular pressure), and tapotement (percussion). Practice each technique on your partner's back for 5 minutes. Ask for feedback on pressure and technique.",
+      "video_url": null,
+      "xp_required": 25,
+      "xp_reward": 25
+    },
+    {
+      "id": 38,
+      "category_id": 1021,
+      "kind": "Activity",
+      "name": "Foot Reflexology",
+      "description": "Provide a detailed foot massage using reflexology points",
+      "instructions": "Study a reflexology chart. Massage each foot for 15 minutes, paying attention to pressure points. Use thumb walking and rotation techniques. Ask about sensitive areas. End with full-foot strokes and gentle stretches of the toes.",
+      "video_url": null,
+      "xp_required": 40,
+      "xp_reward": 35
+    },
+    {
+      "id": 39,
+      "category_id": 1021,
+      "kind": "Activity",
+      "name": "Hot Stone Therapy",
+      "description": "Use heated stones for deep relaxation massage",
+      "instructions": "Heat basalt stones in water (not too hot - test on your inner wrist). Place stones along the spine and in the palms. Use oiled stones to massage. Alternate between placing and gliding. Focus on the back and shoulders. Take 45 minutes to an hour.",
+      "video_url": null,
+      "xp_required": 80,
+      "xp_reward": 60
+    },
+    {
+      "id": 40,
+      "category_id": 1021,
+      "kind": "Activity",
+      "name": "Four-Hands Massage",
+      "description": "Two givers provide synchronized massage to one receiver",
+      "instructions": "If a third person is available, two people massage one receiver simultaneously. Coordinate movements to mirror each other. One works upper body while the other works lower. Create a flowing, overwhelming sensation of being cared for.",
+      "video_url": null,
+      "xp_required": 100,
+      "xp_reward": 75
+    },
+    {
+      "id": 41,
+      "category_id": 1022,
+      "kind": "Skill",
+      "name": "Power Exchange Negotiation",
+      "description": "Discuss and negotiate power exchange dynamics",
+      "instructions": "Discuss: What does power exchange mean to each of you? What roles interest you (Dominant, submissive, switch)? What activities feel powerful? What's off-limits? Create a written agreement if desired. Revisit this conversation regularly.",
+      "video_url": null,
+      "xp_required": 40,
+      "xp_reward": 30
+    },
+    {
+      "id": 42,
+      "category_id": 1022,
+      "kind": "Activity",
+      "name": "Collar Ceremony",
+      "description": "A meaningful collaring ritual between partners",
+      "instructions": "Choose a collar that holds meaning. Create a simple ceremony: the Dominant speaks about what the collar represents, the submissive accepts it. Include vows or intentions if desired. The collar can be worn for a set time or removed when the scene ends.",
+      "video_url": null,
+      "xp_required": 90,
+      "xp_reward": 65
+    },
+    {
+      "id": 43,
+      "category_id": 1022,
+      "kind": "Activity",
+      "name": "Directed Meditation",
+      "description": "One partner directs the other's mental journey",
+      "instructions": "The submissive partner relaxes with eyes closed. The Dominant guides them through a mental journey: a beach, a forest, or abstract space. Give specific instructions about what to see, feel, and experience. End by bringing them back gently.",
+      "video_url": null,
+      "xp_required": 60,
+      "xp_reward": 45
+    },
+    {
+      "id": 44,
+      "category_id": 1022,
+      "kind": "Activity",
+      "name": "Sensation Control",
+      "description": "Dominant controls all sensations the submissive experiences",
+      "instructions": "For a set time (30-60 minutes), the Dominant controls all sensory input. They decide what the submissive sees (blindfold or not), hears (music or silence), feels (various sensation tools). The submissive focuses on receiving and responding.",
+      "video_url": null,
+      "xp_required": 110,
+      "xp_reward": 80
+    },
+    {
+      "id": 45,
+      "category_id": 1,
+      "kind": "Activity",
+      "name": "Two Truths and a Desire",
+      "description": "Share truths and desires in a guessing game",
+      "instructions": "Each partner shares three statements: two true things about themselves and one secret desire. The other guesses which is the desire. Take turns. Discuss the desires revealed - which ones might you explore together?",
+      "video_url": null,
+      "xp_required": 10,
+      "xp_reward": 15
+    },
+    {
+      "id": 46,
+      "category_id": 1,
+      "kind": "Skill",
+      "name": "Affirmation Exchange",
+      "description": "Practice giving and receiving affirmations",
+      "instructions": "Take turns giving each other genuine affirmations. Start with 'I appreciate you because...' or 'I admire how you...'. Give at least 5 affirmations each. The receiver practices accepting without deflecting - just say 'Thank you.'",
+      "video_url": null,
+      "xp_required": 0,
+      "xp_reward": 10
+    },
+    {
+      "id": 47,
+      "category_id": 1013,
+      "kind": "Activity",
+      "name": "Scent Exploration",
+      "description": "Explore aromatherapy and scent preferences together",
+      "instructions": "Gather various essential oils or scented items. Blindfolded, the receiver smells each scent and describes their reaction. Discuss associations and memories. Apply preferred scents lightly to pulse points. Notice how scent affects mood.",
+      "video_url": null,
+      "xp_required": 25,
+      "xp_reward": 25
+    },
+    {
+      "id": 48,
+      "category_id": 1013,
+      "kind": "Activity",
+      "name": "Texture Safari",
+      "description": "Explore different textures on the skin",
+      "instructions": "Gather items with varied textures: silk, fur, leather, sandpaper, velvet, cool metal. Blindfolded, the receiver experiences each texture on various body parts. Rate each sensation. Discuss surprising reactions and preferences.",
+      "video_url": null,
+      "xp_required": 35,
+      "xp_reward": 30
+    },
+    {
+      "id": 49,
+      "category_id": 1013,
+      "kind": "Activity",
+      "name": "Wartenberg Wheel Exploration",
+      "description": "Explore prickly sensation with a Wartenberg wheel",
+      "instructions": "Starting with light pressure, roll the Wartenberg wheel across different areas of skin. Begin with arms and back. Vary pressure from barely touching to firm. The receiver communicates their experience. Focus on sensitive areas like inner arms.",
+      "video_url": null,
+      "xp_required": 65,
+      "xp_reward": 45
+    },
+    {
+      "id": 50,
+      "category_id": 14,
+      "kind": "Activity",
+      "name": "Orgasm Delay Practice",
+      "description": "Practice building and delaying climax together",
+      "instructions": "The receiving partner signals when they approach climax. The giving partner stops all stimulation until arousal decreases. Repeat this cycle at least 5 times. Focus on the journey rather than the destination. Communicate openly throughout.",
+      "video_url": null,
+      "xp_required": 90,
+      "xp_reward": 55
+    },
+    {
+      "id": 51,
+      "category_id": 15,
+      "kind": "Activity",
+      "name": "Body Painting Canvas",
+      "description": "Turn your partner's body into an art canvas",
+      "instructions": "Using body-safe paint, create art on your partner's skin. They lie still as your canvas. Paint designs, words, or abstract patterns. Take photos of the finished work. The experience of being painted is as important as the result.",
+      "video_url": null,
+      "xp_required": 50,
+      "xp_reward": 40
+    },
+    {
+      "id": 52,
+      "category_id": 15,
+      "kind": "Activity",
+      "name": "Erotic Poetry Reading",
+      "description": "Read sensual poetry to each other",
+      "instructions": "Each partner selects or writes 2-3 erotic poems. Take turns reading aloud by candlelight. Read slowly and expressively. Discuss which images and words resonate. Consider writing your own poem about your partner.",
+      "video_url": null,
+      "xp_required": 30,
+      "xp_reward": 25
+    },
+    {
+      "id": 53,
+      "category_id": 1016,
+      "kind": "Activity",
+      "name": "Wrestler's Embrace",
+      "description": "Playful wrestling with sensual undertones",
+      "instructions": "On a padded surface, engage in playful wrestling. Take turns being dominant and submissive. Pin each other down. The goal is connection and play, not winning. Include breaks for kissing and catching breath. Establish a 'tap out' signal.",
+      "video_url": null,
+      "xp_required": 45,
+      "xp_reward": 35
+    },
+    {
+      "id": 54,
+      "category_id": 1016,
+      "kind": "Activity",
+      "name": "Partner Yoga Flow",
+      "description": "Practice yoga poses designed for partners",
+      "instructions": "Find partner yoga poses online. Practice 5-7 poses that require cooperation and trust. Include poses that involve supporting each other's weight. Move slowly and communicate. End with partner savasana, lying close together.",
+      "video_url": null,
+      "xp_required": 40,
+      "xp_reward": 35
+    },
+    {
+      "id": 55,
+      "category_id": 12,
+      "kind": "Activity",
+      "name": "Carried Away",
+      "description": "Practice carrying your partner in various ways",
+      "instructions": "Practice different carries: bridal, piggyback, fireman's carry. Start slowly and safely. The carried partner focuses on trusting and relaxing. Move to carrying them to different locations - bed, couch, outdoors if possible.",
+      "video_url": null,
+      "xp_required": 50,
+      "xp_reward": 40
+    },
+    {
+      "id": 56,
+      "category_id": 19,
+      "kind": "Activity",
+      "name": "Fantasy Auction",
+      "description": "Bid on each other's fantasies with tokens",
+      "instructions": "Each partner writes 5 fantasies on cards. Each gets 10 tokens. Take turns auctioning fantasies. The highest bidder 'wins' that fantasy to be fulfilled. Discuss timing and details for won fantasies. Remaining fantasies return for future auctions.",
+      "video_url": null,
+      "xp_required": 55,
+      "xp_reward": 45
+    },
+    {
+      "id": 57,
+      "category_id": 1018,
+      "kind": "Activity",
+      "name": "Photographer's Muse",
+      "description": "One partner directs a sensual photo shoot",
+      "instructions": "The photographer directs their muse into various poses. Give specific instructions about position, expression, and attitude. Create a safe, admiring atmosphere. Review photos together, deleting any that aren't wanted. Keep favorites private.",
+      "video_url": null,
+      "xp_required": 65,
+      "xp_reward": 50
+    },
+    {
+      "id": 58,
+      "category_id": 1021,
+      "kind": "Activity",
+      "name": "Candlelight Massage",
+      "description": "Massage with warm massage candle wax",
+      "instructions": "Light a massage candle designed for skin. Let it pool. Test temperature on your inner wrist. Drizzle warm oil/wax onto your partner's back. Massage it in with long strokes. The warmth and light create an intimate atmosphere.",
+      "video_url": null,
+      "xp_required": 60,
+      "xp_reward": 50
+    },
+    {
+      "id": 59,
+      "category_id": 1022,
+      "kind": "Activity",
+      "name": "Kneeling Meditation",
+      "description": "Submissive partner practices kneeling meditation",
+      "instructions": "The submissive kneels in a comfortable position (use cushioning). The Dominant sits nearby, perhaps with a hand on the submissive's head or shoulder. Maintain the position for 10-20 minutes in silence. Focus on breath and the power exchange.",
+      "video_url": null,
+      "xp_required": 75,
+      "xp_reward": 55
+    },
+    {
+      "id": 60,
+      "category_id": 14,
+      "kind": "Activity",
+      "name": "Sensation Roulette",
+      "description": "Spin a wheel to determine sensations",
+      "instructions": "Create a wheel (physical or app) with different sensations: ice, feather, hands, lips, etc. Spin to determine what sensation comes next. The receiver doesn't know what's coming. Add blindfold for extra anticipation. Spin at least 10 times.",
+      "video_url": null,
+      "xp_required": 70,
+      "xp_reward": 55
+    },
+    {
+      "id": 61,
+      "category_id": 23,
+      "kind": "Skill",
+      "name": "Camera Basics for Couples",
+      "description": "Learn fundamental camera settings together",
+      "instructions": "Explore your camera or phone settings together. Practice adjusting exposure, focus, and white balance. Take test shots of objects around the room. Discuss which settings create the mood you want. This foundation will help all future photography activities.",
+      "video_url": null,
+      "xp_required": 0,
+      "xp_reward": 15
+    },
+    {
+      "id": 62,
+      "category_id": 23,
+      "kind": "Skill",
+      "name": "Natural Light Mastery",
+      "description": "Understanding and using natural window light",
+      "instructions": "Position your partner near a window at different times of day. Notice how light direction changes the mood. Practice with side light, back light, and diffused light through curtains. Take comparison shots to see the dramatic differences lighting makes.",
+      "video_url": null,
+      "xp_required": 15,
+      "xp_reward": 20
+    },
+    {
+      "id": 63,
+      "category_id": 23,
+      "kind": "Activity",
+      "name": "Silhouette Session",
+      "description": "Create dramatic silhouette portraits",
+      "instructions": "Position your subject in front of a bright window or light source. Expose for the background to create a dark silhouette. Experiment with different poses and profiles. The mystery of silhouettes can be incredibly intimate and artistic.",
+      "video_url": null,
+      "xp_required": 20,
+      "xp_reward": 25
+    },
+    {
+      "id": 64,
+      "category_id": 23,
+      "kind": "Skill",
+      "name": "Posing Foundations",
+      "description": "Learn comfortable, flattering poses for both partners",
+      "instructions": "Practice basic poses together: relaxed seated, standing with weight shifted, lying down naturally. Learn the S-curve for elegant lines. The photographer should demonstrate poses first. Focus on what feels natural, not forced.",
+      "video_url": null,
+      "xp_required": 0,
+      "xp_reward": 15
+    },
+    {
+      "id": 65,
+      "category_id": 23,
+      "kind": "Activity",
+      "name": "Hands Portrait Series",
+      "description": "Focus on capturing the beauty and intimacy of hands",
+      "instructions": "Photograph your hands together in various poses: interlaced, one over the other, reaching toward each other. Include wedding rings if applicable. These abstract shots tell stories of connection without showing faces.",
+      "video_url": null,
+      "xp_required": 15,
+      "xp_reward": 20
+    },
+    {
+      "id": 66,
+      "category_id": 23,
+      "kind": "Activity",
+      "name": "The Detail Story",
+      "description": "Capture meaningful details and textures",
+      "instructions": "Focus on small details: the curve of a shoulder, texture of fabric against skin, the line of a collarbone. Use macro mode or get close. These intimate details often tell more compelling stories than full portraits.",
+      "video_url": null,
+      "xp_required": 20,
+      "xp_reward": 25
+    },
+    {
+      "id": 67,
+      "category_id": 23,
+      "kind": "Skill",
+      "name": "Self-Timer Techniques",
+      "description": "Master using timers and remotes for couples shots",
+      "instructions": "Set up your camera on a tripod or stable surface. Practice with 10-second timers to get into position together. Learn to use phone remotes or camera apps for more control. Take at least 20 shots to find your flow.",
+      "video_url": null,
+      "xp_required": 15,
+      "xp_reward": 20
+    },
+    {
+      "id": 68,
+      "category_id": 23,
+      "kind": "Activity",
+      "name": "Mirror Reflections",
+      "description": "Use mirrors for creative double compositions",
+      "instructions": "Position a mirror to create interesting reflections. Photograph your partner with their reflection, or capture yourselves together in the mirror. Play with which version is in focus. Mirrors add depth and intrigue to images.",
+      "video_url": null,
+      "xp_required": 25,
+      "xp_reward": 30
+    },
+    {
+      "id": 69,
+      "category_id": 23,
+      "kind": "Activity",
+      "name": "Motion and Blur",
+      "description": "Capture movement with intentional blur",
+      "instructions": "Use slower shutter speeds (or motion mode on phones) to capture intentional blur. Have your partner move while you stay still, or vice versa. Dance, spin, or simply turn your head. These ethereal shots convey emotion and energy.",
+      "video_url": null,
+      "xp_required": 30,
+      "xp_reward": 30
+    },
+    {
+      "id": 70,
+      "category_id": 23,
+      "kind": "Activity",
+      "name": "Golden Hour Portraits",
+      "description": "Capture the magic of sunset or sunrise light",
+      "instructions": "Schedule your session during golden hour (hour after sunrise or before sunset). The warm, soft light is incredibly flattering. Position your subject with the sun to the side or behind them. Capture the warm glow on skin.",
+      "video_url": null,
+      "xp_required": 20,
+      "xp_reward": 25
+    },
+    {
+      "id": 71,
+      "category_id": 23,
+      "kind": "Skill",
+      "name": "Photo Editing Basics",
+      "description": "Learn to enhance your photos together",
+      "instructions": "Choose 10 favorite photos from previous sessions. Learn basic editing: brightness, contrast, warmth, and cropping. Work together to find an editing style you both love. Save presets for consistent future editing.",
+      "video_url": null,
+      "xp_required": 25,
+      "xp_reward": 25
+    },
+    {
+      "id": 72,
+      "category_id": 23,
+      "kind": "Activity",
+      "name": "Black and White Conversion",
+      "description": "Create timeless monochrome portraits",
+      "instructions": "Take photos specifically designed for black and white conversion. Focus on contrast, texture, and shape rather than color. Strong shadows and highlights work best. Convert and compare to see which images transform beautifully.",
+      "video_url": null,
+      "xp_required": 30,
+      "xp_reward": 30
+    },
+    {
+      "id": 73,
+      "category_id": 23,
+      "kind": "Activity",
+      "name": "Candid Moments",
+      "description": "Capture genuine unposed expressions",
+      "instructions": "One partner simply goes about a relaxed activity while the other photographs candidly. Read a book, make coffee, stretch, or daydream. The photographer captures genuine moments without direction. These often become the most treasured images.",
+      "video_url": null,
+      "xp_required": 15,
+      "xp_reward": 20
+    },
+    {
+      "id": 74,
+      "category_id": 23,
+      "kind": "Activity",
+      "name": "Shadow Play",
+      "description": "Use shadows as a compositional element",
+      "instructions": "Create interesting shadows using blinds, lace, plants, or cut paper. Project patterns onto your partner's skin or the background. The interplay of light and shadow creates drama and mystery.",
+      "video_url": null,
+      "xp_required": 35,
+      "xp_reward": 35
+    },
+    {
+      "id": 75,
+      "category_id": 23,
+      "kind": "Skill",
+      "name": "Creating a Shot List",
+      "description": "Plan and organize your photo sessions",
+      "instructions": "Before your next session, sit together and create a shot list. Include specific poses, locations within your space, props, and mood references. Having a plan reduces stress and ensures you capture everything you want.",
+      "video_url": null,
+      "xp_required": 20,
+      "xp_reward": 20
+    },
+    {
+      "id": 76,
+      "category_id": 1024,
+      "kind": "Skill",
+      "name": "Boudoir Lighting Setup",
+      "description": "Create flattering, sensual lighting for boudoir",
+      "instructions": "Set up a main light source at 45 degrees from your subject. Add a reflector or second light for fill. Use warm bulbs or candles for ambiance. Practice with different lighting ratios to find what's most flattering.",
+      "video_url": null,
+      "xp_required": 30,
+      "xp_reward": 30
+    },
+    {
+      "id": 77,
+      "category_id": 1024,
+      "kind": "Activity",
+      "name": "The Getting Ready Shot",
+      "description": "Capture the anticipation of preparation",
+      "instructions": "Document the process of getting ready: brushing hair, applying lipstick, adjusting clothing, looking in the mirror. These behind-the-scenes moments capture vulnerability and confidence. The photographer stays respectful and encouraging.",
+      "video_url": null,
+      "xp_required": 35,
+      "xp_reward": 35
+    },
+    {
+      "id": 78,
+      "category_id": 1024,
+      "kind": "Skill",
+      "name": "Confident Posing",
+      "description": "Learn poses that accentuate confidence and beauty",
+      "instructions": "Practice power poses: hands on hips, chin slightly up, shoulders back. Learn the model's triangle (hands at different heights). Practice in front of a mirror together before photographing. Confidence is the most attractive feature.",
+      "video_url": null,
+      "xp_required": 25,
+      "xp_reward": 25
+    },
+    {
+      "id": 79,
+      "category_id": 1024,
+      "kind": "Activity",
+      "name": "Reclining Elegance",
+      "description": "Master the art of lying-down poses",
+      "instructions": "Practice various reclining poses on a bed or couch. Focus on elongating lines, comfortable arm placement, and natural expression. The photographer shoots from above or at bed level. Use pillows for support and styling.",
+      "video_url": null,
+      "xp_required": 35,
+      "xp_reward": 35
+    },
+    {
+      "id": 80,
+      "category_id": 1024,
+      "kind": "Activity",
+      "name": "Sheet and Fabric Draping",
+      "description": "Use flowing fabrics for artistic coverage",
+      "instructions": "Use silk sheets, sheer fabrics, or flowing robes draped artistically. The fabric suggests rather than reveals, creating mystery and elegance. Practice different draping techniques and how fabric catches light.",
+      "video_url": null,
+      "xp_required": 40,
+      "xp_reward": 40
+    },
+    {
+      "id": 81,
+      "category_id": 1024,
+      "kind": "Activity",
+      "name": "Over-the-Shoulder Glance",
+      "description": "Capture the classic boudoir look-back pose",
+      "instructions": "The subject faces away and looks back over their shoulder toward the camera. This creates a sense of invitation and playfulness. Vary the intensity of the look from shy to bold. Practice finding your best angle.",
+      "video_url": null,
+      "xp_required": 30,
+      "xp_reward": 30
+    },
+    {
+      "id": 82,
+      "category_id": 1024,
+      "kind": "Activity",
+      "name": "Window Silhouette Boudoir",
+      "description": "Create romantic silhouettes in lingerie or flowing clothes",
+      "instructions": "Position in front of a bright window, creating a silhouette. The outline of the body is visible without revealing details. Experiment with different poses: stretching, looking out, adjusting hair. These are timeless and universally flattering.",
+      "video_url": null,
+      "xp_required": 35,
+      "xp_reward": 35
+    },
+    {
+      "id": 83,
+      "category_id": 1024,
+      "kind": "Skill",
+      "name": "Wardrobe Selection",
+      "description": "Choose outfits that photograph beautifully",
+      "instructions": "Go through your wardrobe together and select pieces that photograph well: lace, silk, fitted basics, oversized shirts, jewelry. Consider what makes each person feel most confident. Lay out options for your next session.",
+      "video_url": null,
+      "xp_required": 20,
+      "xp_reward": 20
+    },
+    {
+      "id": 84,
+      "category_id": 1024,
+      "kind": "Activity",
+      "name": "The Collar Bone Focus",
+      "description": "Highlight this elegant feature",
+      "instructions": "Create shots that emphasize the collar bone and neck area. Use side lighting to create shadows that define the bones. Off-shoulder tops or no shirt work well. This delicate area photographs beautifully.",
+      "video_url": null,
+      "xp_required": 35,
+      "xp_reward": 35
+    },
+    {
+      "id": 85,
+      "category_id": 1024,
+      "kind": "Activity",
+      "name": "Back Study",
+      "description": "Capture the beauty of the back and spine",
+      "instructions": "Photograph the back from various angles: straight on, from the side, with arms raised. Notice how different positions change the line of the spine. This can be tastefully nude or with backless clothing. Lighting from the side creates beautiful definition.",
+      "video_url": null,
+      "xp_required": 45,
+      "xp_reward": 45
+    },
+    {
+      "id": 86,
+      "category_id": 1024,
+      "kind": "Activity",
+      "name": "Morning Light Session",
+      "description": "Capture the intimacy of morning moments",
+      "instructions": "Photograph during early morning light streaming through windows. Subject can be in bed, stretching, or having coffee in minimal clothing. The soft morning light is incredibly flattering and creates a warm, intimate mood.",
+      "video_url": null,
+      "xp_required": 40,
+      "xp_reward": 40
+    },
+    {
+      "id": 87,
+      "category_id": 1024,
+      "kind": "Activity",
+      "name": "Couples Boudoir",
+      "description": "Capture intimate moments together as a couple",
+      "instructions": "Use a tripod and timer to photograph yourselves together. Focus on connection: foreheads touching, embracing, laughing together. These can range from sweet to sensual depending on your comfort. Take turns adjusting the camera.",
+      "video_url": null,
+      "xp_required": 50,
+      "xp_reward": 50
+    },
+    {
+      "id": 88,
+      "category_id": 1024,
+      "kind": "Activity",
+      "name": "Implied Nude Artistry",
+      "description": "Create tasteful implied nude photographs",
+      "instructions": "Use strategic positioning, shadows, props, and camera angles to suggest nudity while revealing nothing explicit. Arms, hands, fabric, and creative cropping all work well. Focus on shape, form, and emotion rather than exposure.",
+      "video_url": null,
+      "xp_required": 60,
+      "xp_reward": 55
+    },
+    {
+      "id": 89,
+      "category_id": 1024,
+      "kind": "Skill",
+      "name": "Building a Mood Board",
+      "description": "Collect inspiration for your photography sessions",
+      "instructions": "Together, browse photography inspiration online (Pinterest, Instagram). Save images you both love into a shared folder. Discuss what elements appeal to you: lighting, poses, mood, styling. Use this to plan future sessions.",
+      "video_url": null,
+      "xp_required": 15,
+      "xp_reward": 20
+    },
+    {
+      "id": 90,
+      "category_id": 1024,
+      "kind": "Activity",
+      "name": "Vintage Glamour",
+      "description": "Channel old Hollywood elegance",
+      "instructions": "Create photos inspired by 1940s-50s glamour photography. Use dramatic lighting, classic poses, and vintage-style lingerie or robes. Edit in black and white with high contrast. Think Marilyn Monroe or classic pin-up aesthetics.",
+      "video_url": null,
+      "xp_required": 45,
+      "xp_reward": 45
+    },
+    {
+      "id": 91,
+      "category_id": 23,
+      "kind": "Activity",
+      "name": "Environmental Portrait",
+      "description": "Include meaningful surroundings in your portraits",
+      "instructions": "Photograph your partner in their favorite space: reading nook, garden, kitchen, studio. Include environmental elements that tell their story. The setting adds context and personal meaning to the portraits.",
+      "video_url": null,
+      "xp_required": 25,
+      "xp_reward": 25
+    },
+    {
+      "id": 92,
+      "category_id": 23,
+      "kind": "Activity",
+      "name": "Facial Expressions Gallery",
+      "description": "Capture a range of genuine expressions",
+      "instructions": "Have your partner cycle through emotions: joy, contemplation, mischief, serenity, intensity. Capture each one. You can prompt with questions or memories. Create a gallery of their expressive range.",
+      "video_url": null,
+      "xp_required": 20,
+      "xp_reward": 25
+    },
+    {
+      "id": 93,
+      "category_id": 23,
+      "kind": "Skill",
+      "name": "Phone Photography Optimization",
+      "description": "Maximize your smartphone camera capabilities",
+      "instructions": "Explore your phone's pro/manual mode. Learn to adjust ISO, shutter speed, and focus. Download a quality camera app if needed. Practice in various lighting conditions. Most smartphones can create stunning photos with the right technique.",
+      "video_url": null,
+      "xp_required": 0,
+      "xp_reward": 15
+    },
+    {
+      "id": 94,
+      "category_id": 23,
+      "kind": "Activity",
+      "name": "Color Harmony Portraits",
+      "description": "Create visually cohesive color-themed shots",
+      "instructions": "Choose a color palette: warm tones, cool blues, earth tones, or monochromatic. Coordinate clothing, background, and props to match. The color cohesion creates instantly more professional-looking images.",
+      "video_url": null,
+      "xp_required": 30,
+      "xp_reward": 30
+    },
+    {
+      "id": 95,
+      "category_id": 23,
+      "kind": "Activity",
+      "name": "Prop Storytelling",
+      "description": "Use meaningful props to tell your story",
+      "instructions": "Gather objects meaningful to your relationship: first date memento, wedding shoes, favorite book, instrument. Incorporate these into your photos as story elements. The props add personal meaning and visual interest.",
+      "video_url": null,
+      "xp_required": 25,
+      "xp_reward": 25
+    },
+    {
+      "id": 96,
+      "category_id": 1024,
+      "kind": "Activity",
+      "name": "Jewelry Focus",
+      "description": "Feature jewelry as sensual accessories",
+      "instructions": "Photograph jewelry worn in unexpected ways or minimal clothing: a long necklace down the back, rings on hands posed artistically, earrings catching light. The jewelry becomes both decoration and focal point.",
+      "video_url": null,
+      "xp_required": 35,
+      "xp_reward": 35
+    },
+    {
+      "id": 97,
+      "category_id": 1024,
+      "kind": "Activity",
+      "name": "Bathtub Elegance",
+      "description": "Create artistic bathtub photography",
+      "instructions": "Fill a tub with bubbles, flower petals, or milk bath mixture. Subject reclines artfully, with bubbles or arms providing coverage. Soft overhead lighting works best. These shots are simultaneously innocent and sensual.",
+      "video_url": null,
+      "xp_required": 50,
+      "xp_reward": 50
+    },
+    {
+      "id": 98,
+      "category_id": 1024,
+      "kind": "Activity",
+      "name": "Candlelit Intimacy",
+      "description": "Photograph in romantic candlelight",
+      "instructions": "Set up multiple candles as your only light source. Use a high ISO or slow shutter (with stabilization). The warm, flickering light creates incredibly romantic, intimate images. Perfect for couples shots or solo portraits.",
+      "video_url": null,
+      "xp_required": 45,
+      "xp_reward": 45
+    },
+    {
+      "id": 99,
+      "category_id": 1024,
+      "kind": "Activity",
+      "name": "Lace Shadows",
+      "description": "Project lace patterns onto skin",
+      "instructions": "Hold lace fabric between a light source and your subject to project intricate shadow patterns onto their skin. The delicate patterns create beautiful, temporary body art. Move the lace to find the perfect pattern placement.",
+      "video_url": null,
+      "xp_required": 40,
+      "xp_reward": 40
+    },
+    {
+      "id": 100,
+      "category_id": 1024,
+      "kind": "Activity",
+      "name": "The Embrace",
+      "description": "Self-embrace poses for body positivity",
+      "instructions": "The subject wraps their own arms around themselves in various ways: hugging, hands on shoulders, crossed over chest. These poses convey self-love and comfort in one's body. The photographer captures the tenderness.",
+      "video_url": null,
+      "xp_required": 35,
+      "xp_reward": 35
+    },
+    {
+      "id": 101,
+      "category_id": 23,
+      "kind": "Activity",
+      "name": "Double Exposure Effect",
+      "description": "Create layered, dreamy double exposures",
+      "instructions": "Use your camera's double exposure mode or create the effect in editing. Layer a portrait with textures, flowers, cityscapes, or another portrait. The ethereal results feel artistic and unique.",
+      "video_url": null,
+      "xp_required": 40,
+      "xp_reward": 40
+    },
+    {
+      "id": 102,
+      "category_id": 23,
+      "kind": "Activity",
+      "name": "Framing Within Frames",
+      "description": "Use natural frames for composition",
+      "instructions": "Find frames within your environment: doorways, windows, mirrors, hanging plants, furniture. Position your subject within these frames. This technique adds depth and draws the eye to your subject.",
+      "video_url": null,
+      "xp_required": 25,
+      "xp_reward": 25
+    },
+    {
+      "id": 103,
+      "category_id": 23,
+      "kind": "Activity",
+      "name": "Close-Up Eye Study",
+      "description": "Capture the intensity and beauty of eyes",
+      "instructions": "Focus on just the eyes, perhaps with part of the face visible. Eyes are the most expressive feature. Use good lighting to show iris detail and catch lights. These intimate portraits are deeply personal.",
+      "video_url": null,
+      "xp_required": 25,
+      "xp_reward": 25
+    },
+    {
+      "id": 104,
+      "category_id": 1024,
+      "kind": "Activity",
+      "name": "Floor Poses",
+      "description": "Master elegant poses on the floor",
+      "instructions": "Practice various floor poses: lying on side, curled up, stretched out, kneeling. Floor poses can be more flattering than standing for many body types. Use rugs or soft flooring for comfort.",
+      "video_url": null,
+      "xp_required": 35,
+      "xp_reward": 35
+    },
+    {
+      "id": 105,
+      "category_id": 1024,
+      "kind": "Activity",
+      "name": "High Key Brightness",
+      "description": "Create bright, airy high-key boudoir",
+      "instructions": "Use abundant white: white sheets, bright window light, white clothing or fabric. Slightly overexpose for a dreamy, ethereal effect. High key boudoir feels light, fresh, and modern.",
+      "video_url": null,
+      "xp_required": 40,
+      "xp_reward": 40
+    },
+    {
+      "id": 106,
+      "category_id": 1024,
+      "kind": "Activity",
+      "name": "Low Key Drama",
+      "description": "Create moody, dramatic low-key images",
+      "instructions": "Use minimal light in a dark space. Let shadows dominate with highlights on key features. Low key boudoir is mysterious, dramatic, and hides while revealing. Perfect for those who prefer shadows.",
+      "video_url": null,
+      "xp_required": 45,
+      "xp_reward": 45
+    },
+    {
+      "id": 107,
+      "category_id": 1024,
+      "kind": "Activity",
+      "name": "Ribbon and Rope Accents",
+      "description": "Use ribbons or rope as artistic props",
+      "instructions": "Drape silk ribbons or soft rope artistically across the body. They can wrap, hang, or simply trail. The lines add visual interest and can provide strategic coverage. Focus on color and texture combinations.",
+      "video_url": null,
+      "xp_required": 50,
+      "xp_reward": 45
+    },
+    {
+      "id": 108,
+      "category_id": 23,
+      "kind": "Activity",
+      "name": "Negative Space Composition",
+      "description": "Use empty space for powerful compositions",
+      "instructions": "Position your subject to one side of the frame, leaving significant empty space. This negative space creates tension, breathing room, and visual interest. The emptiness becomes as important as the subject.",
+      "video_url": null,
+      "xp_required": 30,
+      "xp_reward": 30
+    },
+    {
+      "id": 109,
+      "category_id": 23,
+      "kind": "Activity",
+      "name": "Photo Review Ritual",
+      "description": "Create a ritual for reviewing and selecting photos",
+      "instructions": "After each session, set aside time to review photos together. Rate each one, discuss favorites, and select the best. Delete any that aren't wanted immediately. This ritual builds trust and shared ownership.",
+      "video_url": null,
+      "xp_required": 15,
+      "xp_reward": 20
+    },
+    {
+      "id": 110,
+      "category_id": 1024,
+      "kind": "Activity",
+      "name": "Private Album Creation",
+      "description": "Curate and organize your best intimate photos",
+      "instructions": "Select your favorite photos from all sessions. Create a private album (digital or printed). Consider the flow and story as you arrange them. This becomes a treasured personal keepsake. Discuss security and privacy for storage.",
+      "video_url": null,
+      "xp_required": 50,
+      "xp_reward": 50
+    },
+    {
+      "id": 111,
+      "category_id": 5,
+      "kind": "Activity",
+      "name": "Backyard Badminton",
+      "description": "Set up a casual badminton game in the yard or park",
+      "instructions": "Set up the net at a comfortable height. Play singles or doubles depending on your group. Keep score or just rally for fun. Best of 3 games to 11 points. Loser buys drinks or gives winner a massage!",
+      "video_url": null,
+      "xp_required": 0,
+      "xp_reward": 20
+    },
+    {
+      "id": 112,
+      "category_id": 5,
+      "kind": "Activity",
+      "name": "Ping Pong Tournament",
+      "description": "Competitive table tennis matches",
+      "instructions": "Use any table with a portable net or visit a recreation center. Play best of 5 games to 11 points. Add fun rules like 'loser does a dare' or play for small stakes. Great for building playful competition.",
+      "video_url": null,
+      "xp_required": 0,
+      "xp_reward": 25
+    },
+    {
+      "id": 113,
+      "category_id": 5,
+      "kind": "Activity",
+      "name": "Darts Night",
+      "description": "Classic pub darts with various game modes",
+      "instructions": "Set up a dart board at regulation height. Play 501, Cricket, or Around the World. Keep score carefully. Add stakes like 'loser cooks dinner' or 'winner picks the movie'. Safety first - clear the area behind the board!",
+      "video_url": null,
+      "xp_required": 0,
+      "xp_reward": 20
+    },
+    {
+      "id": 114,
+      "category_id": 5,
+      "kind": "Activity",
+      "name": "Bocce Ball in the Park",
+      "description": "Relaxing Italian lawn bowling game",
+      "instructions": "Find a flat grassy area or beach. Toss the pallino (small target ball) first. Take turns throwing bocce balls to get closest to the pallino. Only the team closest scores points. First to 12 wins. Very relaxing and social!",
+      "video_url": null,
+      "xp_required": 0,
+      "xp_reward": 20
+    },
+    {
+      "id": 115,
+      "category_id": 5,
+      "kind": "Activity",
+      "name": "Frisbee Golf",
+      "description": "Navigate a course throwing frisbee at targets",
+      "instructions": "Visit a disc golf course or create your own with targets (trees, poles, buckets). Each 'hole' has a target to hit. Count throws like golf strokes. Lowest total score wins. Great exercise and time outdoors together!",
+      "video_url": null,
+      "xp_required": 0,
+      "xp_reward": 25
+    },
+    {
+      "id": 116,
+      "category_id": 5,
+      "kind": "Activity",
+      "name": "Cornhole Championship",
+      "description": "The classic backyard bean bag toss game",
+      "instructions": "Set boards 27 feet apart. Take turns tossing 4 bags each. Bag on the board = 1 point, bag through hole = 3 points. Play to 21 using cancellation scoring. Add fun wagers or drinking rules for extra entertainment!",
+      "video_url": null,
+      "xp_required": 0,
+      "xp_reward": 20
+    },
+    {
+      "id": 117,
+      "category_id": 5,
+      "kind": "Activity",
+      "name": "Horseshoes",
+      "description": "Traditional outdoor pitching game",
+      "instructions": "Set stakes 40 feet apart (or closer for casual play). Pitch horseshoes to ring the stake or land closest. Ringer = 3 points, closest shoe = 1 point. First to 21 wins. A timeless game perfect for lazy afternoons.",
+      "video_url": null,
+      "xp_required": 0,
+      "xp_reward": 20
+    },
+    {
+      "id": 118,
+      "category_id": 5,
+      "kind": "Activity",
+      "name": "Croquet on the Lawn",
+      "description": "Elegant wicket game with strategy",
+      "instructions": "Set up 9 wickets in the traditional double-diamond pattern. Navigate your ball through all wickets in order. You can 'roquet' opponents to send their ball away. First through all wickets and hitting the final stake wins. Dress fancy for extra fun!",
+      "video_url": null,
+      "xp_required": 0,
+      "xp_reward": 25
+    },
+    {
+      "id": 119,
+      "category_id": 5,
+      "kind": "Activity",
+      "name": "Basketball H-O-R-S-E",
+      "description": "Shot-matching basketball game",
+      "instructions": "Take turns attempting trick shots. If you make it, others must match it exactly. Miss and you get a letter. Spell HORSE and you're out. Get creative with shots - behind the back, eyes closed, silly poses. No basketball skills required!",
+      "video_url": null,
+      "xp_required": 0,
+      "xp_reward": 25
+    },
+    {
+      "id": 120,
+      "category_id": 5,
+      "kind": "Activity",
+      "name": "Beach Volleyball",
+      "description": "Active volleyball game for pairs or teams",
+      "instructions": "Set up a net at the beach, park, or backyard. Play to 21 points, must win by 2. Rotate serving. For couples, play 2v2 or even 1v1 with modified rules. Great cardio and team bonding!",
+      "video_url": null,
+      "xp_required": 15,
+      "xp_reward": 30
+    },
+    {
+      "id": 121,
+      "category_id": 5,
+      "kind": "Activity",
+      "name": "Pool Night",
+      "description": "Billiards games at home or a pool hall",
+      "instructions": "Play 8-ball, 9-ball, or cutthroat depending on your group. Establish house rules before starting. Add fun stakes or play for drinks. Great for conversation and friendly competition in a relaxed setting.",
+      "video_url": null,
+      "xp_required": 0,
+      "xp_reward": 20
+    },
+    {
+      "id": 122,
+      "category_id": 5,
+      "kind": "Activity",
+      "name": "Ladder Toss",
+      "description": "Toss bolas to score on the ladder",
+      "instructions": "Set ladders 15 feet apart. Toss bolas (two balls connected by rope) to wrap around rungs. Top rung = 3 points, middle = 2, bottom = 1. First to exactly 21 wins. Simple to learn, surprisingly addictive!",
+      "video_url": null,
+      "xp_required": 0,
+      "xp_reward": 20
+    },
+    {
+      "id": 123,
+      "category_id": 5,
+      "kind": "Activity",
+      "name": "Kan Jam",
+      "description": "Frisbee deflection game for teams",
+      "instructions": "Partners stand at opposite goals. Throw the frisbee toward your partner's goal while they try to deflect it in. Direct entry through the slot = instant win! First team to 21 points wins. Fast-paced and exciting!",
+      "video_url": null,
+      "xp_required": 0,
+      "xp_reward": 25
+    },
+    {
+      "id": 124,
+      "category_id": 5,
+      "kind": "Activity",
+      "name": "Spikeball",
+      "description": "Fast-paced 2v2 net game",
+      "instructions": "Set up the circular net. Teams of 2 alternate hitting the ball off the net. You have up to 3 touches per side. Ball hits the rim or ground = point for other team. Fast, athletic, and incredibly fun once you get the hang of it!",
+      "video_url": null,
+      "xp_required": 20,
+      "xp_reward": 30
+    },
+    {
+      "id": 125,
+      "category_id": 5,
+      "kind": "Activity",
+      "name": "Tennis Date",
+      "description": "Hit the courts for singles or doubles tennis",
+      "instructions": "Book a court at a local club or public park. Play a full set or just rally for fun. Focus on keeping the ball in play rather than winning. Great exercise and quality time together. Cool down with drinks after!",
+      "video_url": null,
+      "xp_required": 15,
+      "xp_reward": 30
+    },
+    {
+      "id": 126,
+      "category_id": 5,
+      "kind": "Activity",
+      "name": "Mini Golf Adventure",
+      "description": "Putt your way through a whimsical course",
+      "instructions": "Visit a mini golf course or create obstacles at home. Play 18 holes, lowest score wins. Add fun challenges: opposite hand only, eyes closed on easy holes, or loser buys ice cream. Embrace the silliness!",
+      "video_url": null,
+      "xp_required": 0,
+      "xp_reward": 20
+    },
+    {
+      "id": 127,
+      "category_id": 5,
+      "kind": "Skill",
+      "name": "Learn a New Sport Together",
+      "description": "Pick up a sport neither of you has tried",
+      "instructions": "Choose a sport neither partner knows well. Watch tutorial videos together, then practice. The shared experience of being beginners together builds connection. Laugh at mistakes and celebrate small victories!",
+      "video_url": null,
+      "xp_required": 0,
+      "xp_reward": 25
+    },
+    {
+      "id": 128,
+      "category_id": 5,
+      "kind": "Activity",
+      "name": "Sports Day Tournament",
+      "description": "Multi-game competition with points",
+      "instructions": "Plan 4-6 different games/sports for the day. Award points for each: 1st place = 3pts, 2nd = 2pts, etc. Track cumulative scores. Crown an overall champion at the end. Include a mix of skill-based and luck-based games for fairness.",
+      "video_url": null,
+      "xp_required": 50,
+      "xp_reward": 50
+    },
+    {
+      "id": 129,
+      "category_id": 1025,
+      "kind": "Skill",
+      "name": "Double Column Tie",
+      "description": "Learn to bind two limbs together safely",
+      "instructions": "Building on the single column tie, learn to bind wrists together or ankles together. Maintain the two-finger rule under all wraps. Practice quick release. This is foundational for more complex ties.",
+      "video_url": null,
+      "xp_required": 100,
+      "xp_reward": 45
+    },
+    {
+      "id": 130,
+      "category_id": 1025,
+      "kind": "Skill",
+      "name": "Box Tie Fundamentals",
+      "description": "Learn the foundational upper body box tie",
+      "instructions": "The box tie (takate kote/TK) positions arms behind the back. Learn proper wrap placement to avoid nerve damage. Never rush this tie. Check circulation constantly. This takes months to master safely.",
+      "video_url": null,
+      "xp_required": 150,
+      "xp_reward": 60
+    },
+    {
+      "id": 131,
+      "category_id": 1025,
+      "kind": "Activity",
+      "name": "Futomomo (Leg Binding)",
+      "description": "Decorative and functional thigh-to-calf binding",
+      "instructions": "Bind the thigh to the calf in a folded position. Creates beautiful lines and comfortable restriction. Excellent for floor positions or as suspension preparation. Check circulation in the foot regularly.",
+      "video_url": null,
+      "xp_required": 120,
+      "xp_reward": 50
+    },
+    {
+      "id": 132,
+      "category_id": 1025,
+      "kind": "Skill",
+      "name": "Hip Harness",
+      "description": "Create a secure harness around the hips and waist",
+      "instructions": "A hip harness distributes weight across the pelvis for partial suspension. Learn proper placement to avoid pressure on hip bones. This is a critical skill before any suspension work.",
+      "video_url": null,
+      "xp_required": 140,
+      "xp_reward": 55
+    },
+    {
+      "id": 133,
+      "category_id": 1025,
+      "kind": "Skill",
+      "name": "Suspension Safety Training",
+      "description": "Essential safety knowledge before any suspension",
+      "instructions": "Study anatomy and danger zones. Learn to recognize nerve impingement signs. Practice emergency descent procedures. Ensure your hard points are rated for dynamic loads. Never suspend alone. Consider professional instruction.",
+      "video_url": null,
+      "xp_required": 180,
+      "xp_reward": 70
+    },
+    {
+      "id": 134,
+      "category_id": 1025,
+      "kind": "Activity",
+      "name": "Partial Suspension",
+      "description": "Feet remain on ground while body is supported by rope",
+      "instructions": "Using a secure hard point and hip harness, create a partial suspension where feet stay grounded. This introduces the sensation of being held by rope while maintaining safety. Never exceed 5 minutes initially.",
+      "video_url": null,
+      "xp_required": 200,
+      "xp_reward": 80
+    },
+    {
+      "id": 135,
+      "category_id": 1025,
+      "kind": "Activity",
+      "name": "Hogtie Bondage",
+      "description": "Connect bound wrists to bound ankles",
+      "instructions": "With the bottom lying face down, connect wrist restraints to ankle restraints behind the back. Adjust tension for comfort. This position can strain the back - maintain communication and limit duration. Have safety shears ready.",
+      "video_url": null,
+      "xp_required": 130,
+      "xp_reward": 55
+    },
+    {
+      "id": 136,
+      "category_id": 1025,
+      "kind": "Activity",
+      "name": "Predicament Bondage",
+      "description": "Create positions with built-in tension choices",
+      "instructions": "Design a bondage position where the bottom must choose between two uncomfortable options (e.g., stand on tiptoes or pull on wrist restraints). Start mild and communicate constantly. This is psychological as much as physical.",
+      "video_url": null,
+      "xp_required": 160,
+      "xp_reward": 65
+    },
+    {
+      "id": 137,
+      "category_id": 1025,
+      "kind": "Activity",
+      "name": "Rope Dress/Karada",
+      "description": "Create a full-body rope dress or harness",
+      "instructions": "A karada is a decorative full-body rope harness that can be worn under clothes. Learn the diamond pattern that frames the torso. Focus on aesthetics and even tension throughout. This is wearable art.",
+      "video_url": null,
+      "xp_required": 140,
+      "xp_reward": 60
+    },
+    {
+      "id": 138,
+      "category_id": 1025,
+      "kind": "Skill",
+      "name": "Suspension Line Management",
+      "description": "Learn to manage uplines and load distribution",
+      "instructions": "Study how to attach suspension lines to harnesses. Learn load distribution across multiple points. Practice adjusting line lengths for balance. Understand how to lower someone smoothly in an emergency.",
+      "video_url": null,
+      "xp_required": 190,
+      "xp_reward": 75
     }
   ],
-
   "activity_prerequisites": [
     {
       "id": 1,
@@ -439,9 +2003,368 @@
       "activity_id": 20,
       "prerequisite_id": 2,
       "comment": "Slow Dance Connection requires Breath Synchronization"
+    },
+    {
+      "id": 17,
+      "activity_id": 24,
+      "prerequisite_id": 2,
+      "comment": "Tantric Breathing requires Breath Synchronization"
+    },
+    {
+      "id": 18,
+      "activity_id": 24,
+      "prerequisite_id": 21,
+      "comment": "Tantric Breathing requires Guided Meditation Together"
+    },
+    {
+      "id": 19,
+      "activity_id": 26,
+      "prerequisite_id": 25,
+      "comment": "Strangers at a Bar requires Character Development"
+    },
+    {
+      "id": 20,
+      "activity_id": 27,
+      "prerequisite_id": 41,
+      "comment": "Service Role Play requires Power Exchange Negotiation"
+    },
+    {
+      "id": 21,
+      "activity_id": 28,
+      "prerequisite_id": 25,
+      "comment": "Teacher and Student requires Character Development"
+    },
+    {
+      "id": 22,
+      "activity_id": 30,
+      "prerequisite_id": 31,
+      "comment": "Desire Mapping requires Yes/No/Maybe Lists"
+    },
+    {
+      "id": 23,
+      "activity_id": 34,
+      "prerequisite_id": 33,
+      "comment": "Single Column Tie requires Rope Safety Basics"
+    },
+    {
+      "id": 24,
+      "activity_id": 35,
+      "prerequisite_id": 34,
+      "comment": "Decorative Rope Harness requires Single Column Tie"
+    },
+    {
+      "id": 25,
+      "activity_id": 36,
+      "prerequisite_id": 34,
+      "comment": "Ankles Together Tie requires Single Column Tie"
+    },
+    {
+      "id": 26,
+      "activity_id": 38,
+      "prerequisite_id": 37,
+      "comment": "Foot Reflexology requires Swedish Massage Basics"
+    },
+    {
+      "id": 27,
+      "activity_id": 39,
+      "prerequisite_id": 37,
+      "comment": "Hot Stone Therapy requires Swedish Massage Basics"
+    },
+    {
+      "id": 28,
+      "activity_id": 40,
+      "prerequisite_id": 37,
+      "comment": "Four-Hands Massage requires Swedish Massage Basics"
+    },
+    {
+      "id": 29,
+      "activity_id": 42,
+      "prerequisite_id": 41,
+      "comment": "Collar Ceremony requires Power Exchange Negotiation"
+    },
+    {
+      "id": 30,
+      "activity_id": 43,
+      "prerequisite_id": 22,
+      "comment": "Directed Meditation requires Body Scan Awareness"
+    },
+    {
+      "id": 31,
+      "activity_id": 44,
+      "prerequisite_id": 41,
+      "comment": "Sensation Control requires Power Exchange Negotiation"
+    },
+    {
+      "id": 32,
+      "activity_id": 44,
+      "prerequisite_id": 6,
+      "comment": "Sensation Control requires Light Touch Mapping"
+    },
+    {
+      "id": 33,
+      "activity_id": 49,
+      "prerequisite_id": 6,
+      "comment": "Wartenberg Wheel requires Light Touch Mapping"
+    },
+    {
+      "id": 34,
+      "activity_id": 50,
+      "prerequisite_id": 18,
+      "comment": "Orgasm Delay Practice requires Verbal Check-In Practice"
+    },
+    {
+      "id": 35,
+      "activity_id": 51,
+      "prerequisite_id": 12,
+      "comment": "Body Painting Canvas requires Partner Portrait Session"
+    },
+    {
+      "id": 36,
+      "activity_id": 53,
+      "prerequisite_id": 13,
+      "comment": "Wrestler's Embrace requires Partner Stretching"
+    },
+    {
+      "id": 37,
+      "activity_id": 54,
+      "prerequisite_id": 13,
+      "comment": "Partner Yoga Flow requires Partner Stretching"
+    },
+    {
+      "id": 38,
+      "activity_id": 55,
+      "prerequisite_id": 4,
+      "comment": "Carried Away requires Guided Fall"
+    },
+    {
+      "id": 39,
+      "activity_id": 56,
+      "prerequisite_id": 30,
+      "comment": "Fantasy Auction requires Desire Mapping"
+    },
+    {
+      "id": 40,
+      "activity_id": 57,
+      "prerequisite_id": 12,
+      "comment": "Photographer's Muse requires Partner Portrait Session"
+    },
+    {
+      "id": 41,
+      "activity_id": 58,
+      "prerequisite_id": 16,
+      "comment": "Candlelight Massage requires Massage Journey"
+    },
+    {
+      "id": 42,
+      "activity_id": 59,
+      "prerequisite_id": 42,
+      "comment": "Kneeling Meditation requires Collar Ceremony"
+    },
+    {
+      "id": 43,
+      "activity_id": 60,
+      "prerequisite_id": 48,
+      "comment": "Sensation Roulette requires Texture Safari"
+    },
+    {
+      "id": 44,
+      "activity_id": 63,
+      "prerequisite_id": 62,
+      "comment": "Silhouette Session requires Natural Light Mastery"
+    },
+    {
+      "id": 45,
+      "activity_id": 69,
+      "prerequisite_id": 61,
+      "comment": "Motion and Blur requires Camera Basics"
+    },
+    {
+      "id": 46,
+      "activity_id": 71,
+      "prerequisite_id": 61,
+      "comment": "Photo Editing Basics requires Camera Basics"
+    },
+    {
+      "id": 47,
+      "activity_id": 72,
+      "prerequisite_id": 71,
+      "comment": "Black and White Conversion requires Photo Editing Basics"
+    },
+    {
+      "id": 48,
+      "activity_id": 74,
+      "prerequisite_id": 62,
+      "comment": "Shadow Play requires Natural Light Mastery"
+    },
+    {
+      "id": 49,
+      "activity_id": 76,
+      "prerequisite_id": 62,
+      "comment": "Boudoir Lighting Setup requires Natural Light Mastery"
+    },
+    {
+      "id": 50,
+      "activity_id": 77,
+      "prerequisite_id": 76,
+      "comment": "Getting Ready Shot requires Boudoir Lighting Setup"
+    },
+    {
+      "id": 51,
+      "activity_id": 79,
+      "prerequisite_id": 64,
+      "comment": "Reclining Elegance requires Posing Foundations"
+    },
+    {
+      "id": 52,
+      "activity_id": 80,
+      "prerequisite_id": 79,
+      "comment": "Sheet and Fabric Draping requires Reclining Elegance"
+    },
+    {
+      "id": 53,
+      "activity_id": 82,
+      "prerequisite_id": 63,
+      "comment": "Window Silhouette Boudoir requires Silhouette Session"
+    },
+    {
+      "id": 54,
+      "activity_id": 85,
+      "prerequisite_id": 84,
+      "comment": "Back Study requires Collar Bone Focus"
+    },
+    {
+      "id": 55,
+      "activity_id": 87,
+      "prerequisite_id": 67,
+      "comment": "Couples Boudoir requires Self-Timer Techniques"
+    },
+    {
+      "id": 56,
+      "activity_id": 88,
+      "prerequisite_id": 80,
+      "comment": "Implied Nude Artistry requires Sheet and Fabric Draping"
+    },
+    {
+      "id": 57,
+      "activity_id": 90,
+      "prerequisite_id": 72,
+      "comment": "Vintage Glamour requires Black and White Conversion"
+    },
+    {
+      "id": 58,
+      "activity_id": 97,
+      "prerequisite_id": 88,
+      "comment": "Bathtub Elegance requires Implied Nude Artistry"
+    },
+    {
+      "id": 59,
+      "activity_id": 98,
+      "prerequisite_id": 76,
+      "comment": "Candlelit Intimacy requires Boudoir Lighting Setup"
+    },
+    {
+      "id": 60,
+      "activity_id": 99,
+      "prerequisite_id": 74,
+      "comment": "Lace Shadows requires Shadow Play"
+    },
+    {
+      "id": 61,
+      "activity_id": 101,
+      "prerequisite_id": 71,
+      "comment": "Double Exposure Effect requires Photo Editing Basics"
+    },
+    {
+      "id": 62,
+      "activity_id": 105,
+      "prerequisite_id": 76,
+      "comment": "High Key Brightness requires Boudoir Lighting Setup"
+    },
+    {
+      "id": 63,
+      "activity_id": 106,
+      "prerequisite_id": 76,
+      "comment": "Low Key Drama requires Boudoir Lighting Setup"
+    },
+    {
+      "id": 64,
+      "activity_id": 107,
+      "prerequisite_id": 80,
+      "comment": "Ribbon and Rope Accents requires Sheet and Fabric Draping"
+    },
+    {
+      "id": 65,
+      "activity_id": 110,
+      "prerequisite_id": 109,
+      "comment": "Private Album Creation requires Photo Review Ritual"
+    },
+    {
+      "id": 66,
+      "activity_id": 128,
+      "prerequisite_id": 127,
+      "comment": "Sports Day Tournament requires Learn a New Sport Together"
+    },
+    {
+      "id": 67,
+      "activity_id": 129,
+      "prerequisite_id": 34,
+      "comment": "Double Column Tie requires Single Column Tie"
+    },
+    {
+      "id": 68,
+      "activity_id": 130,
+      "prerequisite_id": 129,
+      "comment": "Box Tie requires Double Column Tie"
+    },
+    {
+      "id": 69,
+      "activity_id": 131,
+      "prerequisite_id": 129,
+      "comment": "Futomomo requires Double Column Tie"
+    },
+    {
+      "id": 70,
+      "activity_id": 132,
+      "prerequisite_id": 35,
+      "comment": "Hip Harness requires Decorative Rope Harness"
+    },
+    {
+      "id": 71,
+      "activity_id": 133,
+      "prerequisite_id": 132,
+      "comment": "Suspension Safety requires Hip Harness"
+    },
+    {
+      "id": 72,
+      "activity_id": 134,
+      "prerequisite_id": 133,
+      "comment": "Partial Suspension requires Suspension Safety Training"
+    },
+    {
+      "id": 73,
+      "activity_id": 135,
+      "prerequisite_id": 36,
+      "comment": "Hogtie requires Ankles Together Tie"
+    },
+    {
+      "id": 74,
+      "activity_id": 136,
+      "prerequisite_id": 135,
+      "comment": "Predicament Bondage requires Hogtie experience"
+    },
+    {
+      "id": 75,
+      "activity_id": 137,
+      "prerequisite_id": 35,
+      "comment": "Karada requires Decorative Rope Harness"
+    },
+    {
+      "id": 76,
+      "activity_id": 138,
+      "prerequisite_id": 133,
+      "comment": "Line Management requires Suspension Safety Training"
     }
   ],
-
   "activity_equipment": [
     {
       "id": 1,
@@ -517,64 +2440,861 @@
     },
     {
       "id": 13,
+      "activity_id": 12,
+      "equipment_id": 2008,
+      "notes": "For taking photos (Camera/Phone)"
+    },
+    {
+      "id": 14,
       "activity_id": 15,
       "equipment_id": 10011,
       "notes": "Essential - use only quick-release restraints (Soft Restraints)"
     },
     {
-      "id": 14,
+      "id": 15,
       "activity_id": 15,
       "equipment_id": 3,
       "notes": "For timing the experience (Timer)"
     },
     {
-      "id": 15,
+      "id": 16,
       "activity_id": 15,
       "equipment_id": 15,
       "notes": "For non-verbal signaling if needed (Bell)"
     },
     {
-      "id": 16,
+      "id": 17,
       "activity_id": 16,
       "equipment_id": 10012,
       "notes": "Essential for the massage (Massage Oil)"
     },
     {
-      "id": 17,
+      "id": 18,
       "activity_id": 16,
       "equipment_id": 14,
       "notes": "For proper positioning and comfort (Pillows/Cushions)"
     },
     {
-      "id": 18,
+      "id": 19,
       "activity_id": 16,
       "equipment_id": 8,
       "notes": "Optional - ambient music enhances relaxation (Music Player)"
     },
     {
-      "id": 19,
+      "id": 20,
       "activity_id": 17,
       "equipment_id": 501,
       "notes": "Essential for card drawing (Playing Cards)"
     },
     {
-      "id": 20,
+      "id": 21,
       "activity_id": 17,
       "equipment_id": 1,
       "notes": "Optional - can add randomness to challenges (Dice)"
     },
     {
-      "id": 21,
+      "id": 22,
       "activity_id": 19,
       "equipment_id": 9,
       "notes": "For writing journal entries (Notebook & Pen)"
     },
     {
-      "id": 22,
+      "id": 23,
       "activity_id": 20,
       "equipment_id": 8,
       "notes": "For playing slow music (Music Player)"
+    },
+    {
+      "id": 24,
+      "activity_id": 21,
+      "equipment_id": 8,
+      "notes": "For playing guided meditation (Music Player)"
+    },
+    {
+      "id": 25,
+      "activity_id": 21,
+      "equipment_id": 14,
+      "notes": "For comfortable meditation (Pillows/Cushions)"
+    },
+    {
+      "id": 26,
+      "activity_id": 22,
+      "equipment_id": 14,
+      "notes": "For comfort during body scan (Pillows/Cushions)"
+    },
+    {
+      "id": 27,
+      "activity_id": 24,
+      "equipment_id": 14,
+      "notes": "For yab-yum positioning (Pillows/Cushions)"
+    },
+    {
+      "id": 28,
+      "activity_id": 24,
+      "equipment_id": 2012,
+      "notes": "Optional floor cushioning (Yoga Mat)"
+    },
+    {
+      "id": 29,
+      "activity_id": 25,
+      "equipment_id": 9,
+      "notes": "For writing character descriptions (Notebook & Pen)"
+    },
+    {
+      "id": 30,
+      "activity_id": 27,
+      "equipment_id": 2011,
+      "notes": "Optional costume elements (Costume Pieces)"
+    },
+    {
+      "id": 31,
+      "activity_id": 28,
+      "equipment_id": 2011,
+      "notes": "Optional - props for teacher/student (Costume Pieces)"
+    },
+    {
+      "id": 32,
+      "activity_id": 30,
+      "equipment_id": 9,
+      "notes": "For drawing desire maps (Notebook & Pen)"
+    },
+    {
+      "id": 33,
+      "activity_id": 31,
+      "equipment_id": 9,
+      "notes": "For writing lists (Notebook & Pen)"
+    },
+    {
+      "id": 34,
+      "activity_id": 33,
+      "equipment_id": 10002,
+      "notes": "Essential for rope practice (Rope Soft)"
+    },
+    {
+      "id": 35,
+      "activity_id": 33,
+      "equipment_id": 2020,
+      "notes": "Essential safety equipment (Safety Shears)"
+    },
+    {
+      "id": 36,
+      "activity_id": 34,
+      "equipment_id": 10002,
+      "notes": "Essential for single column tie (Rope Soft)"
+    },
+    {
+      "id": 37,
+      "activity_id": 34,
+      "equipment_id": 2020,
+      "notes": "Essential safety equipment (Safety Shears)"
+    },
+    {
+      "id": 38,
+      "activity_id": 35,
+      "equipment_id": 10002,
+      "notes": "Essential for harness (Rope Soft)"
+    },
+    {
+      "id": 39,
+      "activity_id": 35,
+      "equipment_id": 2020,
+      "notes": "Essential safety equipment (Safety Shears)"
+    },
+    {
+      "id": 40,
+      "activity_id": 35,
+      "equipment_id": 2008,
+      "notes": "For documenting the harness (Camera/Phone)"
+    },
+    {
+      "id": 41,
+      "activity_id": 36,
+      "equipment_id": 10002,
+      "notes": "Essential for ankle tie (Rope Soft)"
+    },
+    {
+      "id": 42,
+      "activity_id": 36,
+      "equipment_id": 2020,
+      "notes": "Essential safety equipment (Safety Shears)"
+    },
+    {
+      "id": 43,
+      "activity_id": 37,
+      "equipment_id": 10012,
+      "notes": "For practicing massage strokes (Massage Oil)"
+    },
+    {
+      "id": 44,
+      "activity_id": 38,
+      "equipment_id": 10012,
+      "notes": "For foot massage (Massage Oil)"
+    },
+    {
+      "id": 45,
+      "activity_id": 39,
+      "equipment_id": 2013,
+      "notes": "Essential for hot stone therapy (Hot Stones)"
+    },
+    {
+      "id": 46,
+      "activity_id": 39,
+      "equipment_id": 10012,
+      "notes": "For stone gliding (Massage Oil)"
+    },
+    {
+      "id": 47,
+      "activity_id": 39,
+      "equipment_id": 2002,
+      "notes": "For keeping stones warm (Heating Pad)"
+    },
+    {
+      "id": 48,
+      "activity_id": 42,
+      "equipment_id": 2006,
+      "notes": "Essential for the ceremony (Collar)"
+    },
+    {
+      "id": 49,
+      "activity_id": 47,
+      "equipment_id": 2003,
+      "notes": "Essential for scent exploration (Essential Oils)"
+    },
+    {
+      "id": 50,
+      "activity_id": 47,
+      "equipment_id": 10001,
+      "notes": "For blindfolded exploration (Blindfold)"
+    },
+    {
+      "id": 51,
+      "activity_id": 48,
+      "equipment_id": 2016,
+      "notes": "For texture variety (Silk Fabric)"
+    },
+    {
+      "id": 52,
+      "activity_id": 48,
+      "equipment_id": 2017,
+      "notes": "For texture variety (Fur Mitt)"
+    },
+    {
+      "id": 53,
+      "activity_id": 48,
+      "equipment_id": 10001,
+      "notes": "For blindfolded exploration (Blindfold)"
+    },
+    {
+      "id": 54,
+      "activity_id": 49,
+      "equipment_id": 2005,
+      "notes": "Essential for this activity (Wartenberg Wheel)"
+    },
+    {
+      "id": 55,
+      "activity_id": 51,
+      "equipment_id": 2007,
+      "notes": "Essential for body painting (Body Paint)"
+    },
+    {
+      "id": 56,
+      "activity_id": 51,
+      "equipment_id": 2008,
+      "notes": "For photographing results (Camera/Phone)"
+    },
+    {
+      "id": 57,
+      "activity_id": 53,
+      "equipment_id": 2012,
+      "notes": "For safe wrestling surface (Yoga Mat)"
+    },
+    {
+      "id": 58,
+      "activity_id": 53,
+      "equipment_id": 14,
+      "notes": "For padding (Pillows/Cushions)"
+    },
+    {
+      "id": 59,
+      "activity_id": 54,
+      "equipment_id": 2012,
+      "notes": "Essential for yoga practice (Yoga Mat)"
+    },
+    {
+      "id": 60,
+      "activity_id": 56,
+      "equipment_id": 9,
+      "notes": "For writing fantasy cards (Notebook & Pen)"
+    },
+    {
+      "id": 61,
+      "activity_id": 57,
+      "equipment_id": 2008,
+      "notes": "Essential for photo shoot (Camera/Phone)"
+    },
+    {
+      "id": 62,
+      "activity_id": 58,
+      "equipment_id": 1006,
+      "notes": "Essential for this activity (Candles Massage)"
+    },
+    {
+      "id": 63,
+      "activity_id": 59,
+      "equipment_id": 14,
+      "notes": "For knee cushioning (Pillows/Cushions)"
+    },
+    {
+      "id": 64,
+      "activity_id": 59,
+      "equipment_id": 2006,
+      "notes": "Optional for the meditation (Collar)"
+    },
+    {
+      "id": 65,
+      "activity_id": 60,
+      "equipment_id": 1004,
+      "notes": "For cold sensation option (Ice Cubes)"
+    },
+    {
+      "id": 66,
+      "activity_id": 60,
+      "equipment_id": 1005,
+      "notes": "For feather sensation option (Feather)"
+    },
+    {
+      "id": 67,
+      "activity_id": 60,
+      "equipment_id": 10001,
+      "notes": "For blindfolded anticipation (Blindfold)"
+    },
+    {
+      "id": 68,
+      "activity_id": 61,
+      "equipment_id": 2011,
+      "notes": "Essential for all photography (Camera/Phone)"
+    },
+    {
+      "id": 69,
+      "activity_id": 62,
+      "equipment_id": 2011,
+      "notes": "Essential for photography (Camera/Phone)"
+    },
+    {
+      "id": 70,
+      "activity_id": 63,
+      "equipment_id": 2011,
+      "notes": "Essential for photography (Camera/Phone)"
+    },
+    {
+      "id": 71,
+      "activity_id": 64,
+      "equipment_id": 2011,
+      "notes": "Essential for photography (Camera/Phone)"
+    },
+    {
+      "id": 72,
+      "activity_id": 65,
+      "equipment_id": 2011,
+      "notes": "Essential for photography (Camera/Phone)"
+    },
+    {
+      "id": 73,
+      "activity_id": 66,
+      "equipment_id": 2011,
+      "notes": "Essential for photography (Camera/Phone)"
+    },
+    {
+      "id": 74,
+      "activity_id": 67,
+      "equipment_id": 2011,
+      "notes": "Essential for photography (Camera/Phone)"
+    },
+    {
+      "id": 75,
+      "activity_id": 67,
+      "equipment_id": 3,
+      "notes": "For self-timer shots (Timer)"
+    },
+    {
+      "id": 76,
+      "activity_id": 68,
+      "equipment_id": 2011,
+      "notes": "Essential for photography (Camera/Phone)"
+    },
+    {
+      "id": 77,
+      "activity_id": 68,
+      "equipment_id": 1007,
+      "notes": "Main prop for this activity (Mirror)"
+    },
+    {
+      "id": 78,
+      "activity_id": 69,
+      "equipment_id": 2011,
+      "notes": "Essential for photography (Camera/Phone)"
+    },
+    {
+      "id": 79,
+      "activity_id": 70,
+      "equipment_id": 2011,
+      "notes": "Essential for photography (Camera/Phone)"
+    },
+    {
+      "id": 80,
+      "activity_id": 71,
+      "equipment_id": 2011,
+      "notes": "For the photos being edited (Camera/Phone)"
+    },
+    {
+      "id": 81,
+      "activity_id": 72,
+      "equipment_id": 2011,
+      "notes": "Essential for photography (Camera/Phone)"
+    },
+    {
+      "id": 82,
+      "activity_id": 73,
+      "equipment_id": 2011,
+      "notes": "Essential for photography (Camera/Phone)"
+    },
+    {
+      "id": 83,
+      "activity_id": 74,
+      "equipment_id": 2011,
+      "notes": "Essential for photography (Camera/Phone)"
+    },
+    {
+      "id": 84,
+      "activity_id": 75,
+      "equipment_id": 9,
+      "notes": "For creating the shot list (Notebook & Pen)"
+    },
+    {
+      "id": 85,
+      "activity_id": 76,
+      "equipment_id": 2011,
+      "notes": "Essential for photography (Camera/Phone)"
+    },
+    {
+      "id": 86,
+      "activity_id": 77,
+      "equipment_id": 2011,
+      "notes": "Essential for photography (Camera/Phone)"
+    },
+    {
+      "id": 87,
+      "activity_id": 77,
+      "equipment_id": 1007,
+      "notes": "For getting ready shots (Mirror)"
+    },
+    {
+      "id": 88,
+      "activity_id": 78,
+      "equipment_id": 2011,
+      "notes": "Essential for photography (Camera/Phone)"
+    },
+    {
+      "id": 89,
+      "activity_id": 78,
+      "equipment_id": 1007,
+      "notes": "For practicing poses (Mirror)"
+    },
+    {
+      "id": 90,
+      "activity_id": 79,
+      "equipment_id": 2011,
+      "notes": "Essential for photography (Camera/Phone)"
+    },
+    {
+      "id": 91,
+      "activity_id": 79,
+      "equipment_id": 14,
+      "notes": "For support and styling (Pillows/Cushions)"
+    },
+    {
+      "id": 92,
+      "activity_id": 80,
+      "equipment_id": 2011,
+      "notes": "Essential for photography (Camera/Phone)"
+    },
+    {
+      "id": 93,
+      "activity_id": 81,
+      "equipment_id": 2011,
+      "notes": "Essential for photography (Camera/Phone)"
+    },
+    {
+      "id": 94,
+      "activity_id": 82,
+      "equipment_id": 2011,
+      "notes": "Essential for photography (Camera/Phone)"
+    },
+    {
+      "id": 95,
+      "activity_id": 84,
+      "equipment_id": 2011,
+      "notes": "Essential for photography (Camera/Phone)"
+    },
+    {
+      "id": 96,
+      "activity_id": 85,
+      "equipment_id": 2011,
+      "notes": "Essential for photography (Camera/Phone)"
+    },
+    {
+      "id": 97,
+      "activity_id": 86,
+      "equipment_id": 2011,
+      "notes": "Essential for photography (Camera/Phone)"
+    },
+    {
+      "id": 98,
+      "activity_id": 87,
+      "equipment_id": 2011,
+      "notes": "Essential for photography (Camera/Phone)"
+    },
+    {
+      "id": 99,
+      "activity_id": 87,
+      "equipment_id": 3,
+      "notes": "For couples self-timer shots (Timer)"
+    },
+    {
+      "id": 100,
+      "activity_id": 88,
+      "equipment_id": 2011,
+      "notes": "Essential for photography (Camera/Phone)"
+    },
+    {
+      "id": 101,
+      "activity_id": 90,
+      "equipment_id": 2011,
+      "notes": "Essential for photography (Camera/Phone)"
+    },
+    {
+      "id": 102,
+      "activity_id": 91,
+      "equipment_id": 2011,
+      "notes": "Essential for photography (Camera/Phone)"
+    },
+    {
+      "id": 103,
+      "activity_id": 92,
+      "equipment_id": 2011,
+      "notes": "Essential for photography (Camera/Phone)"
+    },
+    {
+      "id": 104,
+      "activity_id": 93,
+      "equipment_id": 2011,
+      "notes": "For optimizing settings (Camera/Phone)"
+    },
+    {
+      "id": 105,
+      "activity_id": 94,
+      "equipment_id": 2011,
+      "notes": "Essential for photography (Camera/Phone)"
+    },
+    {
+      "id": 106,
+      "activity_id": 95,
+      "equipment_id": 2011,
+      "notes": "Essential for photography (Camera/Phone)"
+    },
+    {
+      "id": 107,
+      "activity_id": 96,
+      "equipment_id": 2011,
+      "notes": "Essential for photography (Camera/Phone)"
+    },
+    {
+      "id": 108,
+      "activity_id": 97,
+      "equipment_id": 2011,
+      "notes": "Essential for photography (Camera/Phone)"
+    },
+    {
+      "id": 109,
+      "activity_id": 98,
+      "equipment_id": 2011,
+      "notes": "Essential for photography (Camera/Phone)"
+    },
+    {
+      "id": 110,
+      "activity_id": 98,
+      "equipment_id": 1006,
+      "notes": "Main lighting source (Candles)"
+    },
+    {
+      "id": 111,
+      "activity_id": 99,
+      "equipment_id": 2011,
+      "notes": "Essential for photography (Camera/Phone)"
+    },
+    {
+      "id": 112,
+      "activity_id": 100,
+      "equipment_id": 2011,
+      "notes": "Essential for photography (Camera/Phone)"
+    },
+    {
+      "id": 113,
+      "activity_id": 101,
+      "equipment_id": 2011,
+      "notes": "Essential for photography (Camera/Phone)"
+    },
+    {
+      "id": 114,
+      "activity_id": 102,
+      "equipment_id": 2011,
+      "notes": "Essential for photography (Camera/Phone)"
+    },
+    {
+      "id": 115,
+      "activity_id": 103,
+      "equipment_id": 2011,
+      "notes": "Essential for photography (Camera/Phone)"
+    },
+    {
+      "id": 116,
+      "activity_id": 104,
+      "equipment_id": 2011,
+      "notes": "Essential for photography (Camera/Phone)"
+    },
+    {
+      "id": 117,
+      "activity_id": 104,
+      "equipment_id": 14,
+      "notes": "For comfort on floor (Pillows/Cushions)"
+    },
+    {
+      "id": 118,
+      "activity_id": 105,
+      "equipment_id": 2011,
+      "notes": "Essential for photography (Camera/Phone)"
+    },
+    {
+      "id": 119,
+      "activity_id": 106,
+      "equipment_id": 2011,
+      "notes": "Essential for photography (Camera/Phone)"
+    },
+    {
+      "id": 120,
+      "activity_id": 107,
+      "equipment_id": 2011,
+      "notes": "Essential for photography (Camera/Phone)"
+    },
+    {
+      "id": 121,
+      "activity_id": 107,
+      "equipment_id": 501,
+      "notes": "Optional rope prop (Soft Rope)"
+    },
+    {
+      "id": 122,
+      "activity_id": 108,
+      "equipment_id": 2011,
+      "notes": "Essential for photography (Camera/Phone)"
+    },
+    {
+      "id": 123,
+      "activity_id": 109,
+      "equipment_id": 2011,
+      "notes": "For reviewing photos (Camera/Phone)"
+    },
+    {
+      "id": 124,
+      "activity_id": 110,
+      "equipment_id": 2011,
+      "notes": "Source of photos (Camera/Phone)"
+    },
+    {
+      "id": 125,
+      "activity_id": 111,
+      "equipment_id": 3001,
+      "notes": "Essential for badminton (Badminton Set)"
+    },
+    {
+      "id": 126,
+      "activity_id": 112,
+      "equipment_id": 3002,
+      "notes": "Essential for ping pong (Table Tennis Set)"
+    },
+    {
+      "id": 127,
+      "activity_id": 113,
+      "equipment_id": 3003,
+      "notes": "Essential for darts (Dart Board)"
+    },
+    {
+      "id": 128,
+      "activity_id": 114,
+      "equipment_id": 3004,
+      "notes": "Essential for bocce (Bocce Ball Set)"
+    },
+    {
+      "id": 129,
+      "activity_id": 115,
+      "equipment_id": 3005,
+      "notes": "Essential for frisbee golf (Frisbee)"
+    },
+    {
+      "id": 130,
+      "activity_id": 116,
+      "equipment_id": 3006,
+      "notes": "Essential for cornhole (Cornhole Set)"
+    },
+    {
+      "id": 131,
+      "activity_id": 117,
+      "equipment_id": 3007,
+      "notes": "Essential for horseshoes (Horseshoe Set)"
+    },
+    {
+      "id": 132,
+      "activity_id": 118,
+      "equipment_id": 3008,
+      "notes": "Essential for croquet (Croquet Set)"
+    },
+    {
+      "id": 133,
+      "activity_id": 119,
+      "equipment_id": 3009,
+      "notes": "Essential for basketball (Basketball)"
+    },
+    {
+      "id": 134,
+      "activity_id": 120,
+      "equipment_id": 3010,
+      "notes": "Essential for volleyball (Volleyball Set)"
+    },
+    {
+      "id": 135,
+      "activity_id": 121,
+      "equipment_id": 3011,
+      "notes": "Essential for pool (Pool Cues)"
+    },
+    {
+      "id": 136,
+      "activity_id": 122,
+      "equipment_id": 3016,
+      "notes": "Essential for ladder toss (Ladder Toss Set)"
+    },
+    {
+      "id": 137,
+      "activity_id": 123,
+      "equipment_id": 3014,
+      "notes": "Essential for Kan Jam (Kan Jam Set)"
+    },
+    {
+      "id": 138,
+      "activity_id": 124,
+      "equipment_id": 3015,
+      "notes": "Essential for Spikeball (Spikeball Set)"
+    },
+    {
+      "id": 139,
+      "activity_id": 125,
+      "equipment_id": 3012,
+      "notes": "Essential for tennis (Tennis Equipment)"
+    },
+    {
+      "id": 140,
+      "activity_id": 126,
+      "equipment_id": 3013,
+      "notes": "For home mini golf (Mini Golf Set)"
+    },
+    {
+      "id": 141,
+      "activity_id": 129,
+      "equipment_id": 10002,
+      "notes": "Soft rope for practice (Rope Soft)"
+    },
+    {
+      "id": 142,
+      "activity_id": 129,
+      "equipment_id": 2020,
+      "notes": "Safety shears always ready (Safety Shears)"
+    },
+    {
+      "id": 143,
+      "activity_id": 130,
+      "equipment_id": 10002,
+      "notes": "Quality rope essential (Rope Soft)"
+    },
+    {
+      "id": 144,
+      "activity_id": 130,
+      "equipment_id": 2020,
+      "notes": "Safety shears always ready (Safety Shears)"
+    },
+    {
+      "id": 145,
+      "activity_id": 131,
+      "equipment_id": 10002,
+      "notes": "Rope for futomomo (Rope Soft)"
+    },
+    {
+      "id": 146,
+      "activity_id": 132,
+      "equipment_id": 10002,
+      "notes": "Rope for harness (Rope Soft)"
+    },
+    {
+      "id": 147,
+      "activity_id": 133,
+      "equipment_id": 3105,
+      "notes": "For safety practice (Crash Mat)"
+    },
+    {
+      "id": 148,
+      "activity_id": 133,
+      "equipment_id": 2020,
+      "notes": "Emergency cutting (Safety Shears)"
+    },
+    {
+      "id": 149,
+      "activity_id": 134,
+      "equipment_id": 3101,
+      "notes": "Required for suspension (Suspension Ring)"
+    },
+    {
+      "id": 150,
+      "activity_id": 134,
+      "equipment_id": 3103,
+      "notes": "For secure attachment (Carabiners)"
+    },
+    {
+      "id": 151,
+      "activity_id": 134,
+      "equipment_id": 3105,
+      "notes": "Safety beneath (Crash Mat)"
+    },
+    {
+      "id": 152,
+      "activity_id": 135,
+      "equipment_id": 10011,
+      "notes": "Soft restraints or rope (Soft Restraints)"
+    },
+    {
+      "id": 153,
+      "activity_id": 137,
+      "equipment_id": 10002,
+      "notes": "Rope for karada (Rope Soft)"
+    },
+    {
+      "id": 154,
+      "activity_id": 138,
+      "equipment_id": 3104,
+      "notes": "Suspension-rated rope (Suspension Rope)"
+    },
+    {
+      "id": 155,
+      "activity_id": 138,
+      "equipment_id": 3103,
+      "notes": "Rated carabiners (Carabiners)"
     }
   ]
 }
-

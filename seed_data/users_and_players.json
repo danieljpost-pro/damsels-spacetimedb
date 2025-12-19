@@ -1,0 +1,133 @@
+{
+  "description": "Seed data for Users, Players, and their Category Preferences in SpacetimeDB",
+  "version": "1.0.0",
+  "generated": "2025-12-18",
+  "notes": {
+    "category_ids": {
+      "safe": [1, 5, 12, 14, 15, 17, 19, 23],
+      "adult": [1013, 1016, 1018, 1020, 1021, 1022, 1024, 1025]
+    },
+    "passwords_note": "Passwords are stored as plaintext in JSON; seed_users.sh computes SHA-256 hashes at runtime using username as salt (matching auth.rs)",
+    "category_names": {
+      "1": "Icebreakers",
+      "5": "Sports & Games",
+      "12": "Trust Building",
+      "14": "Challenges",
+      "15": "Creative Expression",
+      "17": "Mindfulness",
+      "19": "Communication Games",
+      "23": "Photography",
+      "1013": "Sensory Exploration",
+      "1016": "Physical Play",
+      "1018": "Role Play",
+      "1020": "Bondage Basics",
+      "1021": "Massage & Bodywork",
+      "1022": "Power Exchange",
+      "1024": "Boudoir Photography",
+      "1025": "Advanced Bondage"
+    }
+  },
+  "users": [
+    {
+      "id": 100,
+      "username": "alice",
+      "password": "test123",
+      "role": "Player",
+      "category_preferences": [1, 5, 12, 14, 15, 17, 19, 23]
+    },
+    {
+      "id": 101,
+      "username": "bob",
+      "password": "test123",
+      "role": "Player",
+      "category_preferences": [1, 5, 12, 14, 15, 17, 19, 23, 1013, 1016, 1018]
+    },
+    {
+      "id": 102,
+      "username": "charlie",
+      "password": "test123",
+      "role": "Player",
+      "category_preferences": [1, 5, 12, 14, 15, 17, 19, 23, 1020, 1021, 1025]
+    },
+    {
+      "id": 103,
+      "username": "diana",
+      "password": "test123",
+      "role": "Player",
+      "category_preferences": [1, 5, 12, 15, 17, 23, 1024]
+    },
+    {
+      "id": 104,
+      "username": "admin",
+      "password": "admin123",
+      "role": "Admin",
+      "category_preferences": [1, 5, 12, 14, 15, 17, 19, 23, 1013, 1016, 1018, 1020, 1021, 1022, 1024, 1025]
+    }
+  ],
+  "players": [
+    {
+      "id": 100,
+      "user_id": 100,
+      "username": "Alice_Explorer",
+      "xp": 100,
+      "category_preferences": [1, 5, 12, 14, 15, 17, 19, 23]
+    },
+    {
+      "id": 101,
+      "user_id": 100,
+      "username": "Alice_Adventurer",
+      "xp": 500,
+      "category_preferences": [1, 5, 12, 14, 15, 17, 19, 23, 1013, 1016]
+    },
+    {
+      "id": 102,
+      "user_id": 101,
+      "username": "Bob_Beginner",
+      "xp": 50,
+      "category_preferences": [1, 5, 12, 14, 15, 17, 19, 23]
+    },
+    {
+      "id": 103,
+      "user_id": 101,
+      "username": "Bob_Bold",
+      "xp": 750,
+      "category_preferences": [1, 5, 12, 14, 15, 17, 19, 23, 1013, 1016, 1018, 1020]
+    },
+    {
+      "id": 104,
+      "user_id": 102,
+      "username": "Charlie_Casual",
+      "xp": 200,
+      "category_preferences": [1, 5, 12, 14, 15, 17, 19, 23]
+    },
+    {
+      "id": 105,
+      "user_id": 102,
+      "username": "Charlie_Kinky",
+      "xp": 1500,
+      "category_preferences": [1, 12, 17, 1020, 1021, 1022, 1025]
+    },
+    {
+      "id": 106,
+      "user_id": 103,
+      "username": "Diana_Diva",
+      "xp": 300,
+      "category_preferences": [1, 15, 17, 23, 1024]
+    },
+    {
+      "id": 107,
+      "user_id": 103,
+      "username": "Diana_Dancer",
+      "xp": 150,
+      "category_preferences": [1, 5, 15, 17]
+    },
+    {
+      "id": 108,
+      "user_id": 104,
+      "username": "Admin_Test",
+      "xp": 9999,
+      "category_preferences": [1, 5, 12, 14, 15, 17, 19, 23, 1013, 1016, 1018, 1020, 1021, 1022, 1024, 1025]
+    }
+  ]
+}
+

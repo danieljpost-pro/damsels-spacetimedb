@@ -37,3 +37,26 @@ pub struct User {
     /// Last time the user was active.
     pub last_seen: Timestamp,
 }
+
+/// A user's preference for a specific activity category.
+///
+/// These preferences are the "template" that gets copied to each Player
+/// when the Player is created. Users can set default preferences that
+/// all their new Players will inherit.
+///
+/// If a user has no preferences stored, categories with ID < 100 are assumed.
+#[table(name = user_category_preference, public)]
+pub struct UserCategoryPreference {
+    /// Unique identifier.
+    #[primary_key]
+    #[auto_inc]
+    pub id: u64,
+
+    /// The user who has this preference.
+    #[index(btree)]
+    pub user_id: u64,
+
+    /// The category the user is interested in.
+    #[index(btree)]
+    pub category_id: u64,
+}

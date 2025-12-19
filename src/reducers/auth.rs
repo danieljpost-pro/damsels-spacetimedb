@@ -135,6 +135,7 @@ pub fn require_user(ctx: &ReducerContext) -> Result<User, String> {
 
 /// Create a new player identity for the authenticated user.
 /// A user can have multiple player identities.
+/// The player inherits the user's category preferences (or defaults to categories with ID < 100).
 #[reducer]
 pub fn create_player(ctx: &ReducerContext, player_name: String) -> Result<(), String> {
     let user = require_user(ctx)?;
@@ -148,13 +149,16 @@ pub fn create_player(ctx: &ReducerContext, player_name: String) -> Result<(), St
         return Err("Player name already taken".to_string());
     }
 
-    ctx.db.player().insert(Player {
+    let new_player = ctx.db.player().insert(Player {
         id: 0,
         user_id: user.id,
         username: player_name.clone(),
         xp: 0,
         created_at: ctx.timestamp,
     });
+
+    // Copy user preferences to the new player
+    crate::reducers::preferences::copy_user_prefs_to_player(ctx, user.id, new_player.id);
 
     log::info!("Player created: {} for user {}", player_name, user.username);
     Ok(())

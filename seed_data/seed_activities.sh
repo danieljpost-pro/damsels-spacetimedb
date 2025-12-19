@@ -71,12 +71,13 @@ echo -e "\n${GREEN}[1/5] Seeding Categories...${NC}"
 
 category_count=$(jq '.categories | length' "${SEED_FILE}")
 for i in $(seq 0 $((category_count - 1))); do
+    id=$(jq -r ".categories[$i].id" "${SEED_FILE}")
     name=$(jq -r ".categories[$i].name" "${SEED_FILE}")
     description=$(jq -r ".categories[$i].description" "${SEED_FILE}")
     display_order=$(jq -r ".categories[$i].display_order" "${SEED_FILE}")
     
-    echo -e "  ${YELLOW}→${NC} seed_category: ${name}"
-    spacetime call "${MODULE_NAME}" seed_category -- "\"${name}\"" "\"${description}\"" "${display_order}" 2>&1 || {
+    echo -e "  ${YELLOW}→${NC} seed_category: ${name} (id: ${id})"
+    spacetime call "${MODULE_NAME}" seed_category -- "${id}" "\"${name}\"" "\"${description}\"" "${display_order}" 2>&1 || {
         echo -e "  ${RED}✗ Failed${NC}"
     }
 done
@@ -89,12 +90,13 @@ echo -e "\n${GREEN}[2/5] Seeding Equipment...${NC}"
 
 equipment_count=$(jq '.equipment | length' "${SEED_FILE}")
 for i in $(seq 0 $((equipment_count - 1))); do
+    id=$(jq -r ".equipment[$i].id" "${SEED_FILE}")
     name=$(jq -r ".equipment[$i].name" "${SEED_FILE}")
     description_raw=$(jq -r ".equipment[$i].description // empty" "${SEED_FILE}")
     description_opt=$(format_option "$description_raw")
     
-    echo -e "  ${YELLOW}→${NC} seed_equipment: ${name}"
-    spacetime call "${MODULE_NAME}" seed_equipment -- "\"${name}\"" "${description_opt}" 2>&1 || {
+    echo -e "  ${YELLOW}→${NC} seed_equipment: ${name} (id: ${id})"
+    spacetime call "${MODULE_NAME}" seed_equipment -- "${id}" "\"${name}\"" "${description_opt}" 2>&1 || {
         echo -e "  ${RED}✗ Failed${NC}"
     }
 done
@@ -107,6 +109,7 @@ echo -e "\n${GREEN}[3/5] Seeding Activities...${NC}"
 
 activity_count=$(jq '.activities | length' "${SEED_FILE}")
 for i in $(seq 0 $((activity_count - 1))); do
+    id=$(jq -r ".activities[$i].id" "${SEED_FILE}")
     category_id=$(jq -r ".activities[$i].category_id" "${SEED_FILE}")
     kind=$(jq -r ".activities[$i].kind" "${SEED_FILE}")
     name=$(jq -r ".activities[$i].name" "${SEED_FILE}")
@@ -120,9 +123,9 @@ for i in $(seq 0 $((activity_count - 1))); do
     # Format the kind enum as SpacetimeDB expects it
     kind_json="{\"${kind}\": {}}"
     
-    echo -e "  ${YELLOW}→${NC} seed_activity: ${name} (${kind})"
+    echo -e "  ${YELLOW}→${NC} seed_activity: ${name} (id: ${id})"
     spacetime call "${MODULE_NAME}" seed_activity -- \
-        "${category_id}" "${kind_json}" "\"${name}\"" "\"${description}\"" "\"${instructions}\"" "${video_url_opt}" "${xp_required}" "${xp_reward}" 2>&1 || {
+        "${id}" "${category_id}" "${kind_json}" "\"${name}\"" "\"${description}\"" "\"${instructions}\"" "${video_url_opt}" "${xp_required}" "${xp_reward}" 2>&1 || {
         echo -e "  ${RED}✗ Failed${NC}"
     }
 done

@@ -79,6 +79,7 @@ pub fn start_activity(ctx: &ReducerContext, player_id: u64, activity_id: u64) ->
         completed_at: None,
         completed_by: None,
         vouched: false,
+        rating: None,
     });
     
     log::info!("Player {} started activity {}", player.id, activity_id);
@@ -226,6 +227,7 @@ pub fn vouch_for_player(
             completed_at: None,
             completed_by: None,
             vouched: true,
+            rating: None,
         });
     }
     
@@ -273,6 +275,56 @@ pub fn reset_activity(
     Ok(())
 }
 
+/// Rate a completed activity.
+/// 
+/// Players can rate activities they've completed on a scale of 1-5 stars.
+/// Ratings are used to weight future random activity selections - higher
+/// rated activities are more likely to be chosen.
+/// 
+/// # Arguments
+/// * `player_id` - The player giving the rating
+/// * `activity_id` - The activity to rate
+/// * `rating` - Rating from 1 to 5 (inclusive)
+/// 
+/// # Permissions
+/// Players can only rate their own completed activities.
+#[reducer]
+pub fn rate_activity(
+    ctx: &ReducerContext,
+    player_id: u64,
+    activity_id: u64,
+    rating: u8,
+) -> Result<(), String> {
+    let player = get_user_player(ctx, player_id)?;
+    
+    // Validate rating range
+    if rating < 1 || rating > 5 {
+        return Err("Rating must be between 1 and 5".to_string());
+    }
+    
+    // Find the player's activity record
+    let pa = ctx.db.player_activity()
+        .player_id()
+        .filter(&player.id)
+        .find(|pa| pa.activity_id == activity_id)
+        .ok_or("Activity not found for player")?;
+    
+    // Must be completed to rate
+    if pa.status != ActivityStatus::Completed {
+        return Err("Can only rate completed activities".to_string());
+    }
+    
+    // Update rating
+    ctx.db.player_activity().id().update(PlayerActivity {
+        rating: Some(rating),
+        ..pa
+    });
+    
+    log::info!("Player {} rated activity {} with {} stars", 
+        player.id, activity_id, rating);
+    Ok(())
+}
+
 /// Get available activities for a player.
 /// 
 /// Returns activities that:
@@ -289,10 +341,10 @@ pub fn get_available_activities(ctx: &ReducerContext, player_id: u64) -> Result<
     let player = get_user_player(ctx, player_id)?;
     
     // Get player's category preferences (if any)
+    // Presence in the table means the category is selected
     let preferences: Vec<u64> = ctx.db.player_category_preference()
         .player_id()
         .filter(&player.id)
-        .filter(|p| p.enabled)
         .map(|p| p.category_id)
         .collect();
     
@@ -382,10 +434,15 @@ fn check_prerequisites_met(
     true
 }
 
-/// Set a player's category preference.
+/// Toggle a player's category preference.
+/// 
+/// If enabled is true, adds the category to preferences.
+/// If enabled is false, removes the category from preferences.
 /// 
 /// # Permissions
 /// Players can only set preferences for themselves.
+/// 
+/// NOTE: This reducer is deprecated. Use the reducers in the `preferences` module instead.
 #[reducer]
 pub fn set_category_preference(
     ctx: &ReducerContext,
@@ -405,24 +462,22 @@ pub fn set_category_preference(
         .filter(&player.id)
         .find(|p| p.category_id == category_id);
     
-    if let Some(pref) = existing {
-        // Update existing preference
-        ctx.db.player_category_preference().id().update(crate::models::player::PlayerCategoryPreference {
-            enabled,
-            ..pref
-        });
-        log::info!("Updated category {} preference for player {}: {}", 
-            category_id, player.id, enabled);
+    if enabled {
+        // Add category if not already present
+        if existing.is_none() {
+            ctx.db.player_category_preference().insert(crate::models::player::PlayerCategoryPreference {
+                id: 0,
+                player_id: player.id,
+                category_id,
+            });
+            log::info!("Added category {} to player {} preferences", category_id, player.id);
+        }
     } else {
-        // Create new preference
-        ctx.db.player_category_preference().insert(crate::models::player::PlayerCategoryPreference {
-            id: 0,
-            player_id: player.id,
-            category_id,
-            enabled,
-        });
-        log::info!("Set category {} preference for player {}: {}", 
-            category_id, player.id, enabled);
+        // Remove category if present
+        if let Some(pref) = existing {
+            ctx.db.player_category_preference().id().delete(&pref.id);
+            log::info!("Removed category {} from player {} preferences", category_id, player.id);
+        }
     }
     
     // Refresh unlocked activities with new preferences
@@ -479,10 +534,10 @@ pub fn refresh_unlocked_activities(ctx: &ReducerContext, player_id: u64) {
     };
     
     // Get player's category preferences
+    // Presence in the table means the category is selected
     let preferences: Vec<u64> = ctx.db.player_category_preference()
         .player_id()
         .filter(&player_id)
-        .filter(|p| p.enabled)
         .map(|p| p.category_id)
         .collect();
     let has_preferences = !preferences.is_empty();

@@ -84,12 +84,21 @@ User (Account)                  Player (Identity)
 │ role: UserRole  │            │ created_at      │
 │ last_seen       │            └─────────────────┘
 └─────────────────┘
+       │                              │
+       ▼                              ▼
+UserCategoryPreference       PlayerCategoryPreference
+┌─────────────────┐          ┌─────────────────┐
+│ id: u64         │          │ id: u64         │
+│ user_id: u64    │          │ player_id: u64  │
+│ category_id: u64│          │ category_id: u64│
+└─────────────────┘          └─────────────────┘
 ```
 
 - A **User** is an authenticated account (login credentials)
 - A **Player** is a game identity belonging to a User
 - One User can have multiple Player identities
 - Each Player has independent XP and activity progress
+- **Category Preferences**: Users and Players can select which activity categories they're interested in
 
 ### Room Model
 
@@ -173,6 +182,105 @@ ActivityPrerequisite                              ActivityEquipment
 | `initialize_unlocked_activities` | `player_id` | Populate unlocked activities table |
 | `acknowledge_new_activities` | `player_id` | Mark new activities as seen |
 | `award_xp` | `player_id, xp_amount` | Grant XP and unlock new activities |
+| `rate_activity` | `player_id, activity_id, rating` | Rate a completed activity (1-5 stars) |
+
+### Category Preferences (`preferences.rs`)
+
+Users and Players can specify which activity categories they're interested in. When no preferences are set, categories with ID < 100 are assumed as defaults (non-adult content).
+
+| Reducer | Arguments | Description |
+|---------|-----------|-------------|
+| `init_user_preferences` | - | Initialize user with default categories (ID < 100) |
+| `add_user_category_preference` | `category_id` | Add a category to user preferences |
+| `remove_user_category_preference` | `category_id` | Remove a category from user preferences |
+| `set_user_category_preferences` | `category_ids[]` | Bulk set all user preferences |
+| `add_player_category_preference` | `player_id, category_id` | Add a category to player preferences |
+| `remove_player_category_preference` | `player_id, category_id` | Remove a category from player preferences |
+| `set_player_category_preferences` | `player_id, category_ids[]` | Bulk set all player preferences |
+
+**Preference Inheritance**: When a new Player is created, they inherit the User's category preferences. If the User has no preferences set, the Player receives default categories (ID < 100).
+
+**Room Filtering**: Activities available in a room are determined by the intersection of all room members' preferences and unlocked activities:
+- **Unlocked Activities**: Only activities unlocked by ALL room members are available
+- **Category Preferences**: Only activities whose categories are in ALL members' preferences are shown
+- **Not Wanted**: Activities marked "not wanted" by ANY member are excluded
+- **Real-time Updates**: The available activities list updates automatically when members join/leave or change preferences
+
+### Room Activity Flow (`room_activity.rs`)
+
+Handles the lifecycle of activities within a room session:
+
+```
+┌──────────────┐     ┌──────────────┐     ┌──────────────┐     ┌──────────────┐
+│   Lobby      │────▶│   Viewing    │────▶│  InProgress  │────▶│  Completed   │
+│              │     │              │     │              │     │              │
+│ select or    │     │ "Do This     │     │ "Complete    │     │ XP awarded,  │
+│ random pick  │     │  Activity"   │     │  Activity"   │     │ record kept  │
+└──────────────┘     └──────────────┘     └──────────────┘     └──────────────┘
+                            │                    │
+                            │    "Go Back" /     │
+                            │     Cancel         │
+                            ▼                    ▼
+                     ┌──────────────────────────────────────┐
+                     │   DELETED (no record preserved)      │
+                     └──────────────────────────────────────┘
+```
+
+**Cancellation Policy**: When an activity is cancelled (either from Viewing or InProgress), all records are deleted. No trace of the cancelled activity is preserved - it's as if it never happened.
+
+| Reducer | Arguments | Description |
+|---------|-----------|-------------|
+| `select_room_activity` | `player_id, room_id, activity_id` | Select an activity to view in detail |
+| `random_room_activity` | `player_id, room_id` | Weighted random selection (favors highly-rated) |
+| `start_room_activity` | `player_id, room_id` | Start the viewed activity (records participants) |
+| `complete_room_activity` | `player_id, room_id` | Complete activity, award XP to all participants |
+| `cancel_room_activity` | `player_id, room_id` | Cancel and return to lobby |
+| `get_room_activity_state` | `player_id, room_id` | Debug: log current activity state |
+| `mark_activity_not_wanted` | `player_id, activity_id` | Mark activity as "not wanted" |
+| `unmark_activity_not_wanted` | `player_id, activity_id` | Remove activity from not-wanted list |
+
+**Participant Recording**: When an activity starts, all room members are recorded as `ActivityParticipant` with their current role. On completion, each participant earns the activity's XP reward.
+
+### "Not Wanted" Activities
+
+Players can mark activities as "not wanted" to hide them from their rooms:
+
+```
+PlayerNotWantedActivity
+┌─────────────────┐
+│ id: u64         │
+│ player_id: u64  │  ───▶ Activities marked by this player won't appear
+│ activity_id: u64│       in any room where they are a member
+│ created_at      │
+└─────────────────┘
+```
+
+**Filtering Rules**:
+- When selecting or randomly choosing activities, any activity marked as "not wanted" by ANY room member is excluded
+- This creates a collaborative filtering effect where each player's preferences are respected
+- Players can remove activities from their not-wanted list via `unmark_activity_not_wanted`
+
+### Activity Ratings
+
+Players can rate completed activities on a scale of 1-5 stars. Ratings influence future random activity selections:
+
+```
+Rating Weight System
+─────────────────────
+★☆☆☆☆ (1) → Weight: 100  (20% of max)
+★★☆☆☆ (2) → Weight: 200  (40% of max)
+★★★☆☆ (3) → Weight: 300  (60% of max) ← Default for unrated
+★★★★☆ (4) → Weight: 400  (80% of max)
+★★★★★ (5) → Weight: 500  (100% of max)
+```
+
+When `random_room_activity` is called:
+1. Collect all unlocked activities for the triggering player
+2. Calculate average rating for each activity from ALL room members
+3. Use weighted random selection (higher ratings = higher chance)
+4. Unrated activities receive a default weight of 3 stars
+
+This creates a collaborative filtering effect where the group's preferences influence random selections.
 
 ### Admin Reducers (Dev Mode Only)
 
@@ -216,6 +324,8 @@ damsels-spacetimedb/
         ├── player.rs       # Room operations
         ├── room.rs         # Additional room management
         ├── activity.rs     # Activity system
+        ├── room_activity.rs # Room activity selection & completion
+        ├── preferences.rs  # Category preference management
         └── lifecycle.rs    # Connection lifecycle
 ```
 
@@ -285,6 +395,11 @@ SELECT * FROM category
 SELECT * FROM activity
 SELECT * FROM player_activity
 SELECT * FROM player_unlocked_activity
+SELECT * FROM room_activity
+SELECT * FROM activity_participant
+SELECT * FROM player_not_wanted_activity
+SELECT * FROM user_category_preference
+SELECT * FROM player_category_preference
 ```
 
 ## Security Notes
@@ -293,6 +408,11 @@ SELECT * FROM player_unlocked_activity
 - **For Production**: Replace with Argon2 or bcrypt with random salt
 - **Identity Binding**: User identity is tied to SpacetimeDB connection identity
 - **Authorization**: All reducers validate player ownership before operations
+
+## Future Features
+
+- [ ] Aggregate Activity ratings so future Players can sort Activities by Ratings
+- [ ] Display of activities the Player marked as Not Wanted, with ability to remove items from the list
 
 ## Related Layers
 

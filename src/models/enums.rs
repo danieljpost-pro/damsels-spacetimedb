@@ -48,6 +48,8 @@ pub enum ActivityStatus {
 /// Status of an Activity instance occurring in a Room.
 #[derive(SpacetimeType, Clone, Copy, Debug, PartialEq, Eq)]
 pub enum RoomActivityStatus {
+    /// Activity is being previewed/viewed by the room.
+    Viewing,
     /// Activity is currently in progress.
     InProgress,
     /// Activity has been completed.

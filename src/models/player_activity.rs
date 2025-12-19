@@ -32,6 +32,10 @@ pub struct PlayerActivity {
 
     /// True if this was unlocked via vouch rather than natural progression.
     pub vouched: bool,
+
+    /// Player's rating of this activity (1-5 stars, None = not rated).
+    /// Used to weight future random activity selections.
+    pub rating: Option<u8>,
 }
 
 /// Audit record of a prerequisite vouch.
@@ -58,6 +62,29 @@ pub struct PrerequisiteVouch {
     pub activity_id: u64,
 
     /// When the vouch occurred.
+    pub created_at: Timestamp,
+}
+
+/// Tracks activities a player has marked as "not wanted".
+/// 
+/// These activities will not be shown to any room where this player is a member.
+/// Players can later remove activities from this list to see them again.
+#[table(name = player_not_wanted_activity, public)]
+pub struct PlayerNotWantedActivity {
+    /// Unique identifier.
+    #[primary_key]
+    #[auto_inc]
+    pub id: u64,
+
+    /// The player who doesn't want this activity.
+    #[index(btree)]
+    pub player_id: u64,
+
+    /// The activity they don't want.
+    #[index(btree)]
+    pub activity_id: u64,
+
+    /// When the activity was marked as not wanted.
     pub created_at: Timestamp,
 }
 

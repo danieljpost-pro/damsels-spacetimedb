@@ -1,11 +1,13 @@
 //! Room Activity models — activity instances occurring in rooms.
 
 use spacetimedb::{table, Timestamp};
-use super::enums::RoomActivityStatus;
+use super::enums::{PlayerRole, RoomActivityStatus};
 
 /// An instance of an Activity occurring in a Room.
 ///
-/// Created when players roll for an activity.
+/// Created when players select an activity to view or perform.
+/// Lifecycle: Viewing → InProgress → Completed (or Cancelled at any point)
+#[derive(Clone)]
 #[table(name = room_activity, public)]
 pub struct RoomActivity {
     /// Unique identifier.
@@ -24,8 +26,14 @@ pub struct RoomActivity {
     /// Current status.
     pub status: RoomActivityStatus,
 
-    /// When the activity started.
-    pub started_at: Timestamp,
+    /// Player who selected/started this activity.
+    pub started_by: u64,
+
+    /// When the activity was selected for viewing.
+    pub created_at: Timestamp,
+
+    /// When the activity moved to InProgress (if started).
+    pub started_at: Option<Timestamp>,
 
     /// When the activity was completed (if completed).
     pub completed_at: Option<Timestamp>,
@@ -33,7 +41,9 @@ pub struct RoomActivity {
 
 /// A Player participating in a RoomActivity.
 ///
-/// Subset of room members selected to participate in this activity instance.
+/// Created when activity moves to InProgress. Records all room members
+/// at that moment as participants with their current roles.
+#[derive(Clone)]
 #[table(name = activity_participant, public)]
 pub struct ActivityParticipant {
     /// Unique identifier.
@@ -49,10 +59,13 @@ pub struct ActivityParticipant {
     #[index(btree)]
     pub player_id: u64,
 
-    /// Whether this player has completed the activity.
-    pub completed: bool,
+    /// The player's role during this activity.
+    pub role: PlayerRole,
 
-    /// Player ID who marked this participant as complete.
-    pub completed_by: Option<u64>,
+    /// XP earned from this activity (set on completion).
+    pub xp_earned: u64,
+
+    /// Whether this player has been credited for the activity.
+    pub completed: bool,
 }
 
